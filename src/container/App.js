@@ -3,10 +3,11 @@ import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import AuthLayout from "layouts/Auth/Auth.jsx";
 import AdminLayout from "layouts/Admin/Admin.jsx";
-import SystemAdminLayout from "layouts/system_admin/Admin.jsx";
+
 
 import AdminLogin from '../system_modules/system_admin/AdminLogin.js';
-import AdminHome from '../system_modules/system_admin/AdminHome.js';
+import DepartmentTypes from '../system_modules/system_admin/DepartmentTypes.jsx';
+import DepartmentsConfiguration from '../system_modules/system_admin/DepartmentsConfiguration.jsx';
 
 
 class App extends Component {
@@ -17,10 +18,13 @@ class App extends Component {
     <Switch>
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
         <Route path="/admin" render={props => <AdminLayout {...props} />} />
-		<Route path="/system_admin" render={props => <SystemAdminLayout {...props} />} />
+		
        
+		
 		<Route path="/admin_login" component={AdminLogin} />
-	    <Route path="/system_admin/admin_home" component={AdminHome} />
+		<Redirect from="/" to="/admin_login" />
+		<Route path="/config_department_types" component={DepartmentTypes} />
+		<Route path="/config_departments" component={DepartmentsConfiguration} />
     </Switch>
   </Router>
     );
