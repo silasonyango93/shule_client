@@ -1,6 +1,5 @@
 import React from "react";
 
-// reactstrap components
 import {
   Button,
   Card,
@@ -20,6 +19,23 @@ import {
 } from "reactstrap";
 
 class Login extends React.Component {
+	
+	
+	constructor(props) {
+    super(props);
+    
+      
+	  this.handleSubmit = this.handleSubmit.bind(this);
+	  
+	  
+}
+	
+	
+	
+	handleSubmit(){ 
+	this.props.fetchPosts();
+	}
+	
   componentDidMount() {
     document.body.classList.toggle("login-page");
   }
@@ -81,7 +97,7 @@ class Login extends React.Component {
                       className="btn-round mb-3"
                       color="warning"
                       href="#pablo"
-                      onClick={e => e.preventDefault()}
+                      onClick={this.handleSubmit}
                     >
                       Get Started
                     </Button>
