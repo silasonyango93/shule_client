@@ -90,7 +90,8 @@ constructor(props) {
 															    DepartmentDescription: this.state.DepartmentDescription,
 															    DepartmentRefNo: this.state.DepartmentRefNo}))
 		.then((response) => {
-        alert("Department added succesfully");
+        
+		  alert(response.data.results.message);
 		  
     } )
      .catch((response) => {

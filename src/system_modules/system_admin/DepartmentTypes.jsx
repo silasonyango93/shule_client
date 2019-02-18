@@ -50,7 +50,10 @@ constructor(props) {
 		
       axios.post(ip+"/add_department_types", querystring.stringify({ DepartmentTypeDescription: this.state.DepartmentTypeDescription}))
 		.then((response) => {
-        alert("Department type added succesfully");
+		  
+		  alert(response.data.results.message);
+		 
+    
     } )
      .catch((response) => {
         //handle error
