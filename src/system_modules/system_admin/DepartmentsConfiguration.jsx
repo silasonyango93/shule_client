@@ -30,6 +30,10 @@ constructor(props) {
     super(props);
     this.state = {
         DepartmentTypes: [],
+		SelectedDepartmentType:'',
+		DepartmentName:'',
+		DepartmentDescription:'',
+		DepartmentRefNo:'',
 		
 		
     };
@@ -48,10 +52,11 @@ constructor(props) {
 		  var my_json=response.data.results;
 		 
 		  var jsonArray=[];
+		  var jsonObject= null;
 		  
 		  my_json.forEach((item) => {
             
-			  var jsonObject={value:item.DepartmentTypeId,label:item.DepartmentTypeDescription}
+			  jsonObject={value:item.DepartmentTypeId,label:item.DepartmentTypeDescription}
 			  jsonArray.push(jsonObject);
 			  
         });
@@ -80,9 +85,13 @@ constructor(props) {
 		
 		
 		
-      axios.post(ip+"/add_department_types", querystring.stringify({ DepartmentTypeDescription: this.state.DepartmentTypeDescription}))
+      axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: this.state.SelectedDepartmentType.value,
+															    DepartmentName: this.state.DepartmentName,
+															    DepartmentDescription: this.state.DepartmentDescription,
+															    DepartmentRefNo: this.state.DepartmentRefNo}))
 		.then((response) => {
-        alert("Department type added succesfully");
+        alert("Department added succesfully");
+		  
     } )
      .catch((response) => {
         //handle error
@@ -127,12 +136,15 @@ constructor(props) {
                             className="react-select info"
                             classNamePrefix="react-select"
                             placeholder="Choose Type"
-                            name="multipleSelect"
+                            name="SelectDepartmentType"
                             closeMenuOnSelect={false}
-                            isMulti
-                            value={this.state.multipleSelect}
+                            value={this.state.SelectedDepartmentType}
                             onChange={value =>
-                              this.setState({ multipleSelect: value })
+                              this.setState({
+                              ...this.state,
+                                      SelectedDepartmentType: value
+                              })
+	  
                             }
                             options={this.state.DepartmentTypes}
                           />
@@ -140,26 +152,26 @@ constructor(props) {
                       </Col>
                     </Row>
                     <Row>
-                      <Label md="3">Type</Label>
+                      <Label md="3">Name</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Department Type" type="text" name="DepartmentTypeDescription" value={this.state.DepartmentTypeDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Department Name" type="text" name="DepartmentName" value={this.state.DepartmentName} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Type</Label>
+                      <Label md="3">Description</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Department Type" type="text" name="DepartmentTypeDescription" value={this.state.DepartmentTypeDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Description" type="text" name="DepartmentDescription" value={this.state.DepartmentDescription} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Type</Label>
+                      <Label md="3">Reference No.</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Department Type" type="text" name="DepartmentTypeDescription" value={this.state.DepartmentTypeDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Reference Number" type="text" name="DepartmentRefNo" value={this.state.DepartmentRefNo} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
