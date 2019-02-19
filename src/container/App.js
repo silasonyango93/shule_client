@@ -10,6 +10,8 @@ import DepartmentTypes from '../system_modules/system_admin/DepartmentTypes.jsx'
 import DepartmentsConfiguration from '../system_modules/system_admin/DepartmentsConfiguration.jsx';
 
 import AcademicClassLevelConfig from '../system_modules/system_admin/AcademicClassLevelConfig.jsx';
+import ClassStreamsConfig from '../system_modules/system_admin/ClassStreamsConfig.jsx';
+import ClassRegistration from '../system_modules/system_admin/ClassRegistration.jsx';
 
 
 class App extends Component {
@@ -29,6 +31,8 @@ class App extends Component {
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
 		<Route path="/config_academic_class_level" component={AcademicClassLevelConfig} />
+		<Route path="/config_class_stream" component={ClassStreamsConfig} />
+		<Route path="/config_class" component={ClassRegistration} />
     </Switch>
   </Router>
     );

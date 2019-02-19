@@ -2,6 +2,8 @@ import DepartmentTypes from "../../system_modules/system_admin/DepartmentTypes.j
 import DepartmentsConfiguration from "../../system_modules/system_admin/DepartmentsConfiguration.jsx";
 
 import AcademicClassLevelConfig from "../../system_modules/system_admin/AcademicClassLevelConfig.jsx";
+import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsConfig.jsx";
+import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
 
 const routes = [
   {
@@ -47,10 +49,17 @@ const routes = [
         layout: "/admin"
       },
 	  {
-        path: "/config_departments",
-        name: "Add Department",
-        mini: "A",
-        component: DepartmentsConfiguration,
+        path: "/config_class_stream",
+        name: "Class Streams",
+        mini: "CS",
+        component: ClassStreamsConfig,
+        layout: "/admin"
+      },
+	  {
+        path: "/config_class",
+        name: "Class Registration",
+        mini: "CR",
+        component: ClassRegistration,
         layout: "/admin"
       }
     ]
