@@ -9,6 +9,8 @@ import AdminLogin from '../system_modules/system_admin/AdminLogin.js';
 import DepartmentTypes from '../system_modules/system_admin/DepartmentTypes.jsx';
 import DepartmentsConfiguration from '../system_modules/system_admin/DepartmentsConfiguration.jsx';
 
+import AcademicClassLevelConfig from '../system_modules/system_admin/AcademicClassLevelConfig.jsx';
+
 
 class App extends Component {
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
 		<Redirect from="/" to="/admin_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
+		
+		<Route path="/config_academic_class_level" component={AcademicClassLevelConfig} />
     </Switch>
   </Router>
     );

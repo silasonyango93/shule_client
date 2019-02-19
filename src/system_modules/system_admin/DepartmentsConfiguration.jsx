@@ -45,6 +45,12 @@ constructor(props) {
   }
 
   componentWillMount(){
+	  
+	  
+	  
+      var StaffNo=window.sessionStorage.getItem("StaffNo");
+	  
+	  if(StaffNo===null){this.props.history.push('/admin_login');}else{
     
 	  axios.post(ip+'/get_all_department_types')
 		.then((response) => {
@@ -76,14 +82,14 @@ constructor(props) {
         console.log(response);
       });
 	  
-	  
+	  }  
 
   }
 	
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		
+		if(this.state.DepartmentTypeId===""||this.state.DepartmentName===""||this.state.DepartmentDescription===""||this.state.DepartmentRefNo===""){alert("Kindly fill in every field on the form");}else{
 		
       axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: this.state.SelectedDepartmentType.value,
 															    DepartmentName: this.state.DepartmentName,
@@ -93,12 +99,20 @@ constructor(props) {
         
 		  alert(response.data.results.message);
 		  
+		  this.setState({
+          ...this.state,
+          SelectedDepartmentType:'',
+		  DepartmentName:'',
+		  DepartmentDescription:'',
+		  DepartmentRefNo:'',
+          });
+		  
     } )
      .catch((response) => {
         //handle error
         console.log(response);
       });
-     
+	}
  }
    
 	

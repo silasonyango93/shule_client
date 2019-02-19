@@ -65,7 +65,7 @@ constructor(props) {
 	
 	
 	my_router = () => {
-		if(!(this.state.login_error)){this.props.history.push('/Admin/config_department_types')}else{alert("Wrong credentials!\nKindly try again.");}
+		if(!(this.state.login_error)){this.props.history.push('/Admin/config_department_types');}else{alert("Wrong credentials!\nKindly try again.");}
     
   }
 	

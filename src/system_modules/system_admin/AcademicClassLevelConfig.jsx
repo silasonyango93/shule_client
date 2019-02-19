@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ip from "../../common/EndPoints.js";
 
 
-
 // reactstrap components
 import {
   Button,
@@ -29,7 +28,9 @@ class AdminLogin extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-        DepartmentTypeDescription: ''
+        AcademicClassLevelName: '',
+		AcademicClassLevelDescription: '',
+		HierarchyCode: ''
 		
     };
 
@@ -53,16 +54,20 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.DepartmentTypeDescription===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.AcademicClassLevelName===""||this.state.AcademicClassLevelDescription===""||this.state.HierarchyCode===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_department_types", querystring.stringify({ DepartmentTypeDescription: this.state.DepartmentTypeDescription}))
+      axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: this.state.AcademicClassLevelName,
+																          AcademicClassLevelDescription: this.state.AcademicClassLevelDescription,
+																		  HierarchyCode: this.state.HierarchyCode}))
 		.then((response) => {
 		  
 		  alert(response.data.results.message);
 		  
 		  this.setState({
           ...this.state,
-          DepartmentTypeDescription: ''
+          AcademicClassLevelName: '',
+		  AcademicClassLevelDescription: '',
+		  HierarchyCode: ''
           });
 		 
     
@@ -71,9 +76,7 @@ constructor(props) {
         //handle error
         console.log(response);
       });
-  
-			
-	}		
+	} 
  }
    
 	
@@ -100,15 +103,33 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Department Types Configuration</CardTitle>
+                  <CardTitle tag="h4">Class levels Configuration</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
                     <Row>
-                      <Label md="3">Type</Label>
+                      <Label md="3">Class Level</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Department Type" type="text" name="DepartmentTypeDescription" value={this.state.DepartmentTypeDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Academic Class Level" type="text" name="AcademicClassLevelName" value={this.state.AcademicClassLevelName} type="text" onChange={this.handleChange} autofocus />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+		
+		            <Row>
+                      <Label md="3">Description</Label>
+                      <Col md="9">
+                        <FormGroup>
+                          <Input placeholder="Description" type="text" name="AcademicClassLevelDescription" value={this.state.AcademicClassLevelDescription} type="text" onChange={this.handleChange} autofocus />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+		
+		            <Row>
+                      <Label md="3">Hierarchy</Label>
+                      <Col md="9">
+                        <FormGroup>
+                          <Input placeholder="Hierarchy Number" type="text" name="HierarchyCode" value={this.state.HierarchyCode} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
