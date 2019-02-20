@@ -5,6 +5,7 @@ import AcademicClassLevelConfig from "../../system_modules/system_admin/Academic
 import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsConfig.jsx";
 import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
 import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCategoriesConfig.jsx";
+import FieldRegistration from "../../system_modules/system_admin/FieldRegistration.jsx";
 
 const routes = [
   {
@@ -79,10 +80,10 @@ const routes = [
         layout: "/admin"
       },
 	  {
-        path: "/config_class_stream",
-        name: "Class Streams",
-        mini: "CS",
-        component: ClassStreamsConfig,
+        path: "/field_registration",
+        name: "Add Field",
+        mini: "AF",
+        component: FieldRegistration,
         layout: "/admin"
       },
 	  {
