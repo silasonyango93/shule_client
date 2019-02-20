@@ -6,6 +6,7 @@ import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsCo
 import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
 import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCategoriesConfig.jsx";
 import FieldRegistration from "../../system_modules/system_admin/FieldRegistration.jsx";
+import SubjectRegistration from "../../system_modules/system_admin/SubjectRegistration.jsx";
 
 const routes = [
   {
@@ -87,10 +88,10 @@ const routes = [
         layout: "/admin"
       },
 	  {
-        path: "/config_class",
-        name: "Class Registration",
-        mini: "CR",
-        component: ClassRegistration,
+        path: "/subject_registration",
+        name: "Subject Registration",
+        mini: "SR",
+        component: SubjectRegistration,
         layout: "/admin"
       }
     ]

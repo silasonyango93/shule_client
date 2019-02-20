@@ -15,6 +15,7 @@ import ClassRegistration from '../system_modules/system_admin/ClassRegistration.
 
 import FieldCategoriesConfig from '../system_modules/system_admin/FieldCategoriesConfig.jsx';
 import FieldRegistration from '../system_modules/system_admin/FieldRegistration.jsx';
+import SubjectRegistration from '../system_modules/system_admin/SubjectRegistration.jsx';
 
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
 		
 		<Route path="/config_field_categories" component={FieldCategoriesConfig} />
 		<Route path="/field_registration" component={FieldRegistration} />
+		<Route path="/subject_registration" component={SubjectRegistration} />
     </Switch>
   </Router>
     );
