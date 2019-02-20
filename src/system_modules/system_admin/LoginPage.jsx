@@ -1,4 +1,9 @@
 import React from "react";
+import axios from "axios";
+import querystring from "querystring";
+import  { Redirect } from 'react-router-dom'
+import ip from "../../common/EndPoints.js";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -6,6 +11,7 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
+import Lock from "@material-ui/icons/Lock";
 // core components
 import Header from "components/Header/Header.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
@@ -25,14 +31,32 @@ import { FaCcVisa } from 'react-icons/fa';
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
+import {Button as myButton} from "reactstrap";
+
+import {
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup
+} from "reactstrap";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden"
+	    AttemptedUserName: '',
+		AttemptedPassword: '',
+		login_error:true,
+		response:null,
+		login_credentials:[],
+        cardAnimaton: "cardHidden"
     };
+	  
+	  
+	 this.handleSubmit = this.handleSubmit.bind(this);
+	  this.handleChange = this.handleChange.bind(this); 
+	  
   }
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
@@ -43,6 +67,57 @@ class LoginPage extends React.Component {
       700
     );
   }
+	
+	
+	
+ handleSubmit(event){ 
+      event.preventDefault();
+		
+		
+		
+      axios.post(ip+'/user_login', querystring.stringify({ AttemptedStaffNo: this.state.AttemptedUserName,AttemptedPassword: this.state.AttemptedPassword }))
+		.then((response) => {
+        this.setState({
+          ...this.state,
+          login_credentials: response.data,
+		  login_error:response.data.error,
+		  response:response
+			
+        });
+		  console.log(this.state.AttemptedUserName);
+        window.sessionStorage.setItem("StaffNo", response.data.StaffNo);
+		window.sessionStorage.setItem("Surname", response.data.Surname); 
+		this.my_router();
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+     
+ }
+	
+	
+	
+	
+ handleChange(event) {    
+    let newState = this.state
+    newState[event.target.name] = event.target.value
+    let prop = event.target.name
+        this.setState({
+          ...newState     
+        });
+		
+	}
+	
+	
+	my_router = () => {
+		if(!(this.state.login_error)){this.props.history.push('/Admin/config_department_types');}else{alert(this.state.response.data.error_msg);}
+    
+  }
+	
+	
+	
+	
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -101,57 +176,36 @@ class LoginPage extends React.Component {
                     </CardHeader>
                     <p className={classes.divider}>Or Be Classical</p>
                     <CardBody>
-                      <CustomInput
-                        labelText="First Name..."
-                        id="first"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "text",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <People className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
+                      <InputGroup>
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="nc-icon nc-single-02" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input placeholder="Staff Number" type="text" name="AttemptedUserName" value={this.state.AttemptedUserName} onChange={this.handleChange} autofocus />
+                    </InputGroup>
+
+                    <InputGroup>
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="nc-icon nc-key-25" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        placeholder="Password"
+                        type="password"
+                        autoComplete="off"
+		                name="AttemptedPassword"
+		                value={this.state.AttemptedPassword}
+		                onChange={this.handleChange}
                       />
-                      <CustomInput
-                        labelText="Email..."
-                        id="email"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "email",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Password"
-                        id="pass"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "password",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          )
-                        }}
-                      />
+                    </InputGroup>
+                      
+                      
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg">
-                        Get started
+                      <Button round color="primary" size="lg" onClick={this.handleSubmit}>
+                        SIGN IN
                       </Button>
                     </CardFooter>
                   </form>
