@@ -1,51 +1,89 @@
 /*eslint-disable*/
 import React from "react";
-import { Container, Row } from "reactstrap";
-// used for making the prop types of this component
+// nodejs library to set properties for components
 import PropTypes from "prop-types";
+// nodejs library that concatenates classes
+import classNames from "classnames";
+import { List, ListItem, withStyles } from "@material-ui/core";
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer
-        className={"footer" + (this.props.default ? " footer-default" : "")}
-      >
-        <Container fluid={this.props.fluid ? true : false}>
-          <Row>
-            <nav className="footer-nav">
-              <ul>
-                <li>
-                  <a href="https://www.creative-tim.com">Creative Tim</a>
-                </li>
-                <li>
-                  <a href="https://blog.creative-tim.com">Blog</a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.creative-tim.com/license"
-                    target="_blank"
-                  >
-                    Licenses
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <div className="credits ml-auto">
-              <span className="copyright">
-                &copy; {1900 + new Date().getYear()}, made with{" "}
-                <i className="fa fa-heart heart" /> by Creative Tim
-              </span>
-            </div>
-          </Row>
-        </Container>
-      </footer>
-    );
-  }
+// @material-ui/icons
+import Favorite from "@material-ui/icons/Favorite";
+
+import footerStyle from "assets/jss/material-kit-react/components/footerStyle.jsx";
+
+function Footer({ ...props }) {
+  const { classes, whiteFont } = props;
+  const footerClasses = classNames({
+    [classes.footer]: true,
+    [classes.footerWhiteFont]: whiteFont
+  });
+  const aClasses = classNames({
+    [classes.a]: true,
+    [classes.footerWhiteFont]: whiteFont
+  });
+  return (
+    <footer className={footerClasses}>
+      <div className={classes.container}>
+        <div className={classes.left}>
+          <List className={classes.list}>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.creative-tim.com/"
+                className={classes.block}
+                target="_blank"
+              >
+                Creative Tim
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.creative-tim.com/presentation"
+                className={classes.block}
+                target="_blank"
+              >
+                About us
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="http://blog.creative-tim.com/"
+                className={classes.block}
+                target="_blank"
+              >
+                Blog
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.creative-tim.com/license"
+                className={classes.block}
+                target="_blank"
+              >
+                Licenses
+              </a>
+            </ListItem>
+          </List>
+        </div>
+        <div className={classes.right}>
+          &copy; {1900 + new Date().getYear()} , made with{" "}
+          <Favorite className={classes.icon} /> by{" "}
+          <a
+            href="https://www.creative-tim.com"
+            className={aClasses}
+            target="_blank"
+          >
+            Creative Tim
+          </a>{" "}
+          for a better web.
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 Footer.propTypes = {
-  default: PropTypes.bool,
-  fluid: PropTypes.bool
+  classes: PropTypes.object.isRequired,
+  whiteFont: PropTypes.bool
 };
 
-export default Footer;
+export default withStyles(footerStyle)(Footer);
