@@ -40,7 +40,7 @@ import {
   InputGroup
 } from "reactstrap";
 
-class LoginPage extends React.Component {
+class TuitionAdminLogin extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
@@ -220,4 +220,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withStyles(loginPageStyle)(LoginPage);
+export default withStyles(loginPageStyle)(TuitionAdminLogin);

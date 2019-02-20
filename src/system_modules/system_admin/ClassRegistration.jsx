@@ -25,7 +25,7 @@ import {
 } from "reactstrap";
 
 
-class AdminLogin extends React.Component {
+class ClassRegistration extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
@@ -290,4 +290,4 @@ constructor(props) {
   }
 }
 
-export default AdminLogin;
+export default ClassRegistration;

@@ -25,12 +25,11 @@ import {
 } from "reactstrap";
 
 
-class ClassStreamsConfig extends React.Component {
+class FieldCategoriesConfig extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-        ClassStreamName: '',
-		ClassStreamDescription: ''
+        FieldCategoryDescription: ''
 		
     };
 
@@ -54,18 +53,16 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.ClassStreamName===""||this.state.ClassStreamDescription===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.FieldCategoryDescription===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_class_streams", querystring.stringify({ ClassStreamName: this.state.ClassStreamName,
-																  ClassStreamDescription: this.state.ClassStreamDescription}))
+      axios.post(ip+"/add_field_categories", querystring.stringify({ FieldCategoryDescription: this.state.FieldCategoryDescription}))
 		.then((response) => {
 		  
 		  alert(response.data.results.message);
 		  
 		  this.setState({
           ...this.state,
-          ClassStreamName: '',
-		  ClassStreamDescription: ''
+          FieldCategoryDescription: ''
           });
 		 
     
@@ -103,24 +100,15 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Class Stream Configuration</CardTitle>
+                  <CardTitle tag="h4">Field Categories Configuration</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
                     <Row>
-                      <Label md="3">Name</Label>
+                      <Label md="3">Category</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Stream Name" type="text" name="ClassStreamName" value={this.state.ClassStreamName} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-		
-		            <Row>
-                      <Label md="3">Description</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Description" type="text" name="ClassStreamDescription" value={this.state.ClassStreamDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="E.g Sciences" type="text" name="FieldCategoryDescription" value={this.state.FieldCategoryDescription} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -146,4 +134,4 @@ constructor(props) {
   }
 }
 
-export default ClassStreamsConfig;
+export default FieldCategoriesConfig;

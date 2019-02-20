@@ -13,6 +13,8 @@ import AcademicClassLevelConfig from '../system_modules/system_admin/AcademicCla
 import ClassStreamsConfig from '../system_modules/system_admin/ClassStreamsConfig.jsx';
 import ClassRegistration from '../system_modules/system_admin/ClassRegistration.jsx';
 
+import FieldCategoriesConfig from '../system_modules/system_admin/FieldCategoriesConfig.jsx';
+
 
 class App extends Component {
   render() {
@@ -32,6 +34,8 @@ class App extends Component {
 		<Route path="/config_academic_class_level" component={AcademicClassLevelConfig} />
 		<Route path="/config_class_stream" component={ClassStreamsConfig} />
 		<Route path="/config_class" component={ClassRegistration} />
+		
+		<Route path="/config_field_categories" component={FieldCategoriesConfig} />
     </Switch>
   </Router>
     );
