@@ -32,7 +32,7 @@ constructor(props) {
         Classes: [],
 		Subjects: [],
 		SelectedClass:'',
-		SelectedSubjects:'',
+		SelectedSubjects:[]
 		
     };
 
@@ -129,35 +129,36 @@ constructor(props) {
 	
 	handleSubmit(event){ 
       event.preventDefault();
+		//console.log(this.state.SelectedSubjects);
+		if(this.state.SelectedClass===""||this.state.SelectedSubjects===null){alert("Kindly fill in every field on the form");}else{
 		
-		if(this.state.SelectedAcademicClassLevel===""||this.state.ClassStreamId===""||this.state.ClassNickName===""||this.state.ClassDescription===""||this.state.PhysicalAddress===""||this.state.ClassRefNo===""){alert("Kindly fill in every field on the form");}else{
-		
-      axios.post(ip+"/add_classes", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
-															ClassStreamId: this.state.SelectedClassStream.value,
-															ClassNickName: this.state.ClassNickName,
-															ClassDescription: this.state.ClassDescription,
-															PhysicalAddress: this.state.PhysicalAddress,
-															ClassRefNo: this.state.ClassRefNo}))
+		this.state.SelectedSubjects.forEach((item) => {
+            
+		axios.post(ip+"/add_class_specific_subjects", querystring.stringify({ ClassId: this.state.SelectedClass.value,
+															                  SubjectId: item.value}))
 		.then((response) => {
         
-		  alert(response.data.results.message);
+		  
 		  
 		  this.setState({
           ...this.state,
-          SelectedAcademicClassLevel:'',
-		  SelectedClassStream:'',
-		  ClassNickName:'',
-		  ClassDescription:'',
-		  PhysicalAddress:'',
-		  ClassRefNo:''
+          SelectedClass:'',
+		  SelectedSubjects:[]
           });
 		  
     } )
      .catch((response) => {
         //handle error
         console.log(response);
-      });
-	}
+      });	
+			
+			  
+        });
+			
+	alert("Subjects added succesfully");
+		
+	}	
+	
  }
    
 	
