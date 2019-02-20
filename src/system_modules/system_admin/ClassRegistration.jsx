@@ -53,7 +53,7 @@ constructor(props) {
 	  
       var StaffNo=window.sessionStorage.getItem("StaffNo");
 	  
-	  if(StaffNo===null){this.props.history.push('/admin_login');}else{
+	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}else{
     
 		  
 	//First axios for class streams	  

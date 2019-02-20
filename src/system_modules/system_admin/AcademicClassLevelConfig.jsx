@@ -45,7 +45,7 @@ constructor(props) {
 	  
       var StaffNo=window.sessionStorage.getItem("StaffNo");
 	  
-	  if(StaffNo===null){this.props.history.push('/admin_login');}
+	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}
 	  
 	  
 
@@ -54,7 +54,10 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.AcademicClassLevelName===""||this.state.AcademicClassLevelDescription===""||this.state.HierarchyCode===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.AcademicClassLevelName===""||this.state.AcademicClassLevelDescription===""||this.state.HierarchyCode===""){alert("Kindly fill in every field on the form");}else if(this.state.HierarchyCode !== parseInt(this.state.HierarchyCode, 10)){
+		 alert("The hierarchy code must strictly be an integer");
+		
+		}else{
 		
       axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: this.state.AcademicClassLevelName,
 																          AcademicClassLevelDescription: this.state.AcademicClassLevelDescription,

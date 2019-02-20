@@ -50,7 +50,7 @@ constructor(props) {
 	  
       var StaffNo=window.sessionStorage.getItem("StaffNo");
 	  
-	  if(StaffNo===null){this.props.history.push('/admin_login');}else{
+	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}else{
     
 	  axios.post(ip+'/get_all_department_types')
 		.then((response) => {
