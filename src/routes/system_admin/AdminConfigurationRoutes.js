@@ -7,6 +7,7 @@ import ClassRegistration from "../../system_modules/system_admin/ClassRegistrati
 import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCategoriesConfig.jsx";
 import FieldRegistration from "../../system_modules/system_admin/FieldRegistration.jsx";
 import SubjectRegistration from "../../system_modules/system_admin/SubjectRegistration.jsx";
+import ClassSubjectsRegistration from "../../system_modules/system_admin/ClassSubjectsRegistration.jsx";
 
 const routes = [
   {
@@ -92,6 +93,13 @@ const routes = [
         name: "Subject Registration",
         mini: "SR",
         component: SubjectRegistration,
+        layout: "/admin"
+      },
+	  {
+        path: "/class_subject_registration",
+        name: "Class Subjects",
+        mini: "CS",
+        component: ClassSubjectsRegistration,
         layout: "/admin"
       }
     ]
