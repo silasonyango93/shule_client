@@ -32,7 +32,7 @@ constructor(props) {
         Classes: [],
 		Subjects: [],
 		SelectedClass:'',
-		SelectedSubjects:[]
+		SelectedSubjects:""
 		
     };
 
@@ -130,7 +130,7 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		//console.log(this.state.SelectedSubjects);
-		if(this.state.SelectedClass===""||this.state.SelectedSubjects===null){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedClass===""||this.state.SelectedSubjects===""){alert("Kindly fill in every field on the form");}else{
 		
 		this.state.SelectedSubjects.forEach((item) => {
             

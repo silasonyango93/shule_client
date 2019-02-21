@@ -18,6 +18,8 @@ import FieldRegistration from '../system_modules/system_admin/FieldRegistration.
 import SubjectRegistration from '../system_modules/system_admin/SubjectRegistration.jsx';
 import ClassSubjectsRegistration from '../system_modules/system_admin/ClassSubjectsRegistration.jsx';
 
+import TermIterationsConfig from '../system_modules/system_admin/TermIterationsConfig.jsx';
+
 
 class App extends Component {
   render() {
@@ -30,7 +32,7 @@ class App extends Component {
 		
        
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
-		<Redirect from="/" to="/login" />
+		<Redirect from="/" to="/tuition_admin_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
@@ -42,6 +44,7 @@ class App extends Component {
 		<Route path="/field_registration" component={FieldRegistration} />
 		<Route path="/subject_registration" component={SubjectRegistration} />
 		<Route path="/class_subject_registration" component={ClassSubjectsRegistration} />
+		<Route path="/term_iterations_config" component={TermIterationsConfig} />
     </Switch>
   </Router>
     );

@@ -8,6 +8,7 @@ import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCatego
 import FieldRegistration from "../../system_modules/system_admin/FieldRegistration.jsx";
 import SubjectRegistration from "../../system_modules/system_admin/SubjectRegistration.jsx";
 import ClassSubjectsRegistration from "../../system_modules/system_admin/ClassSubjectsRegistration.jsx";
+import TermIterationsConfig from "../../system_modules/system_admin/TermIterationsConfig.jsx";
 
 const routes = [
   {
@@ -79,6 +80,42 @@ const routes = [
         name: "Field Categories",
         mini: "FC",
         component: FieldCategoriesConfig,
+        layout: "/admin"
+      },
+	  {
+        path: "/field_registration",
+        name: "Add Field",
+        mini: "AF",
+        component: FieldRegistration,
+        layout: "/admin"
+      },
+	  {
+        path: "/subject_registration",
+        name: "Subject Registration",
+        mini: "SR",
+        component: SubjectRegistration,
+        layout: "/admin"
+      },
+	  {
+        path: "/class_subject_registration",
+        name: "Class Subjects",
+        mini: "CS",
+        component: ClassSubjectsRegistration,
+        layout: "/admin"
+      }
+    ]
+  },
+  {
+    collapse: true,
+    name: "School Calender",
+    icon: "nc-icon nc-book-bookmark",
+    state: "pagesCollapse",
+    views: [
+      {
+        path: "/term_iterations_config",
+        name: "Term Iterations",
+        mini: "TI",
+        component: TermIterationsConfig,
         layout: "/admin"
       },
 	  {
