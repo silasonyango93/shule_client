@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ip from "../../common/EndPoints.js";
 import Select from "react-select";
 import Button from "components/CustomButtons/Button.jsx";
+import ReactDatetime from "react-datetime";
 
 
 // reactstrap components
@@ -33,10 +34,9 @@ constructor(props) {
 		ActualTerms: [],
 		SelectedWeekIteration:'',
 		SelectedActualTerm:'',
-		ClassNickName:'',
-		ClassDescription:'',
-		PhysicalAddress:'',
-		ClassRefNo:''
+		WeekStartDate:'',
+		WeekEndDate:''
+		
 		
 		
     };
@@ -135,26 +135,25 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedAcademicClassLevel===""||this.state.ClassStreamId===""||this.state.ClassNickName===""||this.state.ClassDescription===""||this.state.PhysicalAddress===""||this.state.ClassRefNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedWeekIteration===""||this.state.SelectedActualTerm===""||this.state.WeekStartDate===""||this.state.WeekEndDate===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_classes", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
-															ClassStreamId: this.state.SelectedClassStream.value,
-															ClassNickName: this.state.ClassNickName,
-															ClassDescription: this.state.ClassDescription,
-															PhysicalAddress: this.state.PhysicalAddress,
-															ClassRefNo: this.state.ClassRefNo}))
+	  var WeekStartDate=this.state.WeekStartDate._d.getFullYear()+"-"+(this.state.WeekStartDate._d.getMonth()+1)+"-"+this.state.WeekStartDate._d.getDate();
+	  var WeekEndDate=this.state.WeekEndDate._d.getFullYear()+"-"+(this.state.WeekEndDate._d.getMonth()+1)+"-"+this.state.WeekEndDate._d.getDate();	
+			
+      axios.post(ip+"/add_actual_weeks", querystring.stringify({ WeekIterationId: this.state.SelectedWeekIteration.value,
+															     ActualTermId: this.state.SelectedActualTerm.value,
+															     WeekStartDate: WeekStartDate,
+															     WeekEndDate: WeekEndDate}))
 		.then((response) => {
         
 		  alert(response.data.results.message);
 		  
 		  this.setState({
           ...this.state,
-          SelectedAcademicClassLevel:'',
-		  SelectedClassStream:'',
-		  ClassNickName:'',
-		  ClassDescription:'',
-		  PhysicalAddress:'',
-		  ClassRefNo:''
+          SelectedWeekIteration:'',
+		  SelectedActualTerm:'',
+		  WeekStartDate:'',
+		  WeekEndDate:''
           });
 		  
     } )
@@ -189,7 +188,7 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Class Registration</CardTitle>
+                  <CardTitle tag="h4">Week Registration</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
@@ -242,38 +241,52 @@ constructor(props) {
                     </Row>
 
                     <Row>
-                      <Label md="3">Nickname</Label>
+                      <Label md="3">Start Date</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Nickname" type="text" name="ClassNickName" value={this.state.ClassNickName} type="text" onChange={this.handleChange} autofocus />
+                          <ReactDatetime
+                            name="WeekStartDate"
+                            value={this.state.WeekStartDate}
+                            onChange={value =>
+                              this.setState({
+                              ...this.state,
+                                      WeekStartDate: value
+                              })
+	  
+                            }
+                            inputProps={{
+                             className: "form-control",
+                             placeholder: "Week Start Date"
+                          }}
+                           timeFormat={false}
+                         />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Description</Label>
+                      <Label md="3">End Date</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Description" type="text" name="ClassDescription" value={this.state.ClassDescription} type="text" onChange={this.handleChange} autofocus />
+                          <ReactDatetime
+                            name="WeekEndDate"
+                            value={this.state.WeekEndDate}
+                            onChange={value =>
+                              this.setState({
+                              ...this.state,
+                                      WeekEndDate: value
+                              })
+	  
+                            }
+                            inputProps={{
+                             className: "form-control",
+                             placeholder: "Week End Date"
+                          }}
+                           timeFormat={false}
+                         />
                         </FormGroup>
                       </Col>
                     </Row>
-		            <Row>
-                      <Label md="3">Physical Address</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Physical Address" type="text" name="PhysicalAddress" value={this.state.PhysicalAddress} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-
-                    <Row>
-                      <Label md="3">Reference No.</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Reference Number" type="text" name="ClassRefNo" value={this.state.ClassRefNo} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
+		           
                     
                   </Form>
                 </CardBody>
