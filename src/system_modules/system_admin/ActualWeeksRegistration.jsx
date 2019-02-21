@@ -73,7 +73,7 @@ constructor(props) {
 		  my_json.forEach((item) => {
             
 			  term_full_reference=item.IterationDescription+"("+item.Year+")";
-			  jsonObject={value:item.ActualTermId,label:item.term_full_reference}
+			  jsonObject={value:item.ActualTermId,label:term_full_reference}
 			  jsonArray.push(jsonObject);
 			  
         });
