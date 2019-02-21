@@ -19,6 +19,7 @@ import SubjectRegistration from '../system_modules/system_admin/SubjectRegistrat
 import ClassSubjectsRegistration from '../system_modules/system_admin/ClassSubjectsRegistration.jsx';
 
 import TermIterationsConfig from '../system_modules/system_admin/TermIterationsConfig.jsx';
+import ActualTermsRegistration from '../system_modules/system_admin/ActualTermsRegistration.jsx';
 
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
 		<Route path="/subject_registration" component={SubjectRegistration} />
 		<Route path="/class_subject_registration" component={ClassSubjectsRegistration} />
 		<Route path="/term_iterations_config" component={TermIterationsConfig} />
+		<Route path="/actual_term_registration" component={ActualTermsRegistration} />
     </Switch>
   </Router>
     );

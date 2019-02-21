@@ -9,6 +9,7 @@ import FieldRegistration from "../../system_modules/system_admin/FieldRegistrati
 import SubjectRegistration from "../../system_modules/system_admin/SubjectRegistration.jsx";
 import ClassSubjectsRegistration from "../../system_modules/system_admin/ClassSubjectsRegistration.jsx";
 import TermIterationsConfig from "../../system_modules/system_admin/TermIterationsConfig.jsx";
+import ActualTermsRegistration from "../../system_modules/system_admin/ActualTermsRegistration.jsx";
 
 const routes = [
   {
@@ -119,10 +120,10 @@ const routes = [
         layout: "/admin"
       },
 	  {
-        path: "/field_registration",
-        name: "Add Field",
-        mini: "AF",
-        component: FieldRegistration,
+        path: "/actual_term_registration",
+        name: "Register Term",
+        mini: "RT",
+        component: ActualTermsRegistration,
         layout: "/admin"
       },
 	  {
