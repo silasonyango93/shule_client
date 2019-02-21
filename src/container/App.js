@@ -20,6 +20,7 @@ import ClassSubjectsRegistration from '../system_modules/system_admin/ClassSubje
 
 import TermIterationsConfig from '../system_modules/system_admin/TermIterationsConfig.jsx';
 import ActualTermsRegistration from '../system_modules/system_admin/ActualTermsRegistration.jsx';
+import WeekIterationsConfiguration from '../system_modules/system_admin/WeekIterationsConfiguration.jsx';
 
 
 class App extends Component {
@@ -47,6 +48,7 @@ class App extends Component {
 		<Route path="/class_subject_registration" component={ClassSubjectsRegistration} />
 		<Route path="/term_iterations_config" component={TermIterationsConfig} />
 		<Route path="/actual_term_registration" component={ActualTermsRegistration} />
+		<Route path="/week_iterations_config" component={WeekIterationsConfiguration} />
     </Switch>
   </Router>
     );

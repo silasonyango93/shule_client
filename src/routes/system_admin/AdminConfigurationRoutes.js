@@ -10,6 +10,7 @@ import SubjectRegistration from "../../system_modules/system_admin/SubjectRegist
 import ClassSubjectsRegistration from "../../system_modules/system_admin/ClassSubjectsRegistration.jsx";
 import TermIterationsConfig from "../../system_modules/system_admin/TermIterationsConfig.jsx";
 import ActualTermsRegistration from "../../system_modules/system_admin/ActualTermsRegistration.jsx";
+import WeekIterationsConfiguration from "../../system_modules/system_admin/WeekIterationsConfiguration.jsx";
 
 const routes = [
   {
@@ -127,10 +128,10 @@ const routes = [
         layout: "/admin"
       },
 	  {
-        path: "/subject_registration",
-        name: "Subject Registration",
-        mini: "SR",
-        component: SubjectRegistration,
+        path: "/week_iterations_config",
+        name: "Week Iterations",
+        mini: "WI",
+        component: WeekIterationsConfiguration,
         layout: "/admin"
       },
 	  {
