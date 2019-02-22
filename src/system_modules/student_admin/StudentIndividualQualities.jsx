@@ -33,10 +33,8 @@ constructor(props) {
 		StudentTypes: [],
 		SelectedStudentTypeCategory:'',
 		SelectedStudentType:'',
-		ClassNickName:'',
-		ClassDescription:'',
-		PhysicalAddress:'',
-		ClassRefNo:''
+		AdmissionNo:''
+		
 		
 		
     };
@@ -87,41 +85,7 @@ constructor(props) {
         //handle error
         console.log(response);
       });
-	  
-	//**********************************************************************************************
-		  
-		//Second axios for Academic class levels	  
-	  axios.post(ip+'/get_all_academic_class_levels')
-		.then((response) => {
-        
-		  var my_json=response.data.results;
-		 
-		  var jsonArray=[];
-		  var jsonObject= null;
-		  
-		  my_json.forEach((item) => {
-            
-			  jsonObject={value:item.AcademicClassLevelId,label:item.AcademicClassLevelName}
-			  jsonArray.push(jsonObject);
-			  
-        });
-		    
-		this.setState({
-          ...this.state,
-          AcademicClassLevels: jsonArray
-        });
-		  
-		 
-		  
-        })
-        
-    
-     .catch((response) => {
-        //handle error
-        console.log(response);
-      });
-		  
-		  
+	
 		  
 	  }  
 
@@ -130,33 +94,36 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedAcademicClassLevel===""||this.state.ClassStreamId===""||this.state.ClassNickName===""||this.state.ClassDescription===""||this.state.PhysicalAddress===""||this.state.ClassRefNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedStudentTypeCategory===""||this.state.SelectedStudentType===""||this.state.AdmissionNo===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_classes", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
-															ClassStreamId: this.state.SelectedClassStream.value,
-															ClassNickName: this.state.ClassNickName,
-															ClassDescription: this.state.ClassDescription,
-															PhysicalAddress: this.state.PhysicalAddress,
-															ClassRefNo: this.state.ClassRefNo}))
+		this.state.SelectedStudentType.forEach((item) => {	
+			
+      axios.post(ip+"/add_student_individual_qualities", querystring.stringify({ StudentTypeId: item.value,
+															                     AdmissionNo: this.state.AdmissionNo}))
 		.then((response) => {
         
-		  alert(response.data.results.message);
 		  
-		  this.setState({
-          ...this.state,
-          SelectedAcademicClassLevel:'',
-		  SelectedClassStream:'',
-		  ClassNickName:'',
-		  ClassDescription:'',
-		  PhysicalAddress:'',
-		  ClassRefNo:''
-          });
+		  
+		  
 		  
     } )
      .catch((response) => {
         //handle error
         console.log(response);
       });
+			
+		});
+											   
+											   
+		this.setState({
+          ...this.state,
+          SelectedStudentTypeCategory:'',
+		  SelectedStudentType:'',
+		  AdmissionNo:''
+        });									   
+		
+		alert("Qualities added succesfully");
+											   
 	}
  }
    
@@ -234,6 +201,16 @@ constructor(props) {
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
+		
+		             <Row>
+                      <Label md="3">Admission No.</Label>
+                      <Col md="9">
+                        <FormGroup>
+                          <Input placeholder="Admission Number" type="text" name="AdmissionNo" value={this.state.AdmissionNo} type="text" onChange={this.handleChange} autofocus />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+		
 		            <Row>
                       <Label md="3">Category</Label>
                       <Col md="9">
@@ -262,6 +239,7 @@ constructor(props) {
                             placeholder="Select Student Type"
                             name="SelectStudentType"
                             closeMenuOnSelect={false}
+		                    isMulti
                             value={this.state.SelectedStudentType}
                             onChange={value =>
                               this.setState({
@@ -276,40 +254,6 @@ constructor(props) {
                       </Col>
                     </Row>
 
-                    <Row>
-                      <Label md="3">Nickname</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Nickname" type="text" name="ClassNickName" value={this.state.ClassNickName} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-		            <Row>
-                      <Label md="3">Description</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Description" type="text" name="ClassDescription" value={this.state.ClassDescription} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-		            <Row>
-                      <Label md="3">Physical Address</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Physical Address" type="text" name="PhysicalAddress" value={this.state.PhysicalAddress} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-
-                    <Row>
-                      <Label md="3">Reference No.</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Reference Number" type="text" name="ClassRefNo" value={this.state.ClassRefNo} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    
                   </Form>
                 </CardBody>
                 <CardFooter>
