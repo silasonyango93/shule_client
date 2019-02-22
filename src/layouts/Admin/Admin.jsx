@@ -9,6 +9,10 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 import routes from "../../routes/system_admin/AdminConfigurationRoutes.js";
+import image from "assets/img/bg7.jpg";
+import withStyles from "@material-ui/core/styles/withStyles";
+import adminPageStyle from "assets/jss/material-kit-react/views/adminPage.jsx";
+
 
 var ps;
 
@@ -75,22 +79,30 @@ class Admin extends React.Component {
     document.body.classList.toggle("sidebar-mini");
   };
   render() {
+	  const { classes, ...rest } = this.props;
     return (
-      <div className="wrapper">
+      <div
+          className={classes.pageHeader}
+          style={{
+            backgroundImage: "url(" + image + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "top center"
+          }}
+        >
         <Sidebar
           {...this.props}
           routes={routes}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
         />
-        <div className="main-panel" ref="mainPanel">
+        <div className={classes.container} ref="mainPanel" style={{justifyContent:'center'}}>
+		 
           <AdminNavbar {...this.props} handleMiniClick={this.handleMiniClick} />
           <Switch>{this.getRoutes(routes)}</Switch>
           {// we don't want the Footer to be rendered on full screen maps page
           this.props.location.pathname.indexOf("full-screen-map") !==
-          -1 ? null : (
-            <Footer fluid />
-          )}
+          -1 ? null : null}
+            
         </div>
         
       </div>
@@ -98,4 +110,4 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+export default withStyles(adminPageStyle)(Admin);
