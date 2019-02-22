@@ -179,7 +179,9 @@ constructor(props) {
 		
 	  this.setState({
                       ...this.state,
-                         SelectedStudentTypeCategory: value
+                         SelectedStudentTypeCategory: value,
+		                 SelectedStudentType:''
+		                 
                     })
 		
 		
