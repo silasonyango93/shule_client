@@ -37,7 +37,8 @@ constructor(props) {
 		MiddleName:'',
 		Surname:'',
 		SelectedGender:'',
-		DOB:''
+		DOB:'',
+		CurrentClassSubjects:''
 		
 		
 		
@@ -46,6 +47,8 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.handleChange = this.handleChange.bind(this);
+	  this.getSelectedClassSubjects = this.getSelectedClassSubjects.bind(this);
+	  this.assignSubjects = this.assignSubjects.bind(this);
 	  
   }
 
@@ -114,18 +117,12 @@ constructor(props) {
 															 DOB: DateOfBirth}))
 		.then((response) => {
         
-		  alert(response.data.results.message);
 		  
-		  this.setState({
-          ...this.state,
-          SelectedClass:'',
-		  AdmissionNo:'',
-		  FirstName:'',
-		  MiddleName:'',
-		  Surname:'',
-		  SelectedGender:'',
-		  DOB:''
-          });
+		  
+		  alert(response.data.results.message);
+		  if(response.data.results.success===true){this.getSelectedClassSubjects();}
+		  
+		  
 		  
     } )
      .catch((response) => {
@@ -146,6 +143,81 @@ constructor(props) {
         });
 		
 	}
+	
+	
+	
+	getSelectedClassSubjects(){
+	
+	
+	axios.post(ip+"/get_a_specific_class_subjects_by_full_reference", querystring.stringify({ TableOne: "subjects",
+															                                  JoiningKey: "SubjectId",
+															                                  SearchColumn: "ClassId",
+															                                  SearchValue: this.state.SelectedClass.value}))
+		.then((response) => {
+        
+		  var my_json=response.data.results;
+		 
+		    
+		this.setState({
+          ...this.state,
+          CurrentClassSubjects: my_json
+        });
+		  
+		 this.assignSubjects();
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	
+	}
+	
+	
+	
+	
+	
+	assignSubjects(){
+		
+		
+	this.state.CurrentClassSubjects.forEach((item) => {	
+	
+	axios.post(ip+"/add_student_class_specific_subject_rship", querystring.stringify({ AdmissionNo: this.state.AdmissionNo,
+															                           ClassSpecificSubjectId: item.ClassSpecificSubjectId,
+															                           AssignedBy: "0"}))
+		.then((response) => {
+        
+		
+		this.setState({
+          ...this.state,
+          SelectedClass:'',
+		  AdmissionNo:'',
+		  FirstName:'',
+		  MiddleName:'',
+		  Surname:'',
+		  SelectedGender:'',
+		  DOB:''
+          });
+		
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+		
+		
+		
+		
+	 });
+	
+	}
+	
 	
 	
 	
