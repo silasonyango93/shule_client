@@ -29,6 +29,7 @@ import StudentAdminLogin from '../system_modules/student_admin/StudentAdminLogin
 import StudentTypeCategories from '../system_modules/student_admin/StudentTypeCategories.jsx';
 import StudentTypesConfig from '../system_modules/student_admin/StudentTypesConfig.jsx';
 import StudentRegistration from '../system_modules/student_admin/StudentRegistration.jsx';
+import StudentIndividualQualities from '../system_modules/student_admin/StudentIndividualQualities.jsx';
 
 
 class App extends Component {
@@ -65,6 +66,7 @@ class App extends Component {
 		<Route path="/student_type_categories_config" component={StudentTypeCategories} />
 		<Route path="/student_type_config" component={StudentTypesConfig} />
 		<Route path="/register_student" component={StudentRegistration} />
+		<Route path="/add_student_individual_qualities" component={StudentIndividualQualities} />
     </Switch>
   </Router>
     );
