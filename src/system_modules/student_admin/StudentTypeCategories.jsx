@@ -44,7 +44,7 @@ constructor(props) {
 	  
       var StaffNo=window.sessionStorage.getItem("StaffNo");
 	  
-	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}
+	  if(StaffNo===null){this.props.history.push('/student_admin_login');}
 	  
 	  
 

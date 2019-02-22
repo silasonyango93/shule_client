@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { List, ListItem, withStyles } from "@material-ui/core";
 
+
 // @material-ui/icons
 import Favorite from "@material-ui/icons/Favorite";
 
@@ -28,20 +29,20 @@ function Footer({ ...props }) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/"
+                href="http://127.0.0.1:3000/tuition_admin_login"
                 className={classes.block}
                 target="_blank"
               >
-                Creative Tim
+                System Admin
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/presentation"
+                href="http://127.0.0.1:3000/student_admin_login"
                 className={classes.block}
                 target="_blank"
               >
-                About us
+                Student Admin
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
