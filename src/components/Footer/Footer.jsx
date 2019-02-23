@@ -56,11 +56,11 @@ function Footer({ ...props }) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.creative-tim.com/license"
+                href="http://127.0.0.1:3000/exam_admin_login"
                 className={classes.block}
                 target="_blank"
               >
-                Licenses
+                Exams Admin
               </a>
             </ListItem>
           </List>

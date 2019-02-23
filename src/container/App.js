@@ -5,6 +5,7 @@ import AuthLayout from "layouts/Auth/Auth.jsx";
 import AdminLayout from "layouts/Admin/Admin.jsx";
 import StudentManagementAdminLayout from "layouts/StudentManagementAdmin/StudentManagementAdmin.jsx";
 import StaffManagementAdminLayout from "layouts/StaffManagementAdmin/StaffManagementAdmin.jsx";
+import ExamManagementAdminLayout from "layouts/ExamManagementAdmin/ExamManagementAdmin.jsx";
 
 
 import TuitionAdminLogin from '../system_modules/system_admin/TuitionAdminLogin.jsx';
@@ -40,6 +41,11 @@ import StaffIndividualQualities from '../system_modules/staff_admin/StaffIndivid
 import AssignTeachersSubjects from '../system_modules/staff_admin/AssignTeachersSubjects.jsx';
 
 
+
+import ExamAdminLogin from '../system_modules/exam_admin/ExamAdminLogin.jsx';
+import ExamTypesConfig from '../system_modules/exam_admin/ExamTypesConfig.jsx';
+
+
 class App extends Component {
   render() {
 	  const hist = createBrowserHistory();
@@ -50,12 +56,13 @@ class App extends Component {
         <Route path="/admin" render={props => <AdminLayout {...props} />} />
 		<Route path="/student_admin" render={props => <StudentManagementAdminLayout {...props} />} />
 		<Route path="/staff_admin" render={props => <StaffManagementAdminLayout {...props} />} />
+		<Route path="/exam_admin" render={props => <ExamManagementAdminLayout {...props} />} />
 		
-       
+       <Route path="/exam_admin_login" component={ExamAdminLogin} />
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
 		<Route path="/student_admin_login" component={StudentAdminLogin} />
-		<Redirect from="/" to="/staff_admin_login" />
+		<Redirect from="/" to="/exam_admin_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
@@ -84,6 +91,11 @@ class App extends Component {
 		<Route path="/staff_registration" component={StaffRegistration} />
 		<Route path="/staff_qualities" component={StaffIndividualQualities} />
 		<Route path="/assign_teachers_subjects" component={AssignTeachersSubjects} />
+		
+		
+		
+		
+		<Route path="/exam_types_config" component={ExamTypesConfig} />
 		
 		
 		
