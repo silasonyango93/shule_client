@@ -11,7 +11,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import routes from "../../routes/exam_admin/ExamAdminRoutes.js";
 import image from "assets/img/bg7.jpg";
 import withStyles from "@material-ui/core/styles/withStyles";
-import adminPageStyle from "assets/jss/material-kit-react/views/staffAdminPage.jsx";
+import adminPageStyle from "assets/jss/material-kit-react/views/adminPage.jsx";
 
 
 var ps;

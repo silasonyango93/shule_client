@@ -1,4 +1,5 @@
 import ExamTypesConfig from "../../system_modules/exam_admin/ExamTypesConfig.jsx";
+import ExamRegistration from "../../system_modules/exam_admin/ExamRegistration.jsx";
 
 
 
@@ -20,6 +21,13 @@ const routes = [
         name: "Exam Types",
         mini: "ET",
         component: ExamTypesConfig,
+        layout: "/exam_admin"
+      },
+	  {
+        path: "/examination_registration",
+        name: "Exam Registration",
+        mini: "ER",
+        component: ExamRegistration,
         layout: "/exam_admin"
       }
     ]

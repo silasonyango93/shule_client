@@ -44,6 +44,7 @@ import AssignTeachersSubjects from '../system_modules/staff_admin/AssignTeachers
 
 import ExamAdminLogin from '../system_modules/exam_admin/ExamAdminLogin.jsx';
 import ExamTypesConfig from '../system_modules/exam_admin/ExamTypesConfig.jsx';
+import ExamRegistration from '../system_modules/exam_admin/ExamRegistration.jsx';
 
 
 class App extends Component {
@@ -96,6 +97,7 @@ class App extends Component {
 		
 		
 		<Route path="/exam_types_config" component={ExamTypesConfig} />
+		<Route path="/examination_registration" component={ExamRegistration} />
 		
 		
 		
