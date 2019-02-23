@@ -244,7 +244,9 @@ constructor(props) {
                             onChange={value =>
                               this.setState({
                               ...this.state,
-                                      SelectedStaffMember: value
+                                      SelectedStaffMember: value,
+									  StaffNo: value.value
+									  
                               })
 	  
                             }
