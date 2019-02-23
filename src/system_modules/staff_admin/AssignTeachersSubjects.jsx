@@ -141,33 +141,36 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedAcademicClassLevel===""||this.state.ClassStreamId===""||this.state.ClassNickName===""||this.state.ClassDescription===""||this.state.PhysicalAddress===""||this.state.ClassRefNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedStaffMember===""||this.state.SelectedClassSubjects===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_classes", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
-															ClassStreamId: this.state.SelectedClassStream.value,
-															ClassNickName: this.state.ClassNickName,
-															ClassDescription: this.state.ClassDescription,
-															PhysicalAddress: this.state.PhysicalAddress,
-															ClassRefNo: this.state.ClassRefNo}))
+	  var CurrentSessionId=window.sessionStorage.getItem("StaffNo");
+	  this.state.SelectedClassSubjects.forEach((item) => {
+		
+      axios.post(ip+"/add_teachers_class_specific_subjects", querystring.stringify({ StaffNo: this.state.SelectedStaffMember.value,
+															                         ClassSpecificSubjectId: item.value,
+																					 AssignedBy: CurrentSessionId}))
 		.then((response) => {
         
-		  alert(response.data.results.message);
 		  
-		  this.setState({
-          ...this.state,
-          SelectedAcademicClassLevel:'',
-		  SelectedClassStream:'',
-		  ClassNickName:'',
-		  ClassDescription:'',
-		  PhysicalAddress:'',
-		  ClassRefNo:''
-          });
+		  
+		  
 		  
     } )
      .catch((response) => {
         //handle error
         console.log(response);
       });
+	  
+	  });
+	  
+	  alert("Subjects assigned succesfully");
+	  this.setState({
+          ...this.state,
+          SelectedStaffMember:'',
+		  SelectedClassSubjects:'',
+		  StaffNo:''
+          });
+	  
 	}
  }
    
@@ -266,6 +269,7 @@ constructor(props) {
                             placeholder="Select Class Subjects"
                             name="SelectClassSubjects"
                             closeMenuOnSelect={false}
+							isMulti
                             value={this.state.SelectedClassSubjects}
                             onChange={value =>
                               this.setState({
