@@ -4,6 +4,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import AuthLayout from "layouts/Auth/Auth.jsx";
 import AdminLayout from "layouts/Admin/Admin.jsx";
 import StudentManagementAdminLayout from "layouts/StudentManagementAdmin/StudentManagementAdmin.jsx";
+import StaffManagementAdminLayout from "layouts/StaffManagementAdmin/StaffManagementAdmin.jsx";
 
 
 import TuitionAdminLogin from '../system_modules/system_admin/TuitionAdminLogin.jsx';
@@ -32,6 +33,11 @@ import StudentRegistration from '../system_modules/student_admin/StudentRegistra
 import StudentIndividualQualities from '../system_modules/student_admin/StudentIndividualQualities.jsx';
 
 
+import StaffAdminLogin from '../system_modules/staff_admin/StaffAdminLogin.jsx';
+import StaffTypeConfig from '../system_modules/staff_admin/StaffTypeConfig.jsx';
+import StaffRegistration from '../system_modules/staff_admin/StaffRegistration.jsx';
+
+
 class App extends Component {
   render() {
 	  const hist = createBrowserHistory();
@@ -41,11 +47,13 @@ class App extends Component {
         <Route path="/auth" render={props => <AuthLayout {...props} />} />
         <Route path="/admin" render={props => <AdminLayout {...props} />} />
 		<Route path="/student_admin" render={props => <StudentManagementAdminLayout {...props} />} />
+		<Route path="/staff_admin" render={props => <StaffManagementAdminLayout {...props} />} />
 		
        
+		<Route path="/staff_admin_login" component={StaffAdminLogin} />
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
 		<Route path="/student_admin_login" component={StudentAdminLogin} />
-		<Redirect from="/" to="/student_admin_login" />
+		<Redirect from="/" to="/staff_admin_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
@@ -67,6 +75,15 @@ class App extends Component {
 		<Route path="/student_type_config" component={StudentTypesConfig} />
 		<Route path="/register_student" component={StudentRegistration} />
 		<Route path="/add_student_individual_qualities" component={StudentIndividualQualities} />
+		
+		
+		
+		<Route path="/staff_types_config" component={StaffTypeConfig} />
+		<Route path="/staff_registration" component={StaffRegistration} />
+		
+		
+		
+	
     </Switch>
   </Router>
     );
