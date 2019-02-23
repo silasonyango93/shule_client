@@ -33,10 +33,8 @@ constructor(props) {
 		ClassSubjects: [],
 		SelectedStaffMember:'',
 		SelectedClassSubjects:'',
-		ClassNickName:'',
-		ClassDescription:'',
-		PhysicalAddress:'',
-		ClassRefNo:''
+		StaffNo:''
+		
 		
 		
     };
@@ -44,6 +42,7 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.handleChange = this.handleChange.bind(this);
+	  this.cascade = this.cascade.bind(this);
 	  
   }
 
@@ -56,7 +55,7 @@ constructor(props) {
 	  if(StaffNo===null){this.props.history.push('/staff_admin_login');}else{
     
 		  
-	//First axios for class streams	  
+	//First axios for Staff members	  
 	  axios.post(ip+'/get_all_users')
 		.then((response) => {
         
@@ -181,12 +180,33 @@ constructor(props) {
         this.setState({
           ...newState     
         });
-		
+		this.cascade();
 	}
 	
 	
 	
+	cascade(){
 	
+	  if(this.state.StaffNo!==""){
+	  
+	  
+	      this.state.StaffMembers.forEach((item) => {
+		     if(this.state.StaffNo===item.value){
+			 
+			    this.setState({
+                              ...this.state,
+                                    SelectedStaffMember: item
+                              });
+			 
+			 }
+		  
+		  
+		  });
+	  
+	  
+	  }
+	
+	}
     
 
   render() {
