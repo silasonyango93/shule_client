@@ -1,6 +1,7 @@
 import StaffTypeConfig from "../../system_modules/staff_admin/StaffTypeConfig.jsx";
 import StaffRegistration from "../../system_modules/staff_admin/StaffRegistration.jsx";
 import StaffIndividualQualities from "../../system_modules/staff_admin/StaffIndividualQualities.jsx";
+import AssignTeachersSubjects from "../../system_modules/staff_admin/AssignTeachersSubjects.jsx";
 
 
 const routes = [
@@ -43,6 +44,13 @@ const routes = [
         name: "Staff Qualities",
         mini: "SQ",
         component: StaffIndividualQualities,
+        layout: "/staff_admin"
+      },
+	  {
+        path: "/assign_teachers_subjects",
+        name: "Assign Subjects",
+        mini: "AS",
+        component: AssignTeachersSubjects,
         layout: "/staff_admin"
       }
     ]

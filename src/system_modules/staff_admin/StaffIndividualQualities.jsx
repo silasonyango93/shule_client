@@ -95,7 +95,7 @@ constructor(props) {
       
       
       axios.post(ip+"/add_staff_individual_qualities", querystring.stringify({ StaffTypeId: item.value,
-															                                                 StaffNo: this.state.StaffNo}))
+															                   StaffNo: this.state.StaffNo}))
 		.then((response) => {
         
 		  

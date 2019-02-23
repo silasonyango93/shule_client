@@ -37,6 +37,7 @@ import StaffAdminLogin from '../system_modules/staff_admin/StaffAdminLogin.jsx';
 import StaffTypeConfig from '../system_modules/staff_admin/StaffTypeConfig.jsx';
 import StaffRegistration from '../system_modules/staff_admin/StaffRegistration.jsx';
 import StaffIndividualQualities from '../system_modules/staff_admin/StaffIndividualQualities.jsx';
+import AssignTeachersSubjects from '../system_modules/staff_admin/AssignTeachersSubjects.jsx';
 
 
 class App extends Component {
@@ -82,6 +83,7 @@ class App extends Component {
 		<Route path="/staff_types_config" component={StaffTypeConfig} />
 		<Route path="/staff_registration" component={StaffRegistration} />
 		<Route path="/staff_qualities" component={StaffIndividualQualities} />
+		<Route path="/assign_teachers_subjects" component={AssignTeachersSubjects} />
 		
 		
 		
