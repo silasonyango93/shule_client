@@ -46,6 +46,9 @@ constructor(props) {
 	  this.handleChange = this.handleChange.bind(this);
 	  this.getSelectedClassSubjects = this.getSelectedClassSubjects.bind(this);
 	  this.assignClassesExamPapers = this.assignClassesExamPapers.bind(this);
+	  this.getSelectedClassStudents = this.getSelectedClassStudents.bind(this);
+	  this.assignStudentsExamPapers = this.assignStudentsExamPapers.bind(this);
+	  this.assignApaperToTheStudent = this.assignApaperToTheStudent.bind(this);
 	  
   }
 
@@ -155,6 +158,8 @@ constructor(props) {
 		
 
              this.getSelectedClassSubjects();
+			 alert("Examination papers have been assigned to students in the selected classes");
+			 
 
 
 	    }
@@ -195,9 +200,15 @@ constructor(props) {
 			  
            });
 		    
-		   alert("Examination papers have been assigned to classes");
+		   
 		  
         })
+		.then(() => {
+        
+		     this.getSelectedClassStudents();
+		 
+		  
+		  })
         
     
      .catch((response) => {
@@ -246,9 +257,6 @@ constructor(props) {
         console.log(response);
       });
 	  
-	  
-	 
-	
 	
 	
 	}
@@ -258,6 +266,109 @@ constructor(props) {
 	
 	
 	
+	
+	getSelectedClassStudents(){
+	  
+	  this.state.SelectedClasses.forEach((item) => {
+	    var current_class_id=item.value;
+	
+	    axios.post(ip+"/get_specific_students", querystring.stringify({ column_name: "ClassId",
+															            search_value: item.value}))
+		.then((response) => {
+        
+		  var current_class_students=response.data.results;
+		 
+		  
+		  
+		   current_class_students.forEach((item) => {
+            
+			  this.assignStudentsExamPapers(item.AdmissionNo,current_class_id);
+			  
+           });
+		    
+		   
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	  
+	  
+	  });
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	assignStudentsExamPapers(AdmissionNo,current_class_id){
+	
+	
+	
+	    axios.post(ip+"/innerjoin_classSpecifSubjects_with_ExamPapers", querystring.stringify({ TableOne: "class_specific_subjects",
+		                                                                                        JoiningKey: "ClassSpecificSubjectId",
+																								SearchColumn: "ClassId",
+															                                    SearchValue: current_class_id}))
+		.then((response) => {
+        
+		  var current_class_exam_papers=response.data.results;
+		 
+		  
+		  
+		   current_class_exam_papers.forEach((item) => {
+            
+			  this.assignApaperToTheStudent(item.ExamPaperId,AdmissionNo);
+			  
+           });
+		    
+		   
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	
+	
+	}
+	
+	
+	
+	
+	
+	assignApaperToTheStudent(ExamPaperId,AdmissionNo){
+	
+	
+	   axios.post(ip+"/add_specific_student_exam_papers", querystring.stringify({ AdmissionNo: AdmissionNo,
+		                                                                          ExamPaperId: ExamPaperId,
+																				  Marks: "0.00",
+															                      IsMarkSubmited: "0"}))
+		.then((response) => {
+        
+		  
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	
+	}
 	
 	
 	
