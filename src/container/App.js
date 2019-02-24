@@ -6,6 +6,7 @@ import AdminLayout from "layouts/Admin/Admin.jsx";
 import StudentManagementAdminLayout from "layouts/StudentManagementAdmin/StudentManagementAdmin.jsx";
 import StaffManagementAdminLayout from "layouts/StaffManagementAdmin/StaffManagementAdmin.jsx";
 import ExamManagementAdminLayout from "layouts/ExamManagementAdmin/ExamManagementAdmin.jsx";
+import TeachersPortalLayout from "layouts/TeachersPortal/TeachersPortal.jsx";
 
 
 import TuitionAdminLogin from '../system_modules/system_admin/TuitionAdminLogin.jsx';
@@ -48,6 +49,11 @@ import ExamRegistration from '../system_modules/exam_admin/ExamRegistration.jsx'
 import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.jsx';
 
 
+
+import TeachersPortalLogin from '../system_modules/teachers_portal/TeachersPortalLogin.jsx';
+import SelectExam from '../system_modules/teachers_portal/SelectExam.jsx';
+
+
 class App extends Component {
   render() {
 	  const hist = createBrowserHistory();
@@ -59,12 +65,14 @@ class App extends Component {
 		<Route path="/student_admin" render={props => <StudentManagementAdminLayout {...props} />} />
 		<Route path="/staff_admin" render={props => <StaffManagementAdminLayout {...props} />} />
 		<Route path="/exam_admin" render={props => <ExamManagementAdminLayout {...props} />} />
+		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
-       <Route path="/exam_admin_login" component={ExamAdminLogin} />
+		 <Route path="/teachers_portal_login" component={TeachersPortalLogin} />
+        <Route path="/exam_admin_login" component={ExamAdminLogin} />
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
 		<Route path="/student_admin_login" component={StudentAdminLogin} />
-		<Redirect from="/" to="/exam_admin_login" />
+		<Redirect from="/" to="/teachers_portal_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
@@ -100,6 +108,9 @@ class App extends Component {
 		<Route path="/exam_types_config" component={ExamTypesConfig} />
 		<Route path="/examination_registration" component={ExamRegistration} />
 		<Route path="/assign_classes_exams" component={AssignClassesExams} />
+		
+		
+		<Route path="/teacher_select_exam" component={SelectExam} />
 		
 		
 		

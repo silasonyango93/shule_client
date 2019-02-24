@@ -63,6 +63,15 @@ function Footer({ ...props }) {
                 Exams Admin
               </a>
             </ListItem>
+		   <ListItem className={classes.inlineBlock}>
+              <a
+                href="http://127.0.0.1:3000/teachers_portal_login"
+                className={classes.block}
+                target="_blank"
+              >
+                Teachers' Portal
+              </a>
+            </ListItem>
           </List>
         </div>
         <div className={classes.right}>
