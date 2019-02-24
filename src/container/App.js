@@ -52,6 +52,7 @@ import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.
 
 import TeachersPortalLogin from '../system_modules/teachers_portal/TeachersPortalLogin.jsx';
 import SelectExam from '../system_modules/teachers_portal/SelectExam.jsx';
+import ClassExamPapersTable from '../system_modules/teachers_portal/ClassExamPapersTable.jsx';
 
 
 class App extends Component {
@@ -67,6 +68,7 @@ class App extends Component {
 		<Route path="/exam_admin" render={props => <ExamManagementAdminLayout {...props} />} />
 		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
+		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
 		 <Route path="/teachers_portal_login" component={TeachersPortalLogin} />
         <Route path="/exam_admin_login" component={ExamAdminLogin} />
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />
@@ -111,6 +113,7 @@ class App extends Component {
 		
 		
 		<Route path="/teacher_select_exam" component={SelectExam} />
+		
 		
 		
 		

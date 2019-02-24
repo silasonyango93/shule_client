@@ -39,6 +39,7 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.handleChange = this.handleChange.bind(this);
+	  this.open_new_tab = this.open_new_tab.bind(this);
 	  
   }
 
@@ -101,8 +102,10 @@ constructor(props) {
 		
 		if(this.state.SelectedExam===""){alert("Kindly fill in every field on the form");}else{
 		
-      
-	}
+           this.open_new_tab();
+	  
+	  
+	    }
  }
    
 	
@@ -116,6 +119,20 @@ constructor(props) {
         });
 		
 	}
+	
+	
+	
+	
+	open_new_tab() {
+	   const url = 'http://127.0.0.1:3000/class_exam_papers_table';
+      /* var character_url = this.props.data.url;
+	   character_url=character_url+"?format=json";
+	   var w = window.open(url);
+	   w.character_url = character_url;*/
+	   
+	   var w = window.open(url);
+	   
+     } 
 	
 	
 	
