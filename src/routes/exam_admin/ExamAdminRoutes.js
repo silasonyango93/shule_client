@@ -1,5 +1,6 @@
 import ExamTypesConfig from "../../system_modules/exam_admin/ExamTypesConfig.jsx";
 import ExamRegistration from "../../system_modules/exam_admin/ExamRegistration.jsx";
+import AssignClassesExams from "../../system_modules/exam_admin/AssignClassesExams.jsx";
 
 
 
@@ -36,6 +37,13 @@ const routes = [
         name: "Exam Registration",
         mini: "ER",
         component: ExamRegistration,
+        layout: "/exam_admin"
+      },
+	  {
+        path: "/assign_classes_exams",
+        name: "Assign Classes",
+        mini: "AC",
+        component: AssignClassesExams,
         layout: "/exam_admin"
       }
     ]
