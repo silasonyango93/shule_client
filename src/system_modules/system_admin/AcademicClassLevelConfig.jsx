@@ -53,8 +53,8 @@ constructor(props) {
 	
 	handleSubmit(event){ 
       event.preventDefault();
-		
-		if(this.state.AcademicClassLevelName===""||this.state.AcademicClassLevelDescription===""||this.state.HierarchyCode===""){alert("Kindly fill in every field on the form");}else if(this.state.HierarchyCode !== parseInt(this.state.HierarchyCode, 10)){
+		var hierarchy_code=parseInt(this.state.HierarchyCode);
+		if(this.state.AcademicClassLevelName===""||this.state.AcademicClassLevelDescription===""||this.state.HierarchyCode===""){alert("Kindly fill in every field on the form");}else if(isNaN(hierarchy_code)){
 		 alert("The hierarchy code must strictly be an integer");
 		
 		}else{

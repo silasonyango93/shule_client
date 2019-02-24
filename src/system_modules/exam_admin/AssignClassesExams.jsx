@@ -30,9 +30,10 @@ constructor(props) {
     super(props);
     this.state = {
         ConfiguredExams: [],
-		Terms: [],
-		SelectedTerm:'',
+		Classes: [],
+		SelectedClasses:'',
 		SelectedExam:'',
+		CurrentSessionId:'',
 		ExamStartDate:'',
 		ExamEndDate:''
 		
@@ -43,6 +44,8 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.handleChange = this.handleChange.bind(this);
+	  this.getSelectedClassSubjects = this.getSelectedClassSubjects.bind(this);
+	  this.assignClassesExamPapers = this.assignClassesExamPapers.bind(this);
 	  
   }
 
@@ -87,7 +90,8 @@ constructor(props) {
 		    
 		this.setState({
           ...this.state,
-          ConfiguredExams: jsonArray
+          ConfiguredExams: jsonArray,
+		  CurrentSessionId:StaffNo
         });
 		  
 		 
@@ -101,33 +105,33 @@ constructor(props) {
       });
 	  
 	  /**************************************************************************************
-	 Second Axios for Terms
+	 Second Axios for classes
 	*/
-	var year=new Date().getFullYear();
-	axios.post(ip+"/get_all_current_year_terms", querystring.stringify({ TableOne: "term_iterations",
-															             JoiningKey: "TermIterationId",
-															             SearchColumn: "Year",
-                                                                         SearchValue: year}))
+	  
+	  axios.post(ip+"/get_all_class_by_full_reference", querystring.stringify({ TableTwo: "academic_class_levels",
+															                    JoiningKeyOne: "AcademicClassLevelId",
+															                    TableThree: "class_streams",
+															                    JoiningKeyTwo: "ClassStreamId"}))
 		.then((response) => {
         
 		  var my_json=response.data.results;
 		 
 		  var jsonArray=[];
 		  var jsonObject= null;
-		  var term_full_reference="";
+		  var full_class_reference="";
 		  
 		  my_json.forEach((item) => {
             
-			  term_full_reference=item.IterationDescription+"("+item.Year+")";
-			
-			  jsonObject={value:item.ActualTermId,label:term_full_reference}
+			  full_class_reference=item.AcademicClassLevelName+" "+item.ClassStreamName
+			  
+			  jsonObject={value:item.ClassId,label:full_class_reference}
 			  jsonArray.push(jsonObject);
 			  
         });
 		    
 		this.setState({
           ...this.state,
-          Terms: jsonArray
+          Classes: jsonArray
         });
 		  
 		 
@@ -147,36 +151,14 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedTerm===""||this.state.SelectedExamType===""||this.state.DepartmentDescription===""||this.state.ExamStartDate===""||this.state.ExamEndDate===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedClasses===""||this.state.SelectedExam===""){alert("Kindly fill in every field on the form");}else{
 		
-		var CurrentSessionId=window.sessionStorage.getItem("StaffNo");
-		var ExamStartDate=this.state.ExamStartDate._d.getFullYear()+"-"+(this.state.ExamStartDate._d.getMonth()+1)+"-"+this.state.ExamStartDate._d.getDate();
-		var ExamEndDate=this.state.ExamEndDate._d.getFullYear()+"-"+(this.state.ExamEndDate._d.getMonth()+1)+"-"+this.state.ExamEndDate._d.getDate();
-      
-	  axios.post(ip+"/add_exams", querystring.stringify({ ExamTypeId: this.state.SelectedExamType.value,
-														  ActualTermId: this.state.SelectedTerm.value,
-														  ExamStartDate: ExamStartDate,
-														  ExamEndDate: ExamEndDate,
-														  ConfiguredBy: CurrentSessionId}))
-		.then((response) => {
-        
-		  alert(response.data.results.message);
-		  
-		  this.setState({
-          ...this.state,
-          SelectedDepartmentType:'',
-		  DepartmentName:'',
-		  DepartmentDescription:'',
-		  DepartmentRefNo:'',
-          });
-		  
-    } )
-     .catch((response) => {
-        //handle error
-        console.log(response);
-      });
-	}
- }
+
+             this.getSelectedClassSubjects();
+
+
+	    }
+    }
    
 	
 	
@@ -189,6 +171,92 @@ constructor(props) {
         });
 		
 	}
+	
+	
+	
+	
+	
+	getSelectedClassSubjects(){
+	
+	
+	  this.state.SelectedClasses.forEach((item) => {
+	  
+	     axios.post(ip+"/get_specific_class_specific_subjects", querystring.stringify({ column_name: "ClassId",
+															                             search_value: item.value}))
+		.then((response) => {
+        
+		  var current_class_subjects=response.data.results;
+		 
+		  
+		  
+		   current_class_subjects.forEach((item) => {
+            
+			  this.assignClassesExamPapers(item.ClassSpecificSubjectId);
+			  
+           });
+		    
+		   alert("Examination papers have been assigned to classes");
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	  
+	  
+	  });
+	
+	
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	assignClassesExamPapers(ClassSpecificSubjectId){
+	
+	
+	   axios.post(ip+"/add_exam_papers", querystring.stringify({ ExamId: this.state.SelectedExam.value,
+	                                                             ClassSpecificSubjectId: ClassSpecificSubjectId,
+																 ExamPaperStartDate: "2019-02-24 12:48:37.059",
+																 ExamPaperEndDate: "2019-02-24 12:48:37.059",
+																 ConfiguredBy: this.state.CurrentSessionId,
+															     WasItDone: "0"}))
+		.then((response) => {
+        
+		  //var current_class_subjects=response.data.results;
+		 
+		  
+		    
+		
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	  
+	  
+	 
+	
+	
+	
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -231,75 +299,30 @@ constructor(props) {
                     </Row>
 					
 					 <Row>
-                      <Label md="3">Term</Label>
+                      <Label md="3">Classes</Label>
                       <Col md="9">
                         <FormGroup>
 		            <Select
                             className="react-select info"
                             classNamePrefix="react-select"
-                            placeholder="Select Term"
-                            name="SelectTerm"
+                            placeholder="Select the Classes"
+                            name="SelectedClasses"
                             closeMenuOnSelect={false}
-                            value={this.state.SelectedTerm}
+							isMulti
+                            value={this.state.SelectedClasses}
                             onChange={value =>
                               this.setState({
                               ...this.state,
-                                      SelectedTerm: value
+                                      SelectedClasses: value
                               })
 	  
                             }
-                            options={this.state.Terms}
+                            options={this.state.Classes}
                           />
 		            </FormGroup>
                       </Col>
                     </Row>
 					
-                    <Row>
-                      <Label md="3">Start Date</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <ReactDatetime
-                            name="ExamStartDate"
-                            value={this.state.ExamStartDate}
-                            onChange={value =>
-                              this.setState({
-                              ...this.state,
-                                      ExamStartDate: value
-                              })
-	  
-                            }
-                            inputProps={{
-                             className: "form-control",
-                             placeholder: "Exam Start Date"
-                          }}
-                           timeFormat={false}
-                         />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-		           <Row>
-                      <Label md="3">Start Date</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <ReactDatetime
-                            name="ExamEndDate"
-                            value={this.state.ExamEndDate}
-                            onChange={value =>
-                              this.setState({
-                              ...this.state,
-                                      ExamEndDate: value
-                              })
-	  
-                            }
-                            inputProps={{
-                             className: "form-control",
-                             placeholder: "Exam End Date"
-                          }}
-                           timeFormat={false}
-                         />
-                        </FormGroup>
-                      </Col>
-                    </Row>
 		            
                   </Form>
                 </CardBody>
