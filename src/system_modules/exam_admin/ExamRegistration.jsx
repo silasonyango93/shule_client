@@ -102,10 +102,13 @@ constructor(props) {
 		 
 		  var jsonArray=[];
 		  var jsonObject= null;
+		  var term_full_reference="";
 		  
 		  my_json.forEach((item) => {
             
-			  jsonObject={value:item.ActualTermId,label:item.IterationDescription}
+			  term_full_reference=item.IterationDescription+"("+item.Year+")";
+			
+			  jsonObject={value:item.ActualTermId,label:term_full_reference}
 			  jsonArray.push(jsonObject);
 			  
         });

@@ -22,7 +22,15 @@ const routes = [
         mini: "ET",
         component: ExamTypesConfig,
         layout: "/exam_admin"
-      },
+      }
+    ]
+  },
+  {
+    collapse: true,
+    name: "Registration",
+    icon: "nc-icon nc-book-bookmark",
+    state: "pagesCollapse",
+    views: [
 	  {
         path: "/examination_registration",
         name: "Exam Registration",
