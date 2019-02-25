@@ -28,7 +28,8 @@ class TableRow extends React.Component {
 
 
       this.state = {
-        Marks: ''
+        Marks: '',
+		ButtonColour:'green'
 		
     };
 
@@ -63,7 +64,7 @@ class TableRow extends React.Component {
 			<td>{this.props.data.MiddleName}</td>
             <td>{this.props.data.Surname}</td>
 			<td><Input placeholder="Marks" type="text" name="Marks" value={this.state.Marks} type="text" onChange={this.handleChange} autofocus /></td>
-			<td><Button className="btn-round" color="info" type="submit" onClick={this.handleSubmit}>Submit</Button></td>
+			<td><Button className="btn-round" style={{background:this.state.ButtonColour}} type="submit" onClick={this.handleSubmit}>Submit</Button></td>
          </tr>
 		  
             
