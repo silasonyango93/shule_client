@@ -17,8 +17,8 @@ const routes = [
     views: [
       {
         path: "/teacher_select_exam",
-        name: "Select Exam",
-        mini: "SE",
+        name: "Submit Marks",
+        mini: "SM",
         component: SelectExam,
         layout: "/teachers_portal"
       }

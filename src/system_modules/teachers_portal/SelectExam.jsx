@@ -30,7 +30,9 @@ constructor(props) {
     super(props);
     this.state = {
         Exams: [],
-		SelectedExam:''
+		MySubjects: [],
+		SelectedExam:'',
+		SelectedClassSubject:''
 		
 		
 		
@@ -93,6 +95,57 @@ constructor(props) {
         console.log(response);
       });
 	  
+	  
+	  
+	  //Second axios for my subjects
+	  
+	  
+	  axios.post(ip+"/get_a_teachers_specific_subjects_by_full_reference", querystring.stringify({JoiningKeyOne: "ClassSpecificSubjectId",
+															                                      TableTwo: "class_specific_subjects",
+															                                      JoiningKeyTwo: "SubjectId",
+																		                          TableThree: "subjects",
+																								  JoiningKeyThree: "ClassId",
+															                                      TableFour: "classes",
+															                                      JoiningKeyFour: "AcademicClassLevelId",
+																		                          TableFive: "academic_class_levels",
+															                                      JoiningKeyFive: "ClassStreamId",
+															                                      TableSix: "class_streams",
+																		                          SearchColumn: "StaffNo",
+                                                                                                  SearchValue: StaffNo}))
+		.then((response) => {
+        
+		  var my_json=response.data.results;
+		 
+		  var jsonArray=[];
+		  var jsonObject= null;
+		  var my_subjects_by_full_reference="";
+		  
+		  my_json.forEach((item) => {
+		  
+		      my_subjects_by_full_reference=item.SubjectName+"  -  ("+item.AcademicClassLevelName+"  "+item.ClassStreamName+")";
+            
+			  jsonObject={value:item.ClassSpecificSubjectId,label:my_subjects_by_full_reference}
+			  jsonArray.push(jsonObject);
+			  
+        });
+		    
+		this.setState({
+          ...this.state,
+          MySubjects: jsonArray,
+		  
+        });
+		  
+		 
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	  
+	  
 	  }  
 
   }
@@ -125,12 +178,12 @@ constructor(props) {
 	
 	open_new_tab() {
 	   const url = 'http://127.0.0.1:3000/class_exam_papers_table';
-      /* var character_url = this.props.data.url;
-	   character_url=character_url+"?format=json";
+       var ClassSpecificSubjectId = this.state.SelectedClassSubject.value;
+	   var ExamId = this.state.SelectedExam.value;
 	   var w = window.open(url);
-	   w.character_url = character_url;*/
+	   w.ClassSpecificSubjectId = ClassSpecificSubjectId;
+	   w.ExamId = ExamId;
 	   
-	   var w = window.open(url);
 	   
      } 
 	
@@ -146,10 +199,33 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Select Exam</CardTitle>
+                  <CardTitle tag="h4">Submit Marks</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
+				    <Row>
+                      <Label md="3">Subject</Label>
+                      <Col md="9">
+                        <FormGroup>
+		            <Select
+                            className="react-select info"
+                            classNamePrefix="react-select"
+                            placeholder="Select Subject"
+                            name="SelectedClassSubject"
+                            closeMenuOnSelect={false}
+                            value={this.state.SelectedClassSubject}
+                            onChange={value =>
+                              this.setState({
+                              ...this.state,
+                                      SelectedClassSubject: value
+                              })
+	  
+                            }
+                            options={this.state.MySubjects}
+                          />
+		            </FormGroup>
+                      </Col>
+                    </Row>
 		            <Row>
                       <Label md="3">Exam</Label>
                       <Col md="9">
