@@ -3,6 +3,7 @@ import { FaHeart } from 'react-icons/fa';
 import { FaTrash } from 'react-icons/fa';
 import axios from "axios";
 import querystring from "querystring";
+import ip from "../../common/EndPoints.js";
 
 
 import {
@@ -34,6 +35,7 @@ class TableRow extends React.Component {
     };
 
 	  this.handleChange = this.handleChange.bind(this);
+	  this.handleSubmit = this.handleSubmit.bind(this);
    }
 	
 	
@@ -52,6 +54,41 @@ class TableRow extends React.Component {
    
    
    
+   
+   
+   handleSubmit(event){ 
+      event.preventDefault();
+		
+		if(this.state.Marks===""){alert("Kindly fill in the mark");}else{
+		
+      axios.post(ip+"/update_student_specific_exam_papers_marks", querystring.stringify({ Marks: this.state.Marks,
+	                                                                                      ColumnOne: "AdmissionNo",
+																						  ValueOne: this.props.data.AdmissionNo,
+																						  ColumnTwo: "ExamPaperId",
+	                                                                                      ValueTwo: this.props.data.ExamPaperId}))
+		.then((response) => {
+		  
+		  alert(response.data.results.message);
+		  
+		  this.setState({
+          ...this.state,
+          ButtonColour: 'red'
+          });
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+  
+			
+	}		
+ }
+   
+   
+   
+   
 	
 	
    render() {
@@ -63,7 +100,7 @@ class TableRow extends React.Component {
             <td>{this.props.data.FirstName}</td>
 			<td>{this.props.data.MiddleName}</td>
             <td>{this.props.data.Surname}</td>
-			<td><Input placeholder="Marks" type="text" name="Marks" value={this.state.Marks} type="text" onChange={this.handleChange} autofocus /></td>
+			<td><Input placeholder={this.props.data.Marks} type="text" name="Marks" value={this.state.Marks} type="text" onChange={this.handleChange} autofocus /></td>
 			<td><Button className="btn-round" style={{background:this.state.ButtonColour}} type="submit" onClick={this.handleSubmit}>Submit</Button></td>
          </tr>
 		  
