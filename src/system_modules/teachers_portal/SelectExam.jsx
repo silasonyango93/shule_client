@@ -8,6 +8,7 @@ import Select from "react-select";
 import Button from "components/CustomButtons/Button.jsx";
 
 
+
 // reactstrap components
 import {
   Card,
@@ -41,7 +42,7 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.handleChange = this.handleChange.bind(this);
-	  this.open_new_tab = this.open_new_tab.bind(this);
+	  
 	  
   }
 
@@ -155,7 +156,14 @@ constructor(props) {
 		
 		if(this.state.SelectedExam===""){alert("Kindly fill in every field on the form");}else{
 		
-           this.open_new_tab();
+		var ClassSpecificSubjectId = this.state.SelectedClassSubject.value;
+	    var ExamId = this.state.SelectedExam.value;
+	    var SubjectTitle = this.state.SelectedClassSubject.label+" - "+this.state.SelectedExam.label;
+		
+           this.props.history.push({
+               pathname: '/class_exam_papers_table',
+               state: { ClassSpecificSubjectId: ClassSpecificSubjectId,ExamId: ExamId,SubjectTitle :SubjectTitle}
+           })
 	  
 	  
 	    }
@@ -176,16 +184,7 @@ constructor(props) {
 	
 	
 	
-	open_new_tab() {
-	   const url = 'http://127.0.0.1:3000/class_exam_papers_table';
-       var ClassSpecificSubjectId = this.state.SelectedClassSubject.value;
-	   var ExamId = this.state.SelectedExam.value;
-	   var w = window.open(url);
-	   w.ClassSpecificSubjectId = ClassSpecificSubjectId;
-	   w.ExamId = ExamId;
-	   
-	   
-     } 
+	
 	
 	
 	

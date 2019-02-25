@@ -27,7 +27,7 @@ class Table extends React.Component {
                 id="dataTables-example"
 		        
               >
-                <tbody>
+                <tbody style={{margin:2}}>
 		        <TableHeader />
                   {this.props.dataProp.map((person, i) => (
                     <TableRow key={i} data={person} />

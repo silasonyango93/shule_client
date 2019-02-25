@@ -69,12 +69,12 @@ class App extends Component {
 		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
 		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
-		 <Route path="/teachers_portal_login" component={TeachersPortalLogin} />
+		<Route path="/teachers_portal_login" component={TeachersPortalLogin} />
         <Route path="/exam_admin_login" component={ExamAdminLogin} />
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
 		<Route path="/student_admin_login" component={StudentAdminLogin} />
-		<Redirect from="/" to="/teachers_portal_login" />
+		<Redirect from="/" to="/class_exam_papers_table" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		
@@ -113,6 +113,7 @@ class App extends Component {
 		
 		
 		<Route path="/teacher_select_exam" component={SelectExam} />
+		
 		
 		
 		

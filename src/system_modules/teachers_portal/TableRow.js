@@ -37,9 +37,10 @@ class TableRow extends React.Component {
       return (
 		  
          <tr>
-            <td>{this.props.data.id}</td>
-            <td>{this.props.data.name}</td>
-            <td>{this.props.data.age}</td>
+            <td>{this.props.data.AdmissionNo}</td>
+            <td>{this.props.data.FirstName}</td>
+			<td>{this.props.data.MiddleName}</td>
+            <td>{this.props.data.Surname}</td>
 			<td><Input style={{alignSelf: 'stretch'}} placeholder="My Input" name="password" type="text" value="" /></td>
 			<td><Button className="btn-round" color="info" type="submit" onClick={this.handleSubmit}>Submit</Button></td>
          </tr>
