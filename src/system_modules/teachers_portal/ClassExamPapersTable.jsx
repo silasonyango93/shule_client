@@ -80,6 +80,15 @@ class ClassExamPapersTable extends React.Component {
                                                                                                 SearchValue: this.state.ExamPaperId}))
 		.then((response) => {
         
+		var student_exam_papers=response.data.results;
+		var counter=1;
+		
+		student_exam_papers.forEach((item) => {
+		
+		     item["counter"] = counter;
+			 counter++;
+		
+		});
 		
 		 
 		this.setState({

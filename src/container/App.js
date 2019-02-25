@@ -69,6 +69,8 @@ class App extends Component {
 		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
 		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
+		
+		
 		<Route path="/teachers_portal_login" component={TeachersPortalLogin} />
         <Route path="/exam_admin_login" component={ExamAdminLogin} />
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />

@@ -5,6 +5,7 @@ class TableHeader extends React.Component {
 		  
          
 		  <tr>
+		      <th>#</th>
 		      <th>Admission Number</th>
               <th>First Name</th>
               <th>MiddleName</th>
