@@ -26,10 +26,30 @@ class TableRow extends React.Component {
   constructor(props) {
     super(props);
 
-	  
+
+      this.state = {
+        Marks: ''
+		
+    };
+
+	  this.handleChange = this.handleChange.bind(this);
    }
 	
 	
+   
+   
+   handleChange(event) {    
+    let newState = this.state
+    newState[event.target.name] = event.target.value
+    let prop = event.target.name
+        this.setState({
+          ...newState     
+        });
+		
+	}
+	
+   
+   
    
 	
 	
@@ -41,7 +61,7 @@ class TableRow extends React.Component {
             <td>{this.props.data.FirstName}</td>
 			<td>{this.props.data.MiddleName}</td>
             <td>{this.props.data.Surname}</td>
-			<td><Input style={{alignSelf: 'stretch'}} placeholder="My Input" name="password" type="text" value="" /></td>
+			<td><Input placeholder="Marks" type="text" name="Marks" value={this.state.Marks} type="text" onChange={this.handleChange} autofocus /></td>
 			<td><Button className="btn-round" color="info" type="submit" onClick={this.handleSubmit}>Submit</Button></td>
          </tr>
 		  

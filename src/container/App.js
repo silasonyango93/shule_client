@@ -74,7 +74,7 @@ class App extends Component {
 		<Route path="/staff_admin_login" component={StaffAdminLogin} />
 		<Route path="/tuition_admin_login" component={TuitionAdminLogin} />
 		<Route path="/student_admin_login" component={StudentAdminLogin} />
-		<Redirect from="/" to="/class_exam_papers_table" />
+		<Redirect from="/" to="/teachers_portal_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
 		

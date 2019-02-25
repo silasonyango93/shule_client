@@ -82,7 +82,7 @@ constructor(props) {
 		    
 		this.setState({
           ...this.state,
-          Exams: jsonArray,
+          Exams: jsonArray
 		  
         });
 		  

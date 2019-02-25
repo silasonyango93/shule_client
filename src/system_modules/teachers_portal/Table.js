@@ -5,12 +5,16 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { data: this.props.dataProps };
+    this.state = { data: this.props.dataProps
+	             };
     console.log(this.props.dataProp)
 	  
 	  
   }
 	
+   
+ 
+   
    
 	
   render() {
@@ -18,7 +22,7 @@ class Table extends React.Component {
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Student's fee statements</div>
+            <div class="panel-heading">Submit Marks</div>
 
             <div class="panel-body">
               <table

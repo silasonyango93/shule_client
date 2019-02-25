@@ -10,23 +10,7 @@ class ClassExamPapersTable extends React.Component {
     this.state = {
       ExamPaperId: '',
 	  StudentExamPapers:[],
-	  data: [
-        {
-          id: 1,
-          name: "Foo",
-          age: "20"
-        },
-        {
-          id: 2,
-          name: "Bar",
-          age: "30"
-        },
-        {
-          id: 3,
-          name: "Baz",
-          age: "40"
-        }
-]
+	  subjectTitleObject:''
   }
   
   this.getStudentsPapers = this.getStudentsPapers.bind(this);
@@ -39,6 +23,7 @@ class ClassExamPapersTable extends React.Component {
    var ClassSpecificSubjectId = this.props.location.state.ClassSpecificSubjectId;
    var ExamId = this.props.location.state.ExamId;
    var SubjectTitle = this.props.location.state.SubjectTitle;
+   var subjectTitleObject={SubjectTitle:SubjectTitle};
    
   
    
@@ -53,7 +38,8 @@ class ClassExamPapersTable extends React.Component {
 		    
 		this.setState({
           ...this.state,
-          ExamPaperId: response.data.results[0].ExamPaperId
+          ExamPaperId: response.data.results[0].ExamPaperId,
+		  subjectTitleObject:subjectTitleObject
 		  
         });
 		  
@@ -94,7 +80,7 @@ class ClassExamPapersTable extends React.Component {
                                                                                                 SearchValue: this.state.ExamPaperId}))
 		.then((response) => {
         
-		 
+		
 		 
 		this.setState({
           ...this.state,
