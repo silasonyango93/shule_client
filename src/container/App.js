@@ -12,6 +12,7 @@ import TeachersPortalLayout from "layouts/TeachersPortal/TeachersPortal.jsx";
 import TuitionAdminLogin from '../system_modules/system_admin/TuitionAdminLogin.jsx';
 import DepartmentTypes from '../system_modules/system_admin/DepartmentTypes.jsx';
 import DepartmentsConfiguration from '../system_modules/system_admin/DepartmentsConfiguration.jsx';
+import SelectCurriculum from '../system_modules/system_admin/SelectCurriculum.jsx';
 
 import AcademicClassLevelConfig from '../system_modules/system_admin/AcademicClassLevelConfig.jsx';
 import ClassStreamsConfig from '../system_modules/system_admin/ClassStreamsConfig.jsx';
@@ -48,6 +49,7 @@ import ExamTypesConfig from '../system_modules/exam_admin/ExamTypesConfig.jsx';
 import ExamRegistration from '../system_modules/exam_admin/ExamRegistration.jsx';
 import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.jsx';
 import SelectResults from '../system_modules/exam_admin/SelectResults.jsx';
+import ResultsTable from '../system_modules/exam_admin/ResultsTable.jsx';
 
 
 
@@ -70,6 +72,7 @@ class App extends Component {
 		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
 		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
+		<Route path="/results_table" component={ResultsTable} />
 		
 		
 		<Route path="/teachers_portal_login" component={TeachersPortalLogin} />
@@ -80,6 +83,7 @@ class App extends Component {
 		<Redirect from="/" to="/teachers_portal_login" />
 		<Route path="/config_department_types" component={DepartmentTypes} />
 		<Route path="/config_departments" component={DepartmentsConfiguration} />
+		<Route path="/select_curriculum" component={SelectCurriculum} />
 		
 		<Route path="/config_academic_class_level" component={AcademicClassLevelConfig} />
 		<Route path="/config_class_stream" component={ClassStreamsConfig} />

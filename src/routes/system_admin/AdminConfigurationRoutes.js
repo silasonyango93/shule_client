@@ -12,6 +12,7 @@ import TermIterationsConfig from "../../system_modules/system_admin/TermIteratio
 import ActualTermsRegistration from "../../system_modules/system_admin/ActualTermsRegistration.jsx";
 import WeekIterationsConfiguration from "../../system_modules/system_admin/WeekIterationsConfiguration.jsx";
 import ActualWeeksRegistration from "../../system_modules/system_admin/ActualWeeksRegistration.jsx";
+import SelectCurriculum from "../../system_modules/system_admin/SelectCurriculum.jsx";
 
 const routes = [
   {
@@ -21,11 +22,19 @@ const routes = [
     layout: "/admin"
   },
   {
+    path: "/select_curriculum",
+    name: "Select Curriculum",
+    icon: "nc-icon nc-bank",
+	component: SelectCurriculum,
+    layout: "/admin"
+  },
+  {
     collapse: true,
     name: "Departments",
     icon: "nc-icon nc-book-bookmark",
     state: "pagesCollapse",
     views: [
+	   
       {
         path: "/config_department_types",
         name: "Department Types",
