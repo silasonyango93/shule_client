@@ -1,6 +1,7 @@
 import ExamTypesConfig from "../../system_modules/exam_admin/ExamTypesConfig.jsx";
 import ExamRegistration from "../../system_modules/exam_admin/ExamRegistration.jsx";
 import AssignClassesExams from "../../system_modules/exam_admin/AssignClassesExams.jsx";
+import SelectResults from "../../system_modules/exam_admin/SelectResults.jsx";
 
 
 
@@ -37,6 +38,28 @@ const routes = [
         name: "Exam Registration",
         mini: "ER",
         component: ExamRegistration,
+        layout: "/exam_admin"
+      },
+	  {
+        path: "/assign_classes_exams",
+        name: "Assign Classes",
+        mini: "AC",
+        component: AssignClassesExams,
+        layout: "/exam_admin"
+      }
+    ]
+  },
+  {
+    collapse: true,
+    name: "Results",
+    icon: "nc-icon nc-book-bookmark",
+    state: "pagesCollapse",
+    views: [
+	  {
+        path: "/select_results",
+        name: "Per Class",
+        mini: "PC",
+        component: SelectResults,
         layout: "/exam_admin"
       },
 	  {
