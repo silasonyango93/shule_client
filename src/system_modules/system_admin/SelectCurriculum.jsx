@@ -77,14 +77,26 @@ this.state = {
 	 
 	PrimarySubjects:[
 	
-	    {Field:"Mathematics",Subjects:[{Name:"Mathematics"}]},
-		{Field:"English",Subjects:[{Name:"English Gramar"},{Name:"English Composition"}]},
-		{Field:"Kiswahili",Subjects:[{Name:"Kiswahili Lugha"},{Name:"Kiswahili Insha"}]},
-		{Field:"Science",Subjects:[{Name:"Science"}]},
-		{Field:"Social Studies",Subjects:[{Name:"Social Studies"},{Name:"Christian Religious Education(CRE)"},{Name:"Islamic Religious Education(IRE)"}]},
+	    {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics"}]},
+		{DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Gramar"},{Name:"English Composition"}]},
+		{DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Lugha"},{Name:"Kiswahili Insha"}]},
+		{DepartmentName:"Science Department",FieldCategoryId:"2",Field:"Science",Subjects:[{Name:"Science"}]},
+		{DepartmentName:"Social Studies/CRE/IRE Department",FieldCategoryId:"4",Field:"Social Studies/CRE/IRE",Subjects:[{Name:"Social Studies"},{Name:"Christian Religious Education(CRE)"},{Name:"Islamic Religious Education(IRE)"}]},
 		
 	
 	],
+	
+	
+	
+	PrimaryDepartments:[
+     {DepartmentTypeId:"1",DepartmentName:"Mathematics Department",DepartmentDescription:"This is a department for the Mathematics subject",DepartmentRefNo:"MD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Kiswahili Department",DepartmentDescription:"This is a department for the Kiswahili subject",DepartmentRefNo:"KD"},
+	 {DepartmentTypeId:"1",DepartmentName:"English Department",DepartmentDescription:"This is a department for the English subject",DepartmentRefNo:"ED"},
+	 {DepartmentTypeId:"1",DepartmentName:"Science Department",DepartmentDescription:"This is a department for the Science subject",DepartmentRefNo:"ScD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Social Studies/CRE/IRE Department",DepartmentDescription:"This is a department for the Social Studies/CRE/IRE subject",DepartmentRefNo:"SCID"}
+  
+  
+  ],
 	
 	
 	
@@ -101,23 +113,44 @@ this.state = {
    
   SecondarySubjects:[
   
-      {Field:"Mathematics",Subjects:[{Name:"Mathematics Paper 1"},{Name:"Mathematics Paper 2"}]},
-	  {Field:"English",Subjects:[{Name:"English Paper 1"},{Name:"English Paper 2"},{Name:"English Literature"}]},
-	  {Field:"Kiswahili",Subjects:[{Name:"Kiswahili Paper 1"},{Name:"Kiswahili Paper 2"},{Name:"Kiswahili Fasihi"}]},
-	  {Field:"Physics",Subjects:[{Name:"Physics Paper 1"},{Name:"Physics Paper 2"},{Name:"Physics Practicals"}]},
-	  {Field:"Chemistry",Subjects:[{Name:"Chemistry Paper 1"},{Name:"Chemistry Paper 2"},{Name:"Chemistry Practicals"}]},
-	  {Field:"Biology",Subjects:[{Name:"Biology Paper 1"},{Name:"Biology Paper 2"},{Name:"Biology Practicals"}]},
-	  {Field:"Geography",Subjects:[{Name:"Geography Paper 1"},{Name:"Geography Paper 2"}]},
-	  {Field:"History",Subjects:[{Name:"History Paper 1"},{Name:"History Paper 2"}]},
-	  {Field:"Christian Religious Education(CRE)",Subjects:[{Name:"CRE Paper 1"},{Name:"CRE Paper 2"}]},
-	  {Field:"Agriculture",Subjects:[{Name:"Agriculture Paper 1"},{Name:"Agriculture Paper 2"},{Name:"Agriculture Practicals"}]},
-	  {Field:"Business Studies",Subjects:[{Name:"Business Studies Paper 1"},{Name:"Business Studies Paper 2"},{Name:"Business Studies Paper 3"}]},
-	  {Field:"French",Subjects:[{Name:"French Paper 1"},{Name:"French Paper 2"},{Name:"French Paper 3"}]},
-	  {Field:"Computer Studies",Subjects:[{Name:"Computer Studies Paper 1"},{Name:"Computer Studies Paper 2"},{Name:"Computer Studies Practicals"}]},
-	  {Field:"Home Science",Subjects:[{Name:"Home Science Paper 1"},{Name:"Home Science Paper 2"},{Name:"Home Science Practicals"}]},
-	  {Field:"Music",Subjects:[{Name:"Music Paper 1"},{Name:"Music Paper 2"},{Name:"Music Practicals"}]}
+      {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics Paper 1"},{Name:"Mathematics Paper 2"}]},
+	  {DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Paper 1"},{Name:"English Paper 2"},{Name:"English Literature"}]},
+	  {DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Paper 1"},{Name:"Kiswahili Paper 2"},{Name:"Kiswahili Fasihi"}]},
+	  {DepartmentName:"Physics Department",FieldCategoryId:"2",Field:"Physics",Subjects:[{Name:"Physics Paper 1"},{Name:"Physics Paper 2"},{Name:"Physics Practicals"}]},
+	  {DepartmentName:"Chemistry Department",FieldCategoryId:"2",Field:"Chemistry",Subjects:[{Name:"Chemistry Paper 1"},{Name:"Chemistry Paper 2"},{Name:"Chemistry Practicals"}]},
+	  {DepartmentName:"Biology Department",FieldCategoryId:"2",Field:"Biology",Subjects:[{Name:"Biology Paper 1"},{Name:"Biology Paper 2"},{Name:"Biology Practicals"}]},
+	  {DepartmentName:"Geography Department",FieldCategoryId:"4",Field:"Geography",Subjects:[{Name:"Geography Paper 1"},{Name:"Geography Paper 2"}]},
+	  {DepartmentName:"History Department",FieldCategoryId:"4",Field:"History",Subjects:[{Name:"History Paper 1"},{Name:"History Paper 2"}]},
+	  {DepartmentName:"CRE  Department",FieldCategoryId:"4",Field:"Christian Religious Education(CRE)",Subjects:[{Name:"CRE Paper 1"},{Name:"CRE Paper 2"}]},
+	  {DepartmentName:"Agriculture  Department",FieldCategoryId:"5",Field:"Agriculture",Subjects:[{Name:"Agriculture Paper 1"},{Name:"Agriculture Paper 2"},{Name:"Agriculture Practicals"}]},
+	  {DepartmentName:"Business Studies  Department",FieldCategoryId:"5",Field:"Business Studies",Subjects:[{Name:"Business Studies Paper 1"},{Name:"Business Studies Paper 2"},{Name:"Business Studies Paper 3"}]},
+	  {DepartmentName:"French  Department",FieldCategoryId:"5",Field:"French",Subjects:[{Name:"French Paper 1"},{Name:"French Paper 2"},{Name:"French Paper 3"}]},
+	  {DepartmentName:"Computer Studies  Department",FieldCategoryId:"5",Field:"Computer Studies",Subjects:[{Name:"Computer Studies Paper 1"},{Name:"Computer Studies Paper 2"},{Name:"Computer Studies Practicals"}]},
+	  {DepartmentName:"Home Science  Department",FieldCategoryId:"5",Field:"Home Science",Subjects:[{Name:"Home Science Paper 1"},{Name:"Home Science Paper 2"},{Name:"Home Science Practicals"}]},
+	  {DepartmentName:"Music Department",FieldCategoryId:"5",Field:"Music",Subjects:[{Name:"Music Paper 1"},{Name:"Music Paper 2"},{Name:"Music Practicals"}]}
+  
+  ],
+  
+  SecondaryDepartments:[
+  
+     {DepartmentTypeId:"1",DepartmentName:"Mathematics Department",DepartmentDescription:"This is a department for the Mathematics subject",DepartmentRefNo:"MD"},
+	 {DepartmentTypeId:"1",DepartmentName:"English Department",DepartmentDescription:"This is a department for the English subject",DepartmentRefNo:"ED"},
+	 {DepartmentTypeId:"1",DepartmentName:"Kiswahili Department",DepartmentDescription:"This is a department for the Kiswahili subject",DepartmentRefNo:"KD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Physics Department",DepartmentDescription:"This is a department for the Physics subject",DepartmentRefNo:"PD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Chemistry Department",DepartmentDescription:"This is a department for the Chemistry subject",DepartmentRefNo:"CD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Biology Department",DepartmentDescription:"This is a department for the Biology subject",DepartmentRefNo:"BD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Geography Department",DepartmentDescription:"This is a department for the Geography subject",DepartmentRefNo:"GD"},
+	 {DepartmentTypeId:"1",DepartmentName:"History Department",DepartmentDescription:"This is a department for the History subject",DepartmentRefNo:"HD"},
+	 {DepartmentTypeId:"1",DepartmentName:"CRE  Department",DepartmentDescription:"This is a department for the CRE subject",DepartmentRefNo:"CRED"},
+	 {DepartmentTypeId:"1",DepartmentName:"Agriculture  Department",DepartmentDescription:"This is a department for the Agriculture subject",DepartmentRefNo:"AgD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Business Studies  Department",DepartmentDescription:"This is a department for the Business Studies subject",DepartmentRefNo:"BSD"},
+	 {DepartmentTypeId:"1",DepartmentName:"French  Department",DepartmentDescription:"This is a department for the French subject",DepartmentRefNo:"FrD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Computer Studies  Department",DepartmentDescription:"This is a department for the Computer Studies subject",DepartmentRefNo:"CSD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Home Science  Department",DepartmentDescription:"This is a department for the Home Science subject",DepartmentRefNo:"HSD"},
+	 {DepartmentTypeId:"1",DepartmentName:"Music Department",DepartmentDescription:"This is a department for the Music subject",DepartmentRefNo:"MuD"}
   
   ]
+  
 		
 		
 };
@@ -128,6 +161,11 @@ this.state = {
 	  this.handleCurriculumDropDownChanged = this.handleCurriculumDropDownChanged.bind(this);
 	  this.setCurriculumLevels = this.setCurriculumLevels.bind(this);
 	  this.insertAcademicClassLevels = this.insertAcademicClassLevels.bind(this);
+	  this.getDepartmentIds = this.getDepartmentIds.bind(this);
+	  this.configureDepartments = this.configureDepartments.bind(this);
+	  this.insertFields = this.insertFields.bind(this);
+	  this.insertSubjects = this.insertSubjects.bind(this);
+	  this.getFieldIds = this.getFieldIds.bind(this);
 	  
 	  
 	  
@@ -153,13 +191,39 @@ this.state = {
 		
 				if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="1"){
 				
-				     this.state.PrimaryClassLevels.forEach((item) => {
+				     this.state.PrimaryDepartments.forEach((item) => {
 					 
-					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
+					     this.configureDepartments(item);
+						 
 					 
 					 });
-				
-				      alert("Academic class levels successfully added");
+					 
+					 this.state.PrimarySubjects.forEach((item) => {
+					 
+					     
+						 this.getDepartmentIds(item);
+					 
+					 });
+					 
+					 
+					 this.state.PrimarySubjects.forEach((item) => {
+					 
+					     
+						 this.getFieldIds(item);
+					 
+					 });
+				     
+					 
+					 this.state.PrimaryClassLevels.forEach((item) => {
+					 
+					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
+						 
+					 
+					 });
+					 
+					 
+				 alert("The Selected curriculum's environment is ready");
+				      
 					  
 				}else if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="2"){
 				
@@ -169,7 +233,7 @@ this.state = {
 					 
 					 });
 				
-				      alert("Academic class levels successfully added");
+				      
 				}					   
 	}
  }
@@ -255,6 +319,138 @@ this.state = {
       });
 	
 	}
+	
+	
+	
+	
+	getDepartmentIds(item){
+	
+	   //Second axios for getting department Id*************************************************************************************************************************************
+	   
+	   axios.post(ip+"/get_specific_departments", querystring.stringify({ column_name: "DepartmentName",
+															              search_value: item.DepartmentName}))
+		.then((response) => {
+        
+		  
+		  this.insertFields(item,response.data.results[0].DepartmentId);
+		  
+		  
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      }); 
+		
+	
+	
+	}
+	
+	
+	
+	
+	insertFields(item,DepartmentId){
+	
+	
+	    
+	   //Second axios for field*************************************************************************************************************************************
+	   
+	   axios.post(ip+"/add_fields_", querystring.stringify({FieldCategoryId: item.FieldCategoryId,
+															DepartmentId: DepartmentId,
+															FieldName: item.Field,
+															FieldDescription: item.Field,
+															FieldRefNo: item.Field}))
+		.then((response) => {
+        
+		  
+		  
+		  
+		  
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	  
+	 
+	
+	}
+	
+	
+	
+	
+	getFieldIds(item){
+	
+	
+	    axios.post(ip+"/get_specific_fields_", querystring.stringify({ column_name: "FieldName",
+															           search_value: item.Field}))
+		.then((response) => {
+        
+		  
+		  this.insertSubjects(item,response.data.results[0].fieldId);
+		  
+		  
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      }); 
+	
+	
+	}
+	
+	
+	
+	insertSubjects(item,FieldId){
+	
+	      
+		item.Subjects.forEach((subject_item) => {
+	  
+	  axios.post(ip+"/add_subjects", querystring.stringify({ FieldId: FieldId,
+															 SubjectName: subject_item.Name,
+															 SubjectDescription: subject_item.Name,
+															 SubjectRefNo: subject_item.Name}))
+		.then((response) => {
+        
+		  
+		  
+		  
+		  
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	});
+	
+	}
+	
+	
+	
+	configureDepartments(item){
+	
+	
+	    //First axios for Departments
+		
+		axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: item.DepartmentTypeId,
+															    DepartmentName: item.DepartmentName,
+															    DepartmentDescription: item.DepartmentDescription,
+															    DepartmentRefNo: item.DepartmentRefNo}))
+		.then((response) => {
+        
+		
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+		
+	
+	
+	}
+	
+	
+	
 	
 	
 	
