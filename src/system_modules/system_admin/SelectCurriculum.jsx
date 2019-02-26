@@ -49,6 +49,14 @@ this.state = {
 	  ],
 	  
 	  
+	  NewKenyanCurriculumLevels:[
+	  
+	     {label:"Primary",value:"1"},
+		 {label:"Secondary",value:"2"}
+	  
+	  ],
+	  
+	  
 	  
 	 PrimaryClassLevels:[
 	 
@@ -119,6 +127,7 @@ this.state = {
 	  this.handleChange = this.handleChange.bind(this);
 	  this.handleCurriculumDropDownChanged = this.handleCurriculumDropDownChanged.bind(this);
 	  this.setCurriculumLevels = this.setCurriculumLevels.bind(this);
+	  this.insertAcademicClassLevels = this.insertAcademicClassLevels.bind(this);
 	  
 	  
 	  
@@ -140,9 +149,28 @@ this.state = {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedStudentTypeCategory===""||this.state.SelectedStudentType===""||this.state.AdmissionNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedCurriculum===""||this.state.SelectedCurriculumLevel===""){alert("Kindly fill in every field on the form");}else{
 		
-									   
+				if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="1"){
+				
+				     this.state.PrimaryClassLevels.forEach((item) => {
+					 
+					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
+					 
+					 });
+				
+				      alert("Academic class levels successfully added");
+					  
+				}else if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="2"){
+				
+				     this.state.SecondaryClassLevels.forEach((item) => {
+					 
+					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
+					 
+					 });
+				
+				      alert("Academic class levels successfully added");
+				}					   
 	}
  }
    
@@ -193,9 +221,38 @@ this.state = {
                       ...this.state,
                          CurriculaLevels: this.state.EightFourFourLevels
 		                 
-                    })
+                    });
+	   
+	   }else if(this.state.SelectedCurriculum.value==="2"){
+	   
+	      this.setState({
+                      ...this.state,
+                         CurriculaLevels: this.state.NewKenyanCurriculumLevels
+		                 
+                    });
 	   
 	   }
+	
+	}
+	
+	
+	
+	insertAcademicClassLevels(AcademicClassLevelName,AcademicClassLevelDescription,HierarchyCode){
+	
+	   axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: AcademicClassLevelName,
+																          AcademicClassLevelDescription: AcademicClassLevelDescription,
+																		  HierarchyCode: HierarchyCode}))
+		.then((response) => {
+		  
+		  
+		  
+		  
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
 	
 	}
 	
