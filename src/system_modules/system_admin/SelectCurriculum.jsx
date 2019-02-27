@@ -25,6 +25,7 @@ import {
 } from "reactstrap";
 
 
+
 class SelectCurriculum extends React.Component {
 constructor(props) {
     super(props);
@@ -33,6 +34,7 @@ this.state = {
       SelectedCurriculum:'',
 	  CurriculaLevels:[],
 	  SelectedCurriculumLevel:'',
+	  IsCurriculumSet:false,
 	
       Curricula:[
 		 
@@ -166,6 +168,9 @@ this.state = {
 	  this.insertFields = this.insertFields.bind(this);
 	  this.insertSubjects = this.insertSubjects.bind(this);
 	  this.getFieldNames = this.getFieldNames.bind(this);
+	  this.configureDb = this.configureDb.bind(this);
+	  this.checkIfCurriculumAlreadyConfigured = this.checkIfCurriculumAlreadyConfigured.bind(this);
+	  this.proceedWithCurriculumEnvironmentSetup = this.proceedWithCurriculumEnvironmentSetup.bind(this);
 	  
 	  
 	  
@@ -186,8 +191,25 @@ this.state = {
 	
 	handleSubmit(event){ 
       event.preventDefault();
+	
+	   this.checkIfCurriculumAlreadyConfigured(event);
 		
-		if(this.state.SelectedCurriculum===""||this.state.SelectedCurriculumLevel===""){alert("Kindly fill in every field on the form");}else{
+		
+ }
+   
+   
+   
+   
+   
+   
+   proceedWithCurriculumEnvironmentSetup(event){
+   
+   
+        if(this.state.SelectedCurriculum===""||this.state.SelectedCurriculumLevel===""){alert("Kindly fill in every field on the form");}else if(this.state.IsCurriculumSet){
+		
+		   alert("This operation is a system configuration operation and can only be performed once.\n\nHowever, if you wish to proceed with the operation, kindly contact the system's engineer(silas.onyango93@gmail.com)");
+		
+		}else{
 		
 				if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="1"){
 				
@@ -195,7 +217,8 @@ this.state = {
 						 
 		                 this.insertAcademicClassLevels(this.state.PrimaryClassLevels);
 		  
-		                 alert("The Selected curriculum's environment is ready");
+		                 this.configureDb(1,1);
+		                 
 		  
 		                     
 	
@@ -206,12 +229,21 @@ this.state = {
 						 
 		                 this.insertAcademicClassLevels(this.state.SecondaryClassLevels);
 		  
-		                 alert("The Selected curriculum's environment is ready");
+		                 this.configureDb(1,2);
 				
 				      
 				}					   
 	}
- }
+   
+   
+   
+   }
+   
+   
+   
+   
+   
+   
    
 	
 	
@@ -450,6 +482,65 @@ this.state = {
 	  
 	  
 	
+	}
+	
+	
+	
+	
+	
+	
+	configureDb(IsCurriculumSet,Curriculum){
+	
+	   axios.post(ip+"/update_individual_curriculum_config_table", querystring.stringify({ IsCurriculumSet: IsCurriculumSet,
+																                           Curriculum: Curriculum,
+																						   ColumnName: "id",
+																		                   ColumnValue: "1"}))
+		.then((response) => {
+		  
+		   alert("The Selected curriculum's environment is ready");
+		  
+		  } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	}
+	
+	
+	
+	
+	
+	
+	checkIfCurriculumAlreadyConfigured(event){
+	    
+	
+	    axios.post(ip+"/get_specific_curriculum_config_table", querystring.stringify({ column_name: "id",
+																		               search_value: "1"}))
+		.then((response) => {
+		  
+		  if(response.data.results[0].IsCurriculumSet===1){
+		  
+		  
+		      this.setState({IsCurriculumSet: true}, () => { 
+	  
+	              //
+    
+	              this.proceedWithCurriculumEnvironmentSetup(event);
+				  
+               });
+			   
+			   
+		  }else{this.proceedWithCurriculumEnvironmentSetup(event);}
+		   
+		  
+		  } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	 
 	}
 	
 	
