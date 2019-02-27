@@ -1,7 +1,7 @@
 import DepartmentTypes from "../../system_modules/system_admin/DepartmentTypes.jsx";
 import DepartmentsConfiguration from "../../system_modules/system_admin/DepartmentsConfiguration.jsx";
 
-import AcademicClassLevelConfig from "../../system_modules/system_admin/AcademicClassLevelConfig.jsx";
+
 import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsConfig.jsx";
 import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
 import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCategoriesConfig.jsx";
@@ -58,13 +58,7 @@ const routes = [
     icon: "nc-icon nc-book-bookmark",
     state: "pagesCollapse",
     views: [
-      {
-        path: "/config_academic_class_level",
-        name: "Class Levels",
-        mini: "CL",
-        component: AcademicClassLevelConfig,
-        layout: "/admin"
-      },
+      
 	  {
         path: "/config_class_stream",
         name: "Class Streams",
