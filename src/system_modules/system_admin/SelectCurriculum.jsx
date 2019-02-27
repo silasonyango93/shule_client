@@ -161,11 +161,11 @@ this.state = {
 	  this.handleCurriculumDropDownChanged = this.handleCurriculumDropDownChanged.bind(this);
 	  this.setCurriculumLevels = this.setCurriculumLevels.bind(this);
 	  this.insertAcademicClassLevels = this.insertAcademicClassLevels.bind(this);
-	  this.getDepartmentIds = this.getDepartmentIds.bind(this);
+	  this.getDepartmentName = this.getDepartmentName.bind(this);
 	  this.configureDepartments = this.configureDepartments.bind(this);
 	  this.insertFields = this.insertFields.bind(this);
 	  this.insertSubjects = this.insertSubjects.bind(this);
-	  this.getFieldIds = this.getFieldIds.bind(this);
+	  this.getFieldNames = this.getFieldNames.bind(this);
 	  
 	  
 	  
@@ -191,39 +191,35 @@ this.state = {
 		
 				if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="1"){
 				
-				     this.state.PrimaryDepartments.forEach((item) => {
-					 
-					     this.configureDepartments(item);
-						 
-					 
-					 });
-					 
-					 this.state.PrimarySubjects.forEach((item) => {
-					 
-					     
-						 this.getDepartmentIds(item);
-					 
-					 });
-					 
-					 
-					 this.state.PrimarySubjects.forEach((item) => {
-					 
-					     
-						 this.getFieldIds(item);
-					 
-					 });
 				     
 					 
-					 this.state.PrimaryClassLevels.forEach((item) => {
-					 
-					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
+					     this.configureDepartments();
 						 
 					 
-					 });
-					 
-					 
-				 alert("The Selected curriculum's environment is ready");
-				      
+					
+					     
+        
+                            
+							
+                             
+							 
+							
+		  
+		                       
+		  
+		                      
+							  
+							 
+		  
+		                       this.insertAcademicClassLevels();
+		  
+		                        
+							 
+		  
+		                       alert("The Selected curriculum's environment is ready");
+		  
+		                     
+	
 					  
 				}else if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="2"){
 				
@@ -301,11 +297,13 @@ this.state = {
 	
 	
 	
-	insertAcademicClassLevels(AcademicClassLevelName,AcademicClassLevelDescription,HierarchyCode){
-	
-	   axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: AcademicClassLevelName,
-																          AcademicClassLevelDescription: AcademicClassLevelDescription,
-																		  HierarchyCode: HierarchyCode}))
+	insertAcademicClassLevels(){
+	   
+	   this.state.PrimaryClassLevels.forEach((item) => {
+	   
+	   axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: item.Name,
+																          AcademicClassLevelDescription: item.Description,
+																		  HierarchyCode: item.HierarchyCode}))
 		.then((response) => {
 		  
 		  
@@ -318,50 +316,59 @@ this.state = {
         console.log(response);
       });
 	
+	
+	  });
+	  
 	}
 	
 	
 	
 	
-	getDepartmentIds(item){
-	
-	   //Second axios for getting department Id*************************************************************************************************************************************
+	getDepartmentName(DepartmentId){
+	  
 	   
-	   axios.post(ip+"/get_specific_departments", querystring.stringify({ column_name: "DepartmentName",
-															              search_value: item.DepartmentName}))
+	   axios.post(ip+"/get_specific_departments", querystring.stringify({ column_name: "DepartmentId",
+															              search_value: DepartmentId}))
 		.then((response) => {
         
 		  
-		  this.insertFields(item,response.data.results[0].DepartmentId);
+		  this.insertFields(DepartmentId,response.data.results[0].DepartmentName);
 		  
 		  
-    } )
+      })
+	  .then((response) => {
+        
+		  
+		  this.getFieldIds();
+		  
+		  
+      })
      .catch((response) => {
         //handle error
         console.log(response);
       }); 
 		
 	
-	
+	  
 	}
 	
 	
 	
 	
-	insertFields(item,DepartmentId){
+	insertFields(DepartmentId,DepartmentName){
 	
-	
+    this.state.PrimarySubjects.forEach((item) => {
 	    
-	   //Second axios for field*************************************************************************************************************************************
+	   if(item.DepartmentName===DepartmentName){
 	   
-	   axios.post(ip+"/add_fields_", querystring.stringify({FieldCategoryId: item.FieldCategoryId,
+	    axios.post(ip+"/add_fields_", querystring.stringify({FieldCategoryId: item.FieldCategoryId,
 															DepartmentId: DepartmentId,
 															FieldName: item.Field,
 															FieldDescription: item.Field,
 															FieldRefNo: item.Field}))
 		.then((response) => {
         
-		  
+		   this.getFieldNames(response.data.results.recordId);
 		  
 		  
 		  
@@ -371,22 +378,25 @@ this.state = {
         console.log(response);
       });
 	  
-	 
+	  }
+	 });
 	
 	}
 	
 	
 	
 	
-	getFieldIds(item){
+	getFieldNames(FieldId){
+	  
 	
-	
-	    axios.post(ip+"/get_specific_fields_", querystring.stringify({ column_name: "FieldName",
-															           search_value: item.Field}))
+	    axios.post(ip+"/get_specific_fields_", querystring.stringify({ column_name: "fieldId",
+															           search_value: FieldId}))
 		.then((response) => {
         
 		  
-		  this.insertSubjects(item,response.data.results[0].fieldId);
+		  
+		  
+		  this.insertSubjects(FieldId,response.data.results[0].FieldName);
 		  
 		  
     } )
@@ -396,13 +406,19 @@ this.state = {
       }); 
 	
 	
+	
+	
 	}
 	
 	
 	
-	insertSubjects(item,FieldId){
+	insertSubjects(FieldId,FieldName){
 	
 	      
+		  this.state.PrimarySubjects.forEach((item) => {
+		   
+		    if(item.Field===FieldName){
+		  
 		item.Subjects.forEach((subject_item) => {
 	  
 	  axios.post(ip+"/add_subjects", querystring.stringify({ FieldId: FieldId,
@@ -423,15 +439,19 @@ this.state = {
 	
 	});
 	
+	
+	}});
+	
+	
 	}
 	
 	
 	
-	configureDepartments(item){
+	configureDepartments(){
 	
-	
+	    
 	    //First axios for Departments
-		
+		this.state.PrimaryDepartments.forEach((item) => {
 		axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: item.DepartmentTypeId,
 															    DepartmentName: item.DepartmentName,
 															    DepartmentDescription: item.DepartmentDescription,
@@ -439,13 +459,17 @@ this.state = {
 		.then((response) => {
         
 		
+		this.getDepartmentName(response.data.results.recordId);
+		
     } )
      .catch((response) => {
         //handle error
         console.log(response);
       });
 		
-	
+	  });
+	  
+	  
 	
 	}
 	
