@@ -191,43 +191,22 @@ this.state = {
 		
 				if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="1"){
 				
-				     
-					 
-					     this.configureDepartments();
+					     this.configureDepartments(this.state.PrimaryDepartments,this.state.PrimarySubjects);
 						 
-					 
-					
-					     
-        
-                            
-							
-                             
-							 
-							
+		                 this.insertAcademicClassLevels(this.state.PrimaryClassLevels);
 		  
-		                       
-		  
-		                      
-							  
-							 
-		  
-		                       this.insertAcademicClassLevels();
-		  
-		                        
-							 
-		  
-		                       alert("The Selected curriculum's environment is ready");
+		                 alert("The Selected curriculum's environment is ready");
 		  
 		                     
 	
 					  
 				}else if(this.state.SelectedCurriculum.value==="1" && this.state.SelectedCurriculumLevel.value==="2"){
 				
-				     this.state.SecondaryClassLevels.forEach((item) => {
-					 
-					     this.insertAcademicClassLevels(item.Name,item.Description,item.HierarchyCode);
-					 
-					 });
+				         this.configureDepartments(this.state.SecondaryDepartments,this.state.SecondarySubjects);
+						 
+		                 this.insertAcademicClassLevels(this.state.SecondaryClassLevels);
+		  
+		                 alert("The Selected curriculum's environment is ready");
 				
 				      
 				}					   
@@ -297,9 +276,9 @@ this.state = {
 	
 	
 	
-	insertAcademicClassLevels(){
+	insertAcademicClassLevels(AcademicClassLevels){
 	   
-	   this.state.PrimaryClassLevels.forEach((item) => {
+	   AcademicClassLevels.forEach((item) => {
 	   
 	   axios.post(ip+"/add_academic_class_levels", querystring.stringify({ AcademicClassLevelName: item.Name,
 																          AcademicClassLevelDescription: item.Description,
@@ -324,7 +303,7 @@ this.state = {
 	
 	
 	
-	getDepartmentName(DepartmentId){
+	getDepartmentName(DepartmentId,Departments,Subjects){
 	  
 	   
 	   axios.post(ip+"/get_specific_departments", querystring.stringify({ column_name: "DepartmentId",
@@ -332,7 +311,7 @@ this.state = {
 		.then((response) => {
         
 		  
-		  this.insertFields(DepartmentId,response.data.results[0].DepartmentName);
+		  this.insertFields(DepartmentId,response.data.results[0].DepartmentName,Departments,Subjects);
 		  
 		  
       })
@@ -355,9 +334,9 @@ this.state = {
 	
 	
 	
-	insertFields(DepartmentId,DepartmentName){
+	insertFields(DepartmentId,DepartmentName,Departments,Subjects){
 	
-    this.state.PrimarySubjects.forEach((item) => {
+    Subjects.forEach((item) => {
 	    
 	   if(item.DepartmentName===DepartmentName){
 	   
@@ -368,7 +347,7 @@ this.state = {
 															FieldRefNo: item.Field}))
 		.then((response) => {
         
-		   this.getFieldNames(response.data.results.recordId);
+		   this.getFieldNames(response.data.results.recordId,Departments,Subjects);
 		  
 		  
 		  
@@ -386,7 +365,7 @@ this.state = {
 	
 	
 	
-	getFieldNames(FieldId){
+	getFieldNames(FieldId,Departments,Subjects){
 	  
 	
 	    axios.post(ip+"/get_specific_fields_", querystring.stringify({ column_name: "fieldId",
@@ -396,7 +375,7 @@ this.state = {
 		  
 		  
 		  
-		  this.insertSubjects(FieldId,response.data.results[0].FieldName);
+		  this.insertSubjects(FieldId,response.data.results[0].FieldName,Departments,Subjects);
 		  
 		  
     } )
@@ -412,10 +391,10 @@ this.state = {
 	
 	
 	
-	insertSubjects(FieldId,FieldName){
+	insertSubjects(FieldId,FieldName,Departments,Subjects){
 	
 	      
-		  this.state.PrimarySubjects.forEach((item) => {
+		  Subjects.forEach((item) => {
 		   
 		    if(item.Field===FieldName){
 		  
@@ -447,11 +426,11 @@ this.state = {
 	
 	
 	
-	configureDepartments(){
+	configureDepartments(Departments,Subjects){
 	
 	    
 	    //First axios for Departments
-		this.state.PrimaryDepartments.forEach((item) => {
+		Departments.forEach((item) => {
 		axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: item.DepartmentTypeId,
 															    DepartmentName: item.DepartmentName,
 															    DepartmentDescription: item.DepartmentDescription,
@@ -459,7 +438,7 @@ this.state = {
 		.then((response) => {
         
 		
-		this.getDepartmentName(response.data.results.recordId);
+		this.getDepartmentName(response.data.results.recordId,Departments,Subjects);
 		
     } )
      .catch((response) => {
