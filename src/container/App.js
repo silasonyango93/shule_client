@@ -18,9 +18,7 @@ import SelectCurriculum from '../system_modules/system_admin/SelectCurriculum.js
 import ClassStreamsConfig from '../system_modules/system_admin/ClassStreamsConfig.jsx';
 import ClassRegistration from '../system_modules/system_admin/ClassRegistration.jsx';
 
-import FieldCategoriesConfig from '../system_modules/system_admin/FieldCategoriesConfig.jsx';
-import FieldRegistration from '../system_modules/system_admin/FieldRegistration.jsx';
-import SubjectRegistration from '../system_modules/system_admin/SubjectRegistration.jsx';
+
 import ClassSubjectsRegistration from '../system_modules/system_admin/ClassSubjectsRegistration.jsx';
 
 import TermIterationsConfig from '../system_modules/system_admin/TermIterationsConfig.jsx';
@@ -89,9 +87,7 @@ class App extends Component {
 		<Route path="/config_class_stream" component={ClassStreamsConfig} />
 		<Route path="/config_class" component={ClassRegistration} />
 		
-		<Route path="/config_field_categories" component={FieldCategoriesConfig} />
-		<Route path="/field_registration" component={FieldRegistration} />
-		<Route path="/subject_registration" component={SubjectRegistration} />
+		
 		<Route path="/class_subject_registration" component={ClassSubjectsRegistration} />
 		<Route path="/term_iterations_config" component={TermIterationsConfig} />
 		<Route path="/actual_term_registration" component={ActualTermsRegistration} />

@@ -4,9 +4,9 @@ import DepartmentsConfiguration from "../../system_modules/system_admin/Departme
 
 import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsConfig.jsx";
 import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
-import FieldCategoriesConfig from "../../system_modules/system_admin/FieldCategoriesConfig.jsx";
-import FieldRegistration from "../../system_modules/system_admin/FieldRegistration.jsx";
-import SubjectRegistration from "../../system_modules/system_admin/SubjectRegistration.jsx";
+
+
+
 import ClassSubjectsRegistration from "../../system_modules/system_admin/ClassSubjectsRegistration.jsx";
 import TermIterationsConfig from "../../system_modules/system_admin/TermIterationsConfig.jsx";
 import ActualTermsRegistration from "../../system_modules/system_admin/ActualTermsRegistration.jsx";
@@ -77,31 +77,11 @@ const routes = [
   },
   {
     collapse: true,
-    name: "Subjects Config",
+    name: "Assign Subjects",
     icon: "nc-icon nc-book-bookmark",
     state: "pagesCollapse",
     views: [
-      {
-        path: "/config_field_categories",
-        name: "Field Categories",
-        mini: "FC",
-        component: FieldCategoriesConfig,
-        layout: "/admin"
-      },
-	  {
-        path: "/field_registration",
-        name: "Add Field",
-        mini: "AF",
-        component: FieldRegistration,
-        layout: "/admin"
-      },
-	  {
-        path: "/subject_registration",
-        name: "Subject Registration",
-        mini: "SR",
-        component: SubjectRegistration,
-        layout: "/admin"
-      },
+      
 	  {
         path: "/class_subject_registration",
         name: "Class Subjects",
