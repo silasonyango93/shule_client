@@ -47,7 +47,7 @@ import ExamTypesConfig from '../system_modules/exam_admin/ExamTypesConfig.jsx';
 import ExamRegistration from '../system_modules/exam_admin/ExamRegistration.jsx';
 import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.jsx';
 import SelectResults from '../system_modules/exam_admin/SelectResults.jsx';
-import ResultsTable from '../system_modules/exam_admin/ResultsTable.jsx';
+import PrimaryResultsTable from '../system_modules/exam_admin/PrimaryResultsTable.jsx';
 
 
 
@@ -70,7 +70,7 @@ class App extends Component {
 		<Route path="/teachers_portal" render={props => <TeachersPortalLayout {...props} />} />
 		
 		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
-		<Route path="/results_table" component={ResultsTable} />
+		<Route path="/primary_results_table" component={PrimaryResultsTable} />
 		
 		
 		<Route path="/teachers_portal_login" component={TeachersPortalLogin} />
