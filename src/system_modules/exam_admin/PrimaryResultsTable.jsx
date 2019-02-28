@@ -136,25 +136,8 @@ class PrimaryResultsTable extends React.Component {
    
 //Inside the student's forEach*************************************************************************************************************************   
    
-       var studentResultObject={};
-	   var AdmissionNo=student_item.AdmissionNo;
-	   var Surname=student_item.Surname;
-	   var FirstName=student_item.FirstName;
-	   var MiddleName=student_item.MiddleName;
-	   
-	   studentResultObject['AdmissionNo'] = AdmissionNo;
-	   studentResultObject['Surname'] = Surname;
-	   studentResultObject['FirstName'] = FirstName;
-	   studentResultObject['MiddleName'] = MiddleName;
-	   
-	   
-	   
-	   
-	   
-	   /*studentResultObject['Surname'] = JSON.parse(student_item.Surname);
-	   studentResultObject['First Name'] = JSON.parse(student_item.FirstName);
-	   studentResultObject['Middle Name'] = JSON.parse(student_item.MiddleName);*/
-	   
+       
+	  
 	   
        this.state.Fields.forEach((field_item) => {
 	   
@@ -172,12 +155,14 @@ class PrimaryResultsTable extends React.Component {
 		  response.data.results.forEach((subject_item) => {
 		      
 		      TotalFieldMarks=TotalFieldMarks+subject_item.Marks;
+			  
 		  
 		  });
 		  
-		  
-		  studentResultObject[field_item.FieldName] = JSON.parse(TotalFieldMarks);
-		  
+		 
+		  console.log(TotalFieldMarks);
+			  console.log(student_item.AdmissionNo);
+			  console.log(field_item.FieldRefNo);
 		  
 		 
     
@@ -196,12 +181,15 @@ class PrimaryResultsTable extends React.Component {
 	
 	});
 	
-	ResultsArray.push(studentResultObject);
+	
+	
+	
+	
 	
 //Inside the student's forEach*************************************************************************************************************************  	
    });
    
-   console.log(ResultsArray);
+   
    }
    
    

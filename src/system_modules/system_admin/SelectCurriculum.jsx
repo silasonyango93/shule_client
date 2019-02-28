@@ -79,11 +79,11 @@ this.state = {
 	 
 	PrimarySubjects:[
 	
-	    {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics"}]},
-		{DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Gramar"},{Name:"English Composition"}]},
-		{DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Lugha"},{Name:"Kiswahili Insha"}]},
-		{DepartmentName:"Science Department",FieldCategoryId:"2",Field:"Science",Subjects:[{Name:"Science"}]},
-		{DepartmentName:"Social Studies/CRE/IRE Department",FieldCategoryId:"4",Field:"Social Studies/CRE/IRE",Subjects:[{Name:"Social Studies"},{Name:"Christian Religious Education(CRE)"},{Name:"Islamic Religious Education(IRE)"}]},
+	    {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics"}],Ref:"MAT"},
+		{DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Gramar"},{Name:"English Composition"}],Ref:"ENG"},
+		{DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Lugha"},{Name:"Kiswahili Insha"}],Ref:"KIS"},
+		{DepartmentName:"Science Department",FieldCategoryId:"2",Field:"Science",Subjects:[{Name:"Science"}],Ref:"SCI"},
+		{DepartmentName:"Social Studies/CRE/IRE Department",FieldCategoryId:"4",Field:"Social Studies/CRE/IRE",Subjects:[{Name:"Social Studies"},{Name:"Christian Religious Education(CRE)"},{Name:"Islamic Religious Education(IRE)"}],Ref:"SOC"},
 		
 	
 	],
@@ -115,21 +115,21 @@ this.state = {
    
   SecondarySubjects:[
   
-      {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics Paper 1"},{Name:"Mathematics Paper 2"}]},
-	  {DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Paper 1"},{Name:"English Paper 2"},{Name:"English Literature"}]},
-	  {DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Paper 1"},{Name:"Kiswahili Paper 2"},{Name:"Kiswahili Fasihi"}]},
-	  {DepartmentName:"Physics Department",FieldCategoryId:"2",Field:"Physics",Subjects:[{Name:"Physics Paper 1"},{Name:"Physics Paper 2"},{Name:"Physics Practicals"}]},
-	  {DepartmentName:"Chemistry Department",FieldCategoryId:"2",Field:"Chemistry",Subjects:[{Name:"Chemistry Paper 1"},{Name:"Chemistry Paper 2"},{Name:"Chemistry Practicals"}]},
-	  {DepartmentName:"Biology Department",FieldCategoryId:"2",Field:"Biology",Subjects:[{Name:"Biology Paper 1"},{Name:"Biology Paper 2"},{Name:"Biology Practicals"}]},
-	  {DepartmentName:"Geography Department",FieldCategoryId:"4",Field:"Geography",Subjects:[{Name:"Geography Paper 1"},{Name:"Geography Paper 2"}]},
-	  {DepartmentName:"History Department",FieldCategoryId:"4",Field:"History",Subjects:[{Name:"History Paper 1"},{Name:"History Paper 2"}]},
-	  {DepartmentName:"CRE  Department",FieldCategoryId:"4",Field:"Christian Religious Education(CRE)",Subjects:[{Name:"CRE Paper 1"},{Name:"CRE Paper 2"}]},
-	  {DepartmentName:"Agriculture  Department",FieldCategoryId:"5",Field:"Agriculture",Subjects:[{Name:"Agriculture Paper 1"},{Name:"Agriculture Paper 2"},{Name:"Agriculture Practicals"}]},
-	  {DepartmentName:"Business Studies  Department",FieldCategoryId:"5",Field:"Business Studies",Subjects:[{Name:"Business Studies Paper 1"},{Name:"Business Studies Paper 2"},{Name:"Business Studies Paper 3"}]},
+      {DepartmentName:"Mathematics Department",FieldCategoryId:"1",Field:"Mathematics",Subjects:[{Name:"Mathematics Paper 1"},{Name:"Mathematics Paper 2"}],Ref:"MAT"},
+	  {DepartmentName:"English Department",FieldCategoryId:"3",Field:"English",Subjects:[{Name:"English Paper 1"},{Name:"English Paper 2"},{Name:"English Literature"}],Ref:"ENG"},
+	  {DepartmentName:"Kiswahili Department",FieldCategoryId:"3",Field:"Kiswahili",Subjects:[{Name:"Kiswahili Paper 1"},{Name:"Kiswahili Paper 2"},{Name:"Kiswahili Fasihi"}],Ref:"KIS"},
+	  {DepartmentName:"Physics Department",FieldCategoryId:"2",Field:"Physics",Subjects:[{Name:"Physics Paper 1"},{Name:"Physics Paper 2"},{Name:"Physics Practicals"}],Ref:"PHYC"},
+	  {DepartmentName:"Chemistry Department",FieldCategoryId:"2",Field:"Chemistry",Subjects:[{Name:"Chemistry Paper 1"},{Name:"Chemistry Paper 2"},{Name:"Chemistry Practicals"}],Ref:"CHEM"},
+	  {DepartmentName:"Biology Department",FieldCategoryId:"2",Field:"Biology",Subjects:[{Name:"Biology Paper 1"},{Name:"Biology Paper 2"},{Name:"Biology Practicals"}],Ref:"BIO"},
+	  {DepartmentName:"Geography Department",FieldCategoryId:"4",Field:"Geography",Subjects:[{Name:"Geography Paper 1"},{Name:"Geography Paper 2"}],Ref:"GEO"},
+	  {DepartmentName:"History Department",FieldCategoryId:"4",Field:"History",Subjects:[{Name:"History Paper 1"},{Name:"History Paper 2"}],Ref:"HIST"},
+	  {DepartmentName:"CRE  Department",FieldCategoryId:"4",Field:"Christian Religious Education(CRE)",Subjects:[{Name:"CRE Paper 1"},{Name:"CRE Paper 2"}],Ref:"CRE"},
+	  {DepartmentName:"Agriculture  Department",FieldCategoryId:"5",Field:"Agriculture",Subjects:[{Name:"Agriculture Paper 1"},{Name:"Agriculture Paper 2"},{Name:"Agriculture Practicals"}],Ref:"AGRIC"},
+	  {DepartmentName:"Business Studies  Department",FieldCategoryId:"5",Field:"Business Studies",Subjects:[{Name:"Business Studies Paper 1"},{Name:"Business Studies Paper 2"},{Name:"Business Studies Paper 3"}],Ref:"BUST"},
 	  {DepartmentName:"French  Department",FieldCategoryId:"5",Field:"French",Subjects:[{Name:"French Paper 1"},{Name:"French Paper 2"},{Name:"French Paper 3"}]},
-	  {DepartmentName:"Computer Studies  Department",FieldCategoryId:"5",Field:"Computer Studies",Subjects:[{Name:"Computer Studies Paper 1"},{Name:"Computer Studies Paper 2"},{Name:"Computer Studies Practicals"}]},
-	  {DepartmentName:"Home Science  Department",FieldCategoryId:"5",Field:"Home Science",Subjects:[{Name:"Home Science Paper 1"},{Name:"Home Science Paper 2"},{Name:"Home Science Practicals"}]},
-	  {DepartmentName:"Music Department",FieldCategoryId:"5",Field:"Music",Subjects:[{Name:"Music Paper 1"},{Name:"Music Paper 2"},{Name:"Music Practicals"}]}
+	  {DepartmentName:"Computer Studies  Department",FieldCategoryId:"5",Field:"Computer Studies",Subjects:[{Name:"Computer Studies Paper 1"},{Name:"Computer Studies Paper 2"},{Name:"Computer Studies Practicals"}],Ref:"COMP"},
+	  {DepartmentName:"Home Science  Department",FieldCategoryId:"5",Field:"Home Science",Subjects:[{Name:"Home Science Paper 1"},{Name:"Home Science Paper 2"},{Name:"Home Science Practicals"}],Ref:"HSCI"},
+	  {DepartmentName:"Music Department",FieldCategoryId:"5",Field:"Music",Subjects:[{Name:"Music Paper 1"},{Name:"Music Paper 2"},{Name:"Music Practicals"}],Ref:"MUSC"}
   
   ],
   
@@ -376,7 +376,7 @@ this.state = {
 															DepartmentId: DepartmentId,
 															FieldName: item.Field,
 															FieldDescription: item.Field,
-															FieldRefNo: item.Field}))
+															FieldRefNo: item.Ref}))
 		.then((response) => {
         
 		   this.getFieldNames(response.data.results.recordId,Departments,Subjects);
