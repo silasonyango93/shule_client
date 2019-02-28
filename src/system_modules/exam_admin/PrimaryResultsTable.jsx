@@ -142,10 +142,10 @@ class PrimaryResultsTable extends React.Component {
 	   var FirstName=student_item.FirstName;
 	   var MiddleName=student_item.MiddleName;
 	   
-	   studentResultObject['Admission Number'] = JSON.parse(AdmissionNo);
-	   studentResultObject['Surname'] = JSON.parse(Surname);
-	   studentResultObject['Admission Number'] = JSON.parse(AdmissionNo);
-	   studentResultObject['Admission Number'] = JSON.parse(AdmissionNo);
+	   studentResultObject['AdmissionNo'] = AdmissionNo;
+	   studentResultObject['Surname'] = Surname;
+	   studentResultObject['FirstName'] = FirstName;
+	   studentResultObject['MiddleName'] = MiddleName;
 	   
 	   
 	   
