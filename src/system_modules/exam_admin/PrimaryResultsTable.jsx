@@ -30,6 +30,7 @@ class PrimaryResultsTable extends React.Component {
 	   Fields:[],
 	   ClassId:'',
 	   Students:[],
+	   ExamId:''
 	
 	
 	
@@ -40,6 +41,9 @@ class PrimaryResultsTable extends React.Component {
 	 this.getAllFields = this.getAllFields.bind(this);
 	 this.getStudentsOfAParticularClassLevel = this.getStudentsOfAParticularClassLevel.bind(this);
 	 this.createTableRowObjects = this.createTableRowObjects.bind(this);
+	 this.getAcademicClassLevelId = this.getAcademicClassLevelId.bind(this);
+	 this.AssignGrade = this.AssignGrade.bind(this);
+	 this.UpdateStudentsFieldResult = this.UpdateStudentsFieldResult.bind(this);
   }
 	
    
@@ -164,7 +168,7 @@ class PrimaryResultsTable extends React.Component {
 			  console.log(student_item.AdmissionNo);
 			  console.log(field_item.FieldRefNo);
 		  
-		 
+		 this.getAcademicClassLevelId(field_item.fieldId,student_item.AdmissionNo,TotalFieldMarks,field_item.FieldDescription,field_item.GradeRef);
     
     } )
      .catch((response) => {
@@ -188,6 +192,91 @@ class PrimaryResultsTable extends React.Component {
 	
 //Inside the student's forEach*************************************************************************************************************************  	
    });
+   
+   
+   }
+   
+   
+   
+   
+   getAcademicClassLevelId(FieldId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+       axios.post(ip+"/get_academic_class_level_of_a_particular_class", querystring.stringify({ TableTwo: "classes",
+	                                                                                            JoiningKey: "AcademicClassLevelId",
+																								SearchColumn: "ClassId",
+		                                                                                        SearchValue: this.state.ClassId}))
+		.then((response) => {
+		  
+		  
+		  
+		  this.AssignGrade(FieldId,response.data.results[0].AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+   
+   
+   
+   
+   AssignGrade(FieldId,AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+        axios.post(ip+"/get_grade", querystring.stringify({ ColumnNameOne: "fieldId",
+	                                                        ValueOne: FieldId,
+															ColumnNameTwo: "AcademicClassLevelId",
+															ValueTwo: AcademicClassLevelId,
+															ValueThree: TotalFieldMarks,
+															ColumnThree: "LowerBound",
+		                                                    ColumnFour: "UpperBound"}))
+		.then((response) => {
+		  
+		  
+		     this.UpdateStudentsFieldResult(response.data.results[0].Grade,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+   
+   
+   
+   
+   
+   UpdateStudentsFieldResult(Grade,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+   
+        axios.post(ip+"/update_a_field_with_its_grade", querystring.stringify({ ColumnOneToBeSet: FieldDescription,
+	                                                                            ValueOneToBeSet: TotalFieldMarks,
+																				ColumnTwoToBeSet: GradeRef,
+	                                                                            ValueTwoToBeSet: Grade,
+																				ColumnOne: "ExamId",
+																				ValueOne: this.state.ExamId,
+																				ColumnTwo: "AdmissionNo",
+		                                                                        ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  
+		  
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
    
    
    }

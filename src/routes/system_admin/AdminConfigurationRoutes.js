@@ -4,6 +4,8 @@ import DepartmentsConfiguration from "../../system_modules/system_admin/Departme
 
 import ClassStreamsConfig from "../../system_modules/system_admin/ClassStreamsConfig.jsx";
 import ClassRegistration from "../../system_modules/system_admin/ClassRegistration.jsx";
+import LotDescription from "../../system_modules/system_admin/LotDescription.jsx";
+import LotRegistration from "../../system_modules/system_admin/LotRegistration.jsx";
 
 
 
@@ -58,7 +60,20 @@ const routes = [
     icon: "nc-icon nc-book-bookmark",
     state: "pagesCollapse",
     views: [
-      
+      {
+        path: "/config_lot_description",
+        name: "Lot Descriptions",
+        mini: "LD",
+        component: LotDescription,
+        layout: "/admin"
+      },
+	  {
+        path: "/register_lot",
+        name: "Register Lot",
+        mini: "RL",
+        component: LotRegistration,
+        layout: "/admin"
+      },
 	  {
         path: "/config_class_stream",
         name: "Class Streams",

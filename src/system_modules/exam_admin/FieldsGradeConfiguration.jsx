@@ -25,20 +25,18 @@ import {
 } from "reactstrap";
 
 
-class ClassRegistration extends React.Component {
+class FieldsGradeConfiguration extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
         AcademicClassLevels: [],
-		ClassStreams: [],
-		Lots: [],
+		Fields: [],
 		SelectedAcademicClassLevel:'',
-		SelectedClassStream:'',
-		SelectedLot:'',
-		ClassNickName:'',
-		ClassDescription:'',
-		PhysicalAddress:'',
-		ClassRefNo:''
+		SelectedField:'',
+		LowerBound:'',
+		UpperBound:'',
+		Grade:''
+		
 		
 		
     };
@@ -58,40 +56,7 @@ constructor(props) {
 	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}else{
     
 		  
-	//First axios for class streams	  
-	  axios.post(ip+'/get_all_class_streams')
-		.then((response) => {
-        
-		  var my_json=response.data.results;
-		 
-		  var jsonArray=[];
-		  var jsonObject= null;
-		  
-		  my_json.forEach((item) => {
-            
-			  jsonObject={value:item.ClassStreamId,label:item.ClassStreamName}
-			  jsonArray.push(jsonObject);
-			  
-        });
-		    
-		this.setState({
-          ...this.state,
-          ClassStreams: jsonArray
-        });
-		  
-		 
-		  
-        })
-        
-    
-     .catch((response) => {
-        //handle error
-        console.log(response);
-      });
-	  
-	//**********************************************************************************************
-		  
-		//Second axios for Academic class levels	  
+	//First axios for academic class levels	  
 	  axios.post(ip+'/get_all_academic_class_levels')
 		.then((response) => {
         
@@ -122,13 +87,10 @@ constructor(props) {
         console.log(response);
       });
 	  
-	  
-	  
-	  //**********************************************************************************************
+	//**********************************************************************************************
 		  
-		//Third axios for lots  
-	  axios.post(ip+"/get_all_lots_by_full_reference", querystring.stringify({ TableOne: "lot_description",
-															                   JoiningKey: "LotDescriptionId"}))
+		//Second axios for fields	  
+	  axios.post(ip+'/get_all_fields_')
 		.then((response) => {
         
 		  var my_json=response.data.results;
@@ -138,14 +100,14 @@ constructor(props) {
 		  
 		  my_json.forEach((item) => {
             
-			  jsonObject={value:item.LotId,label:item.Description}
+			  jsonObject={value:item.fieldId,label:item.FieldName}
 			  jsonArray.push(jsonObject);
 			  
         });
 		    
 		this.setState({
           ...this.state,
-          Lots: jsonArray
+          Fields: jsonArray
         });
 		  
 		 
@@ -157,8 +119,8 @@ constructor(props) {
         //handle error
         console.log(response);
       });
-		  
-		  
+	  
+	  
 		  
 	  }  
 
@@ -167,28 +129,24 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.SelectedAcademicClassLevel===""||this.state.ClassStreamId===""||this.state.ClassNickName===""||this.state.ClassDescription===""||this.state.PhysicalAddress===""||this.state.ClassRefNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedAcademicClassLevel===""||this.state.SelectedField===""||this.state.LowerBound===""||this.state.UpperBound===""||this.state.Grade===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_classes", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
-															ClassStreamId: this.state.SelectedClassStream.value,
-															LotId: this.state.SelectedLot.value,
-															ClassNickName: this.state.ClassNickName,
-															ClassDescription: this.state.ClassDescription,
-															PhysicalAddress: this.state.PhysicalAddress,
-															ClassRefNo: this.state.ClassRefNo}))
+      axios.post(ip+"/add_field_grade_configuration", querystring.stringify({ FieldId: this.state.SelectedField.value,
+															                  AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
+															                  LowerBound: this.state.LowerBound,
+															                  UpperBound: this.state.UpperBound,
+															                  Grade: this.state.Grade}))
 		.then((response) => {
         
 		  alert(response.data.results.message);
 		  
 		  this.setState({
           ...this.state,
-          SelectedAcademicClassLevel:'',
-		  SelectedClassStream:'',
-		  ClassNickName:'',
-		  ClassDescription:'',
-		  PhysicalAddress:'',
-		  SelectedLot:'',
-		  ClassRefNo:''
+          
+		  LowerBound:'',
+		  UpperBound:'',
+		  Grade:''
+		  
           });
 		  
     } )
@@ -223,43 +181,21 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Class Registration</CardTitle>
+                  <CardTitle tag="h4">Grades Configuration</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
 				  
-				    <Row>
-                      <Label md="3">Lot</Label>
-                      <Col md="9">
-                        <FormGroup>
-		            <Select
-                            className="react-select info"
-                            classNamePrefix="react-select"
-                            placeholder="Select which lot"
-                            name="SelectLot"
-                            closeMenuOnSelect={false}
-                            value={this.state.SelectedLot}
-                            onChange={value =>
-                              this.setState({
-                              ...this.state,
-                                      SelectedLot: value
-                              })
-	  
-                            }
-                            options={this.state.Lots}
-                          />
-		            </FormGroup>
-                      </Col>
-                    </Row>
 				  
-		            <Row>
-                      <Label md="3">Level</Label>
+				  
+				    <Row>
+                      <Label md="3">Class</Label>
                       <Col md="9">
                         <FormGroup>
 		            <Select
                             className="react-select info"
                             classNamePrefix="react-select"
-                            placeholder="Choose Level"
+                            placeholder="Select Class"
                             name="SelectClassLevel"
                             closeMenuOnSelect={false}
                             value={this.state.SelectedAcademicClassLevel}
@@ -275,64 +211,56 @@ constructor(props) {
 		            </FormGroup>
                       </Col>
                     </Row>
-
-                    <Row>
-                      <Label md="3">Stream</Label>
+				    <Row>
+                      <Label md="3">Field</Label>
                       <Col md="9">
                         <FormGroup>
 		            <Select
                             className="react-select info"
                             classNamePrefix="react-select"
-                            placeholder="Choose Stream"
-                            name="SelectClassStream"
+                            placeholder="Select the field"
+                            name="SelectField"
                             closeMenuOnSelect={false}
-                            value={this.state.SelectedClassStream}
+                            value={this.state.SelectedField}
                             onChange={value =>
                               this.setState({
                               ...this.state,
-                                      SelectedClassStream: value
+                                      SelectedField: value
                               })
 	  
                             }
-                            options={this.state.ClassStreams}
+                            options={this.state.Fields}
                           />
 		            </FormGroup>
                       </Col>
                     </Row>
-
+				  
+		            
                     <Row>
-                      <Label md="3">Nickname</Label>
+                      <Label md="3">LowerBound</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Nickname" type="text" name="ClassNickName" value={this.state.ClassNickName} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Lower Bound Mark" type="text" name="LowerBound" value={this.state.LowerBound} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Description</Label>
+                      <Label md="3">UpperBound</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Description" type="text" name="ClassDescription" value={this.state.ClassDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Upper Bound Mark" type="text" name="UpperBound" value={this.state.UpperBound} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Physical Address</Label>
+                      <Label md="3">Grade</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Physical Address" type="text" name="PhysicalAddress" value={this.state.PhysicalAddress} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Grade" type="text" name="Grade" value={this.state.Grade} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 
-                    <Row>
-                      <Label md="3">Reference No.</Label>
-                      <Col md="9">
-                        <FormGroup>
-                          <Input placeholder="Reference Number" type="text" name="ClassRefNo" value={this.state.ClassRefNo} type="text" onChange={this.handleChange} autofocus />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     
                   </Form>
                 </CardBody>
@@ -355,4 +283,4 @@ constructor(props) {
   }
 }
 
-export default ClassRegistration;
+export default FieldsGradeConfiguration;

@@ -17,6 +17,8 @@ import SelectCurriculum from '../system_modules/system_admin/SelectCurriculum.js
 
 import ClassStreamsConfig from '../system_modules/system_admin/ClassStreamsConfig.jsx';
 import ClassRegistration from '../system_modules/system_admin/ClassRegistration.jsx';
+import LotDescription from '../system_modules/system_admin/LotDescription.jsx';
+import LotRegistration from '../system_modules/system_admin/LotRegistration.jsx';
 
 
 import ClassSubjectsRegistration from '../system_modules/system_admin/ClassSubjectsRegistration.jsx';
@@ -48,6 +50,7 @@ import ExamRegistration from '../system_modules/exam_admin/ExamRegistration.jsx'
 import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.jsx';
 import SelectResults from '../system_modules/exam_admin/SelectResults.jsx';
 import PrimaryResultsTable from '../system_modules/exam_admin/PrimaryResultsTable.jsx';
+import FieldsGradeConfiguration from '../system_modules/exam_admin/FieldsGradeConfiguration.jsx';
 
 
 
@@ -86,6 +89,8 @@ class App extends Component {
 		
 		<Route path="/config_class_stream" component={ClassStreamsConfig} />
 		<Route path="/config_class" component={ClassRegistration} />
+		<Route path="/config_lot_description" component={LotDescription} />
+		<Route path="/register_lot" component={LotRegistration} />
 		
 		
 		<Route path="/class_subject_registration" component={ClassSubjectsRegistration} />
@@ -114,6 +119,7 @@ class App extends Component {
 		<Route path="/examination_registration" component={ExamRegistration} />
 		<Route path="/assign_classes_exams" component={AssignClassesExams} />
 		<Route path="/assign_classes_exams" component={AssignClassesExams} />
+		<Route path="/configure_grades" component={FieldsGradeConfiguration} />
 		
 		
 		<Route path="/select_results" component={SelectResults} />

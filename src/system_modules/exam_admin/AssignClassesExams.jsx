@@ -49,6 +49,9 @@ constructor(props) {
 	  this.getSelectedClassStudents = this.getSelectedClassStudents.bind(this);
 	  this.assignStudentsExamPapers = this.assignStudentsExamPapers.bind(this);
 	  this.assignApaperToTheStudent = this.assignApaperToTheStudent.bind(this);
+	  this.checkConfiguredSystemCurriculum = this.checkConfiguredSystemCurriculum.bind(this);
+	  this.addStudentToPrimaryResultsTable = this.addStudentToPrimaryResultsTable.bind(this);
+	  this.addStudentToSecondaryResultsTable = this.addStudentToSecondaryResultsTable.bind(this);
 	  
   }
 
@@ -357,6 +360,130 @@ constructor(props) {
 															                      IsMarkSubmited: "0"}))
 		.then((response) => {
         
+		  this.checkConfiguredSystemCurriculum(AdmissionNo);
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	
+	}
+	
+	
+	
+	
+	
+	checkConfiguredSystemCurriculum(AdmissionNo){
+	
+	
+	   axios.post(ip+"/get_specific_curriculum_config_table", querystring.stringify({ column_name: "id",
+															                          search_value: "1"}))
+		.then((response) => {
+        
+		    if(response.data.results[0].Curriculum===1.1){
+			
+			    this.addStudentToPrimaryResultsTable(AdmissionNo);
+			
+			}else if(response.data.results[0].Curriculum===1.2){
+			
+			    this.addStudentToSecondaryResultsTable(AdmissionNo);
+			
+			}
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	addStudentToPrimaryResultsTable(AdmissionNo){
+	
+	    axios.post(ip+"/add_primary_results_table", querystring.stringify({ExamId: this.state.SelectedExam.value,
+		                                                                   AdmissionNo: AdmissionNo,
+																		   MAT: "0",
+																		   MAT_GRADE: "NULL",
+																		   ENG: "0",
+																		   ENG_GRADE: "NULL",
+																		   KIS: "0",
+																		   KIS_GRADE: "NULL",
+																		   SCI: "0",
+																		   SCI_GRADE: "NULL",
+																		   SOC: "0",
+																		   SOC_GRADE: "NULL",
+																		   TOTAL: "0",
+																		   MEAN: "0.0",
+															               MEAN_GRADE: "NULL",}))
+		.then((response) => {
+        
+		  
+		  
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+	
+	}
+	
+	
+	
+	
+	addStudentToSecondaryResultsTable(AdmissionNo){
+	
+	      
+		  axios.post(ip+"/add_secondary_results_table", querystring.stringify({ExamId: this.state.SelectedExam.value,
+		                                                                       AdmissionNo: AdmissionNo,
+																			   MAT: "0",
+																			   MAT_GRADE: "NULL",
+																			   ENG: "0",
+																			   ENG_GRADE: "NULL",
+																			   KIS: "0",
+																			   KIS_GRADE: "NULL",
+																			   PHYC: "0",
+																			   PHYC_GRADE: "NULL",
+																			   CHEM: "0",
+																			   CHEM_GRADE: "NULL",
+																			   BIO: "0",
+																			   BIO_GRADE: "NULL",
+																			   GEO: "0",
+																			   GEO_GRADE: "NULL",
+																			   HIST: "0",
+																			   HIST_GRADE: "NULL",
+																			   CRE: "0",
+																			   CRE_GRADE: "NULL",
+																			   AGRIC: "0",
+																			   AGRIC_GRADE: "NULL",
+																			   BUST: "0",
+																			   BUST_GRADE: "NULL",
+																			   FRE: "0",
+																			   FRE_GRADE: "NULL",
+																			   COMP: "0",
+																			   COMP_GRADE: "NULL",
+																			   HSCI: "0",
+																			   HSCI_GRADE: "NULL",
+																			   MUSC: "0",
+																			   MUSC_GRADE: "NULL",
+																			   TOTAL: "0",
+																			   MEAN: "0.0",
+															                   MEAN_GRADE: "NULL",}))
+		.then((response) => {
+        
 		  
 		  
         })
@@ -369,6 +496,8 @@ constructor(props) {
 	
 	
 	}
+	
+	
 	
 	
 	

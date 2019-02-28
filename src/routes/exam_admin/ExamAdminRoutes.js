@@ -2,6 +2,7 @@ import ExamTypesConfig from "../../system_modules/exam_admin/ExamTypesConfig.jsx
 import ExamRegistration from "../../system_modules/exam_admin/ExamRegistration.jsx";
 import AssignClassesExams from "../../system_modules/exam_admin/AssignClassesExams.jsx";
 import SelectResults from "../../system_modules/exam_admin/SelectResults.jsx";
+import FieldsGradeConfiguration from "../../system_modules/exam_admin/FieldsGradeConfiguration.jsx";
 
 
 
@@ -23,6 +24,13 @@ const routes = [
         name: "Exam Types",
         mini: "ET",
         component: ExamTypesConfig,
+        layout: "/exam_admin"
+      },
+	  {
+        path: "/configure_grades",
+        name: "Configure Grades",
+        mini: "CG",
+        component: FieldsGradeConfiguration,
         layout: "/exam_admin"
       }
     ]
