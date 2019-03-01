@@ -3,6 +3,7 @@ import ExamRegistration from "../../system_modules/exam_admin/ExamRegistration.j
 import AssignClassesExams from "../../system_modules/exam_admin/AssignClassesExams.jsx";
 import SelectResults from "../../system_modules/exam_admin/SelectResults.jsx";
 import FieldsGradeConfiguration from "../../system_modules/exam_admin/FieldsGradeConfiguration.jsx";
+import MeanGradeConfig from "../../system_modules/exam_admin/MeanGradeConfig.jsx";
 
 
 
@@ -32,7 +33,15 @@ const routes = [
         mini: "CG",
         component: FieldsGradeConfiguration,
         layout: "/exam_admin"
+      },
+	  {
+        path: "/configure_mean_grade",
+        name: "Configure Mean Grade",
+        mini: "CMG",
+        component: MeanGradeConfig,
+        layout: "/exam_admin"
       }
+	  
     ]
   },
   {

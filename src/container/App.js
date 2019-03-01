@@ -51,6 +51,7 @@ import AssignClassesExams from '../system_modules/exam_admin/AssignClassesExams.
 import SelectResults from '../system_modules/exam_admin/SelectResults.jsx';
 import PrimaryResultsTable from '../system_modules/exam_admin/PrimaryResultsTable.jsx';
 import FieldsGradeConfiguration from '../system_modules/exam_admin/FieldsGradeConfiguration.jsx';
+import MeanGradeConfig from '../system_modules/exam_admin/MeanGradeConfig.jsx';
 
 
 
@@ -120,6 +121,7 @@ class App extends Component {
 		<Route path="/assign_classes_exams" component={AssignClassesExams} />
 		<Route path="/assign_classes_exams" component={AssignClassesExams} />
 		<Route path="/configure_grades" component={FieldsGradeConfiguration} />
+		<Route path="/configure_mean_grade" component={MeanGradeConfig} />
 		
 		
 		<Route path="/select_results" component={SelectResults} />

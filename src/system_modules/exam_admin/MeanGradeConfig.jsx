@@ -25,15 +25,15 @@ import {
 } from "reactstrap";
 
 
-class DepartmentsConfiguration extends React.Component {
+class MeanGradeConfig extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-        DepartmentTypes: [],
-		SelectedDepartmentType:'',
-		DepartmentName:'',
-		DepartmentDescription:'',
-		DepartmentRefNo:''
+        AcademicClassLevels: [],
+		SelectedAcademicClassLevel:'',
+		LowerBound:'',
+		UpperBound:'',
+		MeanGrade:''
 		
 		
     };
@@ -52,7 +52,7 @@ constructor(props) {
 	  
 	  if(StaffNo===null){this.props.history.push('/tuition_admin_login');}else{
     
-	  axios.post(ip+'/get_all_department_types')
+	  axios.post(ip+'/get_all_academic_class_levels')
 		.then((response) => {
         
 		  var my_json=response.data.results;
@@ -62,17 +62,17 @@ constructor(props) {
 		  
 		  my_json.forEach((item) => {
             
-			  jsonObject={value:item.DepartmentTypeId,label:item.DepartmentTypeDescription}
+			  jsonObject={value:item.AcademicClassLevelId,label:item.AcademicClassLevelName}
 			  jsonArray.push(jsonObject);
 			  
         });
 		    
 		this.setState({
           ...this.state,
-          DepartmentTypes: jsonArray
+          AcademicClassLevels: jsonArray
         });
 		  
-		 console.log(jsonArray);
+		 
 		  
         })
         
@@ -89,12 +89,12 @@ constructor(props) {
 	handleSubmit(event){ 
       event.preventDefault();
 		
-		if(this.state.DepartmentTypeId===""||this.state.DepartmentName===""||this.state.DepartmentDescription===""||this.state.DepartmentRefNo===""){alert("Kindly fill in every field on the form");}else{
+		if(this.state.SelectedAcademicClassLevel===""||this.state.LowerBound===""||this.state.UpperBound===""||this.state.MeanGrade===""){alert("Kindly fill in every field on the form");}else{
 		
-      axios.post(ip+"/add_departments", querystring.stringify({ DepartmentTypeId: this.state.SelectedDepartmentType.value,
-															    DepartmentName: this.state.DepartmentName,
-															    DepartmentDescription: this.state.DepartmentDescription,
-															    DepartmentRefNo: this.state.DepartmentRefNo}))
+      axios.post(ip+"/add_mean_grade", querystring.stringify({ AcademicClassLevelId: this.state.SelectedAcademicClassLevel.value,
+															   LowerBound: this.state.LowerBound,
+															   UpperBound: this.state.UpperBound,
+															   MeanGrade: this.state.MeanGrade}))
 		.then((response) => {
         
 		  alert(response.data.results.message);
@@ -102,9 +102,9 @@ constructor(props) {
 		  this.setState({
           ...this.state,
           
-		  DepartmentName:'',
-		  DepartmentDescription:'',
-		  DepartmentRefNo:''
+		  LowerBound:'',
+		  UpperBound:'',
+		  MeanGrade:''
           });
 		  
     } )
@@ -139,54 +139,54 @@ constructor(props) {
 		 <Col md="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Department Registration</CardTitle>
+                  <CardTitle tag="h4">Configure Mean Grade</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form className="form-horizontal" >
 		            <Row>
-                      <Label md="3">Type</Label>
+                      <Label md="3">Level</Label>
                       <Col md="9">
                         <FormGroup>
 		            <Select
                             className="react-select info"
                             classNamePrefix="react-select"
-                            placeholder="Choose Type"
-                            name="SelectDepartmentType"
+                            placeholder="Choose Level"
+                            name="SelectClassLevel"
                             closeMenuOnSelect={false}
-                            value={this.state.SelectedDepartmentType}
+                            value={this.state.SelectedAcademicClassLevel}
                             onChange={value =>
                               this.setState({
                               ...this.state,
-                                      SelectedDepartmentType: value
+                                      SelectedAcademicClassLevel: value
                               })
 	  
                             }
-                            options={this.state.DepartmentTypes}
+                            options={this.state.AcademicClassLevels}
                           />
 		            </FormGroup>
                       </Col>
                     </Row>
                     <Row>
-                      <Label md="3">Name</Label>
+                      <Label md="3">LowerBound</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Department Name" type="text" name="DepartmentName" value={this.state.DepartmentName} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Lower Bound Mark" type="text" name="LowerBound" value={this.state.LowerBound} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Description</Label>
+                      <Label md="3">UpperBound</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Description" type="text" name="DepartmentDescription" value={this.state.DepartmentDescription} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Upper Bound Mark" type="text" name="UpperBound" value={this.state.UpperBound} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
 		            <Row>
-                      <Label md="3">Reference No.</Label>
+                      <Label md="3">Grade</Label>
                       <Col md="9">
                         <FormGroup>
-                          <Input placeholder="Reference Number" type="text" name="DepartmentRefNo" value={this.state.DepartmentRefNo} type="text" onChange={this.handleChange} autofocus />
+                          <Input placeholder="Awarded Mean Grade" type="text" name="MeanGrade" value={this.state.MeanGrade} type="text" onChange={this.handleChange} autofocus />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -212,4 +212,4 @@ constructor(props) {
   }
 }
 
-export default DepartmentsConfiguration;
+export default MeanGradeConfig;

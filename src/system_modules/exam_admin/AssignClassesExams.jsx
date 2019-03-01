@@ -333,7 +333,7 @@ constructor(props) {
 			  
            });
 		    
-		   
+		     this.checkConfiguredSystemCurriculum(AdmissionNo);
 		  
         })
         
@@ -360,7 +360,7 @@ constructor(props) {
 															                      IsMarkSubmited: "0"}))
 		.then((response) => {
         
-		  this.checkConfiguredSystemCurriculum(AdmissionNo);
+		  
 		  
         })
         

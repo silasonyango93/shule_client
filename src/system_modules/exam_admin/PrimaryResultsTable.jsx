@@ -4,6 +4,8 @@ import PrimaryResultsTableHeader from "./PrimaryResultsTableHeader.jsx";
 import axios from "axios";
 import querystring from "querystring";
 import ip from "../../common/EndPoints.js";
+
+
 class PrimaryResultsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,8 @@ class PrimaryResultsTable extends React.Component {
 	   Fields:[],
 	   ClassId:'',
 	   Students:[],
-	   ExamId:''
+	   ExamId:'',
+	   AcademicClassLevelId:''
 	
 	
 	
@@ -45,6 +48,9 @@ class PrimaryResultsTable extends React.Component {
 	 this.AssignGrade = this.AssignGrade.bind(this);
 	 this.UpdateStudentsFieldResult = this.UpdateStudentsFieldResult.bind(this);
 	 this.AssignSumTotalMeanAndMeanGrade = this.AssignSumTotalMeanAndMeanGrade.bind(this);
+	 this.getMeanGrade = this.getMeanGrade.bind(this);
+	 this.UpdateSumTotalAverageAndMeanGradeForTheStudent = this.UpdateSumTotalAverageAndMeanGradeForTheStudent.bind(this);
+	 
   }
 	
    
@@ -206,9 +212,13 @@ class PrimaryResultsTable extends React.Component {
 		                                                                                        SearchValue: this.state.ClassId}))
 		.then((response) => {
 		  
+		  this.setState({AcademicClassLevelId: response.data.results[0].AcademicClassLevelId}, () => { 
+	  
+	      this.AssignGrade(FieldId,response.data.results[0].AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
+    
+         });
 		  
 		  
-		  this.AssignGrade(FieldId,response.data.results[0].AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
 		 
     
     } )
@@ -302,6 +312,68 @@ class PrimaryResultsTable extends React.Component {
 		  var Average=(SumTotal/5);
 		  
 		  
+		  
+		  
+		 this.getMeanGrade(SumTotal,Average,AdmissionNo);
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   }
+   
+   
+   
+   
+   
+   getMeanGrade(SumTotal,Average,AdmissionNo){
+   
+       axios.post(ip+"/select_mean_grade_for_particular_mean_for_particular_class_level", querystring.stringify({ ColumnNameOne: "AcademicClassLevelId",
+	                                                                                                              ValueOne: this.state.AcademicClassLevelId,
+																												  ValueTwo: "53",
+																												  ColumnTwo: "LowerBound",
+		                                                                                                          ColumnThree: "UpperBound"}))
+		.then((response) => {
+		  
+		  console.log(response);
+		  
+		    this.UpdateSumTotalAverageAndMeanGradeForTheStudent(response.data.results[0].MeanGrade,SumTotal,Average,AdmissionNo);
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+   
+   
+   
+   
+   
+   UpdateSumTotalAverageAndMeanGradeForTheStudent(MeanGrade,SumTotal,Average,AdmissionNo){
+   
+   
+       axios.post(ip+"/update_a_row_with_sumtotal_average_and_meangrade", querystring.stringify({ ColumnOneToBeSet: "TOTAL",
+	                                                                                              ValueOneToBeSet: SumTotal,
+																				                  ColumnTwoToBeSet: "MEAN",
+	                                                                                              ValueTwoToBeSet: Average,
+																				                  ColumnThreeToBeSet: "MEAN_GRADE",
+																								  ValueThreeToBeSet: MeanGrade,
+																								  ColumnOne: "ExamId",
+																				                  ValueOne: this.state.ExamId,
+																				                  ColumnTwo: "AdmissionNo",
+		                                                                                          ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  
+		  
+		  
 		 
     
     } )
@@ -312,6 +384,9 @@ class PrimaryResultsTable extends React.Component {
    
    
    }
+   
+   
+   
    
    
    
