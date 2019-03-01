@@ -44,6 +44,7 @@ class PrimaryResultsTable extends React.Component {
 	 this.getAcademicClassLevelId = this.getAcademicClassLevelId.bind(this);
 	 this.AssignGrade = this.AssignGrade.bind(this);
 	 this.UpdateStudentsFieldResult = this.UpdateStudentsFieldResult.bind(this);
+	 this.AssignSumTotalMeanAndMeanGrade = this.AssignSumTotalMeanAndMeanGrade.bind(this);
   }
 	
    
@@ -164,9 +165,7 @@ class PrimaryResultsTable extends React.Component {
 		  });
 		  
 		 
-		  console.log(TotalFieldMarks);
-			  console.log(student_item.AdmissionNo);
-			  console.log(field_item.FieldRefNo);
+		  
 		  
 		 this.getAcademicClassLevelId(field_item.fieldId,student_item.AdmissionNo,TotalFieldMarks,field_item.FieldDescription,field_item.GradeRef);
     
@@ -187,7 +186,7 @@ class PrimaryResultsTable extends React.Component {
 	
 	
 	
-	
+	this.AssignSumTotalMeanAndMeanGrade(student_item.AdmissionNo);
 	
 	
 //Inside the student's forEach*************************************************************************************************************************  	
@@ -280,6 +279,40 @@ class PrimaryResultsTable extends React.Component {
    
    
    }
+   
+   
+   
+   
+   
+   
+   
+   AssignSumTotalMeanAndMeanGrade(AdmissionNo){
+   
+         
+		 
+		 axios.post(ip+"/getAspecifRecordForAspecificStudentAndExam", querystring.stringify({ ColumnNameOne: "ExamId",
+		                                                                                      ValueOne: this.state.ExamId,
+																							  ColumnNameTwo: "AdmissionNo",
+		                                                                                      ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  var result_object=response.data.results[0];
+		  
+		  var SumTotal=result_object.MAT+result_object.ENG+result_object.KIS+result_object.SCI+result_object.SOC;
+		  var Average=(SumTotal/5);
+		  
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   }
+   
    
    
    
