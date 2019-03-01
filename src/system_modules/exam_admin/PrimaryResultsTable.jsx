@@ -50,6 +50,7 @@ class PrimaryResultsTable extends React.Component {
 	 this.AssignSumTotalMeanAndMeanGrade = this.AssignSumTotalMeanAndMeanGrade.bind(this);
 	 this.getMeanGrade = this.getMeanGrade.bind(this);
 	 this.UpdateSumTotalAverageAndMeanGradeForTheStudent = this.UpdateSumTotalAverageAndMeanGradeForTheStudent.bind(this);
+	 this.studentsAcademicClassLevel = this.studentsAcademicClassLevel.bind(this);
 	 
   }
 	
@@ -61,8 +62,9 @@ class PrimaryResultsTable extends React.Component {
   
      var ClassId=this.props.location.state.ClassId;
 	 var ExamId=this.props.location.state.ExamId;
-     
-	 this.setState({ClassId: ClassId,ExamId:ExamId}, () => { 
+     var AcademicClassLevelId=this.props.location.state.AcademicClassLevelId;
+	 
+	 this.setState({ClassId: ClassId,ExamId:ExamId,AcademicClassLevelId:AcademicClassLevelId}, () => { 
 	  
 	        this.getAllFields();
     
@@ -112,13 +114,13 @@ class PrimaryResultsTable extends React.Component {
    getStudentsOfAParticularClassLevel(){
    
    
-        axios.post(ip+"/get_specific_students", querystring.stringify({ column_name: "ClassId",
-		                                                                search_value: this.state.ClassId}))
+        axios.post(ip+"/get_specific_students", querystring.stringify({  column_name: "ClassId",
+		                                                                 search_value: this.state.ClassId}))
 		.then((response) => {
 		  
 		  
 		  
-		  this.setState({Students: response.data.results}, () => { 
+		  this.setState({Students: response.data.results,AcademicClassLevelId:response.data.results[0].AcademicClassLevelId}, () => { 
 	  
 	          this.createTableRowObjects();
     
@@ -212,11 +214,18 @@ class PrimaryResultsTable extends React.Component {
 		                                                                                        SearchValue: this.state.ClassId}))
 		.then((response) => {
 		  
+		  
+		  
 		  this.setState({AcademicClassLevelId: response.data.results[0].AcademicClassLevelId}, () => { 
 	  
+	      
 	      this.AssignGrade(FieldId,response.data.results[0].AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
     
-         });
+      });
+	  
+	      
+    
+        
 		  
 		  
 		 
@@ -313,8 +322,8 @@ class PrimaryResultsTable extends React.Component {
 		  
 		  
 		  
-		  
-		 this.getMeanGrade(SumTotal,Average,AdmissionNo);
+		  this.studentsAcademicClassLevel(SumTotal,Average,AdmissionNo);
+		 
     
     } )
      .catch((response) => {
@@ -329,16 +338,16 @@ class PrimaryResultsTable extends React.Component {
    
    
    
-   getMeanGrade(SumTotal,Average,AdmissionNo){
+   getMeanGrade(SumTotal,Average,AdmissionNo,AcademicClassLevelId){
    
        axios.post(ip+"/select_mean_grade_for_particular_mean_for_particular_class_level", querystring.stringify({ ColumnNameOne: "AcademicClassLevelId",
-	                                                                                                              ValueOne: this.state.AcademicClassLevelId,
-																												  ValueTwo: "53",
+	                                                                                                              ValueOne: AcademicClassLevelId,
+																												  ValueTwo: Average,
 																												  ColumnTwo: "LowerBound",
 		                                                                                                          ColumnThree: "UpperBound"}))
 		.then((response) => {
 		  
-		  console.log(response);
+		  
 		  
 		    this.UpdateSumTotalAverageAndMeanGradeForTheStudent(response.data.results[0].MeanGrade,SumTotal,Average,AdmissionNo);
 		 
@@ -385,6 +394,30 @@ class PrimaryResultsTable extends React.Component {
    
    }
    
+   
+   
+   
+   
+   
+   studentsAcademicClassLevel(SumTotal,Average,AdmissionNo){
+   
+       axios.post(ip+"/get_academic_class_level_of_a_particular_class", querystring.stringify({ TableTwo: "classes",
+	                                                                                            JoiningKey: "AcademicClassLevelId",
+																								SearchColumn: "ClassId",
+		                                                                                        SearchValue: this.state.ClassId}))
+		.then((response) => {
+		  
+		  this.getMeanGrade(SumTotal,Average,AdmissionNo,response.data.results[0].AcademicClassLevelId);
+		  
+    
+    
+      })
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
    
    
    
