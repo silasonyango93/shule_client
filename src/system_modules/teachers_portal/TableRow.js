@@ -68,7 +68,7 @@ class TableRow extends React.Component {
 	                                                                                      ValueTwo: this.props.data.ExamPaperId}))
 		.then((response) => {
 		  
-		  alert(response.data.results.message);
+		  //alert(response.data.results.message);
 		  
 		  this.setState({
           ...this.state,

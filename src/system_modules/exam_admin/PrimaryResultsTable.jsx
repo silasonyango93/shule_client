@@ -11,29 +11,14 @@ class PrimaryResultsTable extends React.Component {
     super(props);
 
     this.state = { 
-	data: [
-        {
-          id: 1,
-          name: "Foo",
-          age: "20"
-        },
-        {
-          id: 2,
-          name: "Bar",
-          age: "30"
-        },
-        {
-          id: 3,
-          name: "Baz",
-          age: "40"
-        }
-      ],
+	   
 	   academicResults: [],
 	   Fields:[],
 	   ClassId:'',
 	   Students:[],
 	   ExamId:'',
-	   AcademicClassLevelId:''
+	   AcademicClassLevelId:'',
+	   FinalResults:[]
 	
 	
 	
@@ -51,6 +36,7 @@ class PrimaryResultsTable extends React.Component {
 	 this.getMeanGrade = this.getMeanGrade.bind(this);
 	 this.UpdateSumTotalAverageAndMeanGradeForTheStudent = this.UpdateSumTotalAverageAndMeanGradeForTheStudent.bind(this);
 	 this.studentsAcademicClassLevel = this.studentsAcademicClassLevel.bind(this);
+	 this.getFinalResults = this.getFinalResults.bind(this);
 	 
   }
 	
@@ -200,6 +186,7 @@ class PrimaryResultsTable extends React.Component {
 //Inside the student's forEach*************************************************************************************************************************  	
    });
    
+       this.getFinalResults();
    
    }
    
@@ -225,10 +212,7 @@ class PrimaryResultsTable extends React.Component {
 	  
 	      
     
-        
-		  
-		  
-		 
+       	 
     
     } )
      .catch((response) => {
@@ -426,13 +410,49 @@ class PrimaryResultsTable extends React.Component {
    
    
    
+   getFinalResults(){
+   
+   
+       axios.post(ip+"/get_final_results_for_particular_exam_and_class", querystring.stringify({ TableOne: "students",
+															                                     JoiningKey: "AdmissionNo",
+															                                     SearchColumnOne: "ClassId",
+															                                     SearchValueOne: this.state.ClassId,
+															                                     SearchColumnTwo: "ExamId",
+		                                                                                         SearchValueTwo: this.state.ExamId}))
+		.then((response) => {
+		  
+		  
+		     this.setState({
+                   ...this.state,
+                     FinalResults:response.data.results
+              });
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
+   
 	
   render() {
     return (
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Student's fee statements</div>
+            <div class="panel-heading">Examination Results</div>
 
             <div class="panel-body">
               <table
@@ -443,7 +463,7 @@ class PrimaryResultsTable extends React.Component {
               >
                 <tbody>
 		        <PrimaryResultsTableHeader />
-                  {this.state.data.map((person, i) => (
+                  {this.state.FinalResults.map((person, i) => (
                     <PrimaryResultsTableRow key={i} data={person} />
                   ))}
                 </tbody>

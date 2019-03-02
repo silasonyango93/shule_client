@@ -19,9 +19,28 @@ class PrimaryResultsTableRow extends React.Component {
       return (
 		  
          <tr>
-            <td>{this.props.data.id}</td>
-            <td>{this.props.data.name}</td>
-            <td>{this.props.data.age}</td>
+            <td>{this.props.data.AdmissionNo}</td>
+            <td>{this.props.data.FirstName}</td>
+            <td>{this.props.data.MiddleName}</td>
+			<td>{this.props.data.MAT}</td>
+			<td>{this.props.data.MAT_GRADE}</td>
+			<td></td>
+			<td>{this.props.data.ENG}</td>
+			<td>{this.props.data.ENG_GRADE}</td>
+			<td></td>
+			<td>{this.props.data.KIS}</td>
+			<td>{this.props.data.KIS_GRADE}</td>
+			<td></td>
+			<td>{this.props.data.SCI}</td>
+			<td>{this.props.data.SCI_GRADE}</td>
+			<td></td>
+			<td>{this.props.data.SOC}</td>
+			<td>{this.props.data.SOC_GRADE}</td>
+			<td></td>
+			<td>{this.props.data.TOTAL}</td>
+			<td>{this.props.data.MEAN}</td>
+			<td>{this.props.data.MEAN_GRADE}</td>
+			
          </tr>
 		  
             
