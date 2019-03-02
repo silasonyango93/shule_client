@@ -285,7 +285,7 @@ constructor(props) {
 		  
 		   current_class_students.forEach((item) => {
             
-			  this.assignStudentsExamPapers(item.AdmissionNo,current_class_id);
+			  this.assignStudentsExamPapers(item.AdmissionNo);
 			  
            });
 		    
@@ -313,14 +313,16 @@ constructor(props) {
 	
 	
 	
-	assignStudentsExamPapers(AdmissionNo,current_class_id){
+	assignStudentsExamPapers(AdmissionNo){
 	
 	
 	
-	    axios.post(ip+"/innerjoin_classSpecifSubjects_with_ExamPapers", querystring.stringify({ TableOne: "class_specific_subjects",
-		                                                                                        JoiningKey: "ClassSpecificSubjectId",
-																								SearchColumn: "ClassId",
-															                                    SearchValue: current_class_id}))
+	    axios.post(ip+"/get_exam_papers_assignable_to_particular_student", querystring.stringify({ TableOne: "student_class_specific_subject_rship",
+		                                                                                           JoiningKey: "ClassSpecificSubjectId",
+																								   SearchColumnOne: "AdmissionNo",
+																								   SearchValueOne: AdmissionNo,
+																								   SearchColumnTwo: "ExamId",
+															                                       SearchValueTwo: this.state.SelectedExam.value}))
 		.then((response) => {
         
 		  var current_class_exam_papers=response.data.results;

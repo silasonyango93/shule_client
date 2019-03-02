@@ -52,6 +52,9 @@ import SelectResults from '../system_modules/exam_admin/SelectResults.jsx';
 import PrimaryResultsTable from '../system_modules/exam_admin/PrimaryResultsTable.jsx';
 import FieldsGradeConfiguration from '../system_modules/exam_admin/FieldsGradeConfiguration.jsx';
 import MeanGradeConfig from '../system_modules/exam_admin/MeanGradeConfig.jsx';
+import ResultsSyncInitiator from '../system_modules/exam_admin/ResultsSyncInitiator.jsx';
+import UnsubmittedResultsTable from '../system_modules/exam_admin/UnsubmittedResultsTable.jsx';
+import SyncResults from '../system_modules/exam_admin/SyncResults.jsx';
 
 
 
@@ -75,6 +78,8 @@ class App extends Component {
 		
 		<Route path="/class_exam_papers_table" component={ClassExamPapersTable} />
 		<Route path="/primary_results_table" component={PrimaryResultsTable} />
+		<Route path="/unsubmitted_results_table" component={UnsubmittedResultsTable} />
+		<Route path="/sync_results" component={SyncResults} />
 		
 		
 		<Route path="/teachers_portal_login" component={TeachersPortalLogin} />
@@ -125,6 +130,7 @@ class App extends Component {
 		
 		
 		<Route path="/select_results" component={SelectResults} />
+		<Route path="/initiate_result_sync" component={ResultsSyncInitiator} />
 		
 		
 		

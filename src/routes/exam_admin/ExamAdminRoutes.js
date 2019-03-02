@@ -4,6 +4,7 @@ import AssignClassesExams from "../../system_modules/exam_admin/AssignClassesExa
 import SelectResults from "../../system_modules/exam_admin/SelectResults.jsx";
 import FieldsGradeConfiguration from "../../system_modules/exam_admin/FieldsGradeConfiguration.jsx";
 import MeanGradeConfig from "../../system_modules/exam_admin/MeanGradeConfig.jsx";
+import ResultsSyncInitiator from "../../system_modules/exam_admin/ResultsSyncInitiator.jsx";
 
 
 
@@ -72,18 +73,18 @@ const routes = [
     icon: "nc-icon nc-book-bookmark",
     state: "pagesCollapse",
     views: [
+	   {
+        path: "/initiate_result_sync",
+        name: "Initiate Results Sync",
+        mini: "IRS",
+        component: ResultsSyncInitiator,
+        layout: "/exam_admin"
+      },
 	  {
         path: "/select_results",
         name: "Per Class",
         mini: "PC",
         component: SelectResults,
-        layout: "/exam_admin"
-      },
-	  {
-        path: "/assign_classes_exams",
-        name: "Assign Classes",
-        mini: "AC",
-        component: AssignClassesExams,
         layout: "/exam_admin"
       }
     ]

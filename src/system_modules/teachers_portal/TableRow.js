@@ -62,6 +62,7 @@ class TableRow extends React.Component {
 		if(this.state.Marks===""){alert("Kindly fill in the mark");}else{
 		
       axios.post(ip+"/update_student_specific_exam_papers_marks", querystring.stringify({ Marks: this.state.Marks,
+	                                                                                      IsMarkSubmited: "1",
 	                                                                                      ColumnOne: "AdmissionNo",
 																						  ValueOne: this.props.data.AdmissionNo,
 																						  ColumnTwo: "ExamPaperId",
