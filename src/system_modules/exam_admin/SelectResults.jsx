@@ -31,9 +31,9 @@ constructor(props) {
     super(props);
     this.state = {
         Exams: [],
-		Classes: [],
+		AcademicClassLevels: [],
 		SelectedExam:'',
-		SelectedClass:'',
+		SelectedAcademicClassLevel:'',
 		
 		
 		
@@ -100,30 +100,27 @@ constructor(props) {
 	  
 	 //******************************************************************************************************
 	 //Second axios for classes
-	  axios.post(ip+"/get_all_class_by_full_reference", querystring.stringify({ TableTwo: "academic_class_levels",
-															                    JoiningKeyOne: "AcademicClassLevelId",
-															                    TableThree: "class_streams",
-															                    JoiningKeyTwo: "ClassStreamId"}))
+	  axios.post(ip+"/get_all_academic_class_levels")
 		.then((response) => {
         
 		  var my_json=response.data.results;
 		 
 		  var jsonArray=[];
 		  var jsonObject= null;
-		  var full_class_reference="";
+		  
 		  
 		  my_json.forEach((item) => {
             
-			  full_class_reference=item.AcademicClassLevelName+" "+item.ClassStreamName
 			  
-			  jsonObject={value:item.ClassId,label:full_class_reference}
+			  
+			  jsonObject={value:item.AcademicClassLevelId,label:item.AcademicClassLevelName}
 			  jsonArray.push(jsonObject);
 			  
         });
 		    
 		this.setState({
           ...this.state,
-          Classes: jsonArray
+          AcademicClassLevels: jsonArray
         });
 		  
 		 
@@ -147,13 +144,13 @@ constructor(props) {
 		
 		if(this.state.SelectedExam===""){alert("Kindly fill in every field on the form");}else{
 		
-		var ClassId = this.state.SelectedClass.value;
+		var AcademicClassLevelId = this.state.SelectedAcademicClassLevel.value;
 	    var ExamId = this.state.SelectedExam.value;
 	    
 		
            this.props.history.push({
                pathname: '/primary_results_table',
-               state: {ExamId:ExamId,ClassId:ClassId}
+               state: {ExamId:ExamId,AcademicClassLevelId:AcademicClassLevelId}
            })
 	  
 	  
@@ -228,15 +225,15 @@ constructor(props) {
                             placeholder="Select Class"
                             name="SelectClass"
                             closeMenuOnSelect={false}
-                            value={this.state.SelectedClass}
+                            value={this.state.SelectedAcademicClassLevel}
                             onChange={value =>
                               this.setState({
                               ...this.state,
-                                      SelectedClass: value
+                                      SelectedAcademicClassLevel: value
                               })
 	  
                             }
-                            options={this.state.Classes}
+                            options={this.state.AcademicClassLevels}
                           />
 		            </FormGroup>
                       </Col>
