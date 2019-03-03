@@ -32,7 +32,7 @@ constructor(props) {
     
    this.state = {
         Exams: [],
-		AllStudents:[],
+		Students:[],
 		Classes:[],
 		SelectedExam:'',
 		Fields:'',
@@ -45,6 +45,16 @@ constructor(props) {
       
 	  this.handleSubmit = this.handleSubmit.bind(this);
 	  this.checkIfAllMarksBeenSubmitted = this.checkIfAllMarksBeenSubmitted.bind(this);
+	  
+	 this.createTableRowObjects = this.createTableRowObjects.bind(this);
+	 this.getAcademicClassLevelId = this.getAcademicClassLevelId.bind(this);
+	 this.AssignGrade = this.AssignGrade.bind(this);
+	 this.UpdateStudentsFieldResult = this.UpdateStudentsFieldResult.bind(this);
+	 this.PrimaryAssignSumTotalMeanAndMeanGrade = this.PrimaryAssignSumTotalMeanAndMeanGrade.bind(this);
+	 this.getMeanGrade = this.getMeanGrade.bind(this);
+	 this.UpdateSumTotalAverageAndMeanGradeForTheStudent = this.UpdateSumTotalAverageAndMeanGradeForTheStudent.bind(this);
+	 this.studentsAcademicClassLevel = this.studentsAcademicClassLevel.bind(this);
+	 this.workoutParticularStudentsMean = this.workoutParticularStudentsMean.bind(this);
 	  
 	 
 	  
@@ -151,7 +161,7 @@ Fourth axios for students
 		   
 		   this.setState({
           ...this.state,
-          AllStudents: response.data.results
+          Students: response.data.results
 		  
          });
 		  
@@ -227,10 +237,7 @@ This function checks all exam papers ensuring teachers have submitted all the ma
 		  
 		    if(response.data.results.length===0){
 			
-			    this.props.history.push({
-                          pathname: '/sync_results',
-                          state: {ExamId:this.state.SelectedExam.value,Fields:this.state.Fields,CurrentCurriculum:this.state.CurrentCurriculum,AllStudents:this.state.AllStudents,Classes:this.state.Classes}
-                      })
+			    this.createTableRowObjects();
 			
 			}else{
 			
@@ -252,6 +259,319 @@ This function checks all exam papers ensuring teachers have submitted all the ma
       });
  
  }
+
+
+
+
+
+
+
+   
+      createTableRowObjects(){
+       var ResultsArray=[];
+	   
+	   
+	   this.state.Students.forEach((student_item) => {
+   
+//Inside the student's forEach*************************************************************************************************************************   
+   
+       
+	  
+	   
+       this.state.Fields.forEach((field_item) => {
+	   
+//Inside the fields's forEach*************************************************************************************************************************   	   
+   
+   
+   
+       axios.post(ip+"/get_a_specific_student_specific_subject_results", querystring.stringify({ AdmissionNo: student_item.AdmissionNo,
+		                                                                                         FieldId: field_item.fieldId}))
+		.then((response) => {
+		  
+		  var TotalFieldMarks=0;
+		  
+		  
+		  response.data.results.forEach((subject_item) => {
+		      
+		      TotalFieldMarks=TotalFieldMarks+subject_item.Marks;
+			  
+		  
+		  });
+		  
+		  
+		  
+		  
+		 this.getAcademicClassLevelId(field_item.fieldId,student_item.AdmissionNo,TotalFieldMarks,field_item.FieldDescription,field_item.GradeRef);
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+    
+	
+	
+	
+	
+	
+//Inside the fields's forEach*************************************************************************************************************************	
+	
+	});
+	
+	
+	if(this.state.CurrentCurriculum===1.1){
+	  
+	   this.PrimaryAssignSumTotalMeanAndMeanGrade(student_item.AdmissionNo);
+	   
+	
+	}
+	
+	
+	
+//Inside the student's forEach*************************************************************************************************************************  	
+   });
+   
+       //Sync Successful
+	   alert("Examination results have be processed succesfully");
+   
+   }
+
+
+
+   
+   getAcademicClassLevelId(FieldId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+       axios.post(ip+"/get_a_specific_students_class_by_full_reference", querystring.stringify({ AdmissionNo: AdmissionNo}))
+		.then((response) => {
+		  
+		 
+	      
+	      this.AssignGrade(FieldId,response.data.results[0].AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
+    
+   
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+
+
+
+
+     
+   
+   
+   AssignGrade(FieldId,AcademicClassLevelId,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+        axios.post(ip+"/get_grade", querystring.stringify({ ColumnNameOne: "fieldId",
+	                                                        ValueOne: FieldId,
+															ColumnNameTwo: "AcademicClassLevelId",
+															ValueTwo: AcademicClassLevelId,
+															ValueThree: TotalFieldMarks,
+															ColumnThree: "LowerBound",
+		                                                    ColumnFour: "UpperBound"}))
+		.then((response) => {
+		  
+		  
+		     this.UpdateStudentsFieldResult(response.data.results[0].Grade,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef);
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+   
+   
+   
+   
+   
+   UpdateStudentsFieldResult(Grade,AdmissionNo,TotalFieldMarks,FieldDescription,GradeRef){
+   
+   
+        axios.post(ip+"/update_a_field_with_its_grade", querystring.stringify({ ColumnOneToBeSet: FieldDescription,
+	                                                                            ValueOneToBeSet: TotalFieldMarks,
+																				ColumnTwoToBeSet: GradeRef,
+	                                                                            ValueTwoToBeSet: Grade,
+																				ColumnOne: "ExamId",
+																				ValueOne: this.state.SelectedExam.value,
+																				ColumnTwo: "AdmissionNo",
+		                                                                        ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  
+		  
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   
+   }
+   
+   
+   
+   
+   
+   
+   
+   PrimaryAssignSumTotalMeanAndMeanGrade(AdmissionNo){
+   
+         
+		 
+		 axios.post(ip+"/getAspecifRecordForAspecificStudentAndExam", querystring.stringify({ ColumnNameOne: "ExamId",
+		                                                                                      ValueOne: this.state.SelectedExam.value,
+																							  ColumnNameTwo: "AdmissionNo",
+		                                                                                      ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  
+		  var result_object=response.data.results[0];
+		  
+		  var SumTotal=result_object.MAT+result_object.ENG+result_object.KIS+result_object.SCI+result_object.SOC;
+		  
+		  
+		  this.workoutParticularStudentsMean(SumTotal,AdmissionNo);
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   }
+   
+   
+   
+   
+   
+   getMeanGrade(SumTotal,Average,AdmissionNo,AcademicClassLevelId){
+   
+       axios.post(ip+"/select_mean_grade_for_particular_mean_for_particular_class_level", querystring.stringify({ ColumnNameOne: "AcademicClassLevelId",
+	                                                                                                              ValueOne: AcademicClassLevelId,
+																												  ValueTwo: Average,
+																												  ColumnTwo: "LowerBound",
+		                                                                                                          ColumnThree: "UpperBound"}))
+		.then((response) => {
+		  
+		  
+		  
+		    this.UpdateSumTotalAverageAndMeanGradeForTheStudent(response.data.results[0].MeanGrade,SumTotal,Average,AdmissionNo);
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+   
+   
+   
+   
+   
+   UpdateSumTotalAverageAndMeanGradeForTheStudent(MeanGrade,SumTotal,Average,AdmissionNo){
+   
+   
+       axios.post(ip+"/update_a_row_with_sumtotal_average_and_meangrade", querystring.stringify({ ColumnOneToBeSet: "TOTAL",
+	                                                                                              ValueOneToBeSet: SumTotal,
+																				                  ColumnTwoToBeSet: "MEAN",
+	                                                                                              ValueTwoToBeSet: Average,
+																				                  ColumnThreeToBeSet: "MEAN_GRADE",
+																								  ValueThreeToBeSet: MeanGrade,
+																								  ColumnOne: "ExamId",
+																				                  ValueOne: this.state.SelectedExam.value,
+																				                  ColumnTwo: "AdmissionNo",
+		                                                                                          ValueTwo: AdmissionNo}))
+		.then((response) => {
+		  
+		  
+		  
+		  
+		 
+    
+    } )
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   
+   }
+   
+   
+   
+   
+   
+   
+   studentsAcademicClassLevel(SumTotal,Average,AdmissionNo){
+   
+       axios.post(ip+"/get_a_specific_students_class_by_full_reference", querystring.stringify({ AdmissionNo: AdmissionNo}))
+		.then((response) => {
+		  
+		  this.getMeanGrade(SumTotal,Average,AdmissionNo,response.data.results[0].AcademicClassLevelId);
+		  
+    
+    
+      })
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+   
+   }
+   
+  
+  
+  workoutParticularStudentsMean(SumTotal,AdmissionNo){
+  
+  
+      axios.post(ip+"/get_a_students_Fields", querystring.stringify({ AdmissionNo: AdmissionNo}))
+		.then((response) => {
+            
+			var NoOfSubjectsTakenByThisStudent=response.data.results.length;
+			var Average=(SumTotal/NoOfSubjectsTakenByThisStudent);
+		    
+		    this.studentsAcademicClassLevel(SumTotal,Average,AdmissionNo);
+		
+        })
+        
+    
+     .catch((response) => {
+        //handle error
+        console.log(response);
+      });
+  
+  
+  }
+
+
+
+
+
+
+
+
+
+
 
 
   render() {
