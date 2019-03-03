@@ -19,6 +19,7 @@ class PrimaryResultsTableRow extends React.Component {
       return (
 		  
          <tr>
+		    <td>{this.props.data.counter}</td>
             <td>{this.props.data.AdmissionNo}</td>
             <td>{this.props.data.FirstName}</td>
             <td>{this.props.data.MiddleName}</td>

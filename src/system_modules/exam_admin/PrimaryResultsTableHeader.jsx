@@ -5,6 +5,7 @@ class PrimaryResultsTableHeader extends React.Component {
 		  
          
 		  <tr>
+		      <th>Position</th>
               <th>AdmissionNo</th>
               <th>FirstName</th>
               <th>MiddleName</th>
